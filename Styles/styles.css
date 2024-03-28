@@ -179,16 +179,16 @@ body, html {
 
 .card {
   background-color: #FAECD6;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.8);
   max-width: 300px;
   margin: 50px;
   text-align: center;
-  transition: 0.7s;
+  transition: 0.8s;
   border-radius: 5px;
 }
 
 .card:hover {
-  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.8);
   transform: scale(1.2);
 }
 
