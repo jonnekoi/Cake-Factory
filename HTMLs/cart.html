@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cake Heaven - Index</title>
   <link rel="stylesheet" href="../Styles/styles.css">
+  <link rel="stylesheet" href="../Styles/stylesShoppingCart.css">
 </head>
 <body>
 <header>
@@ -39,34 +40,64 @@
 </header>
 <div class="middle-container">
     <section class="side-section">
-        <h1>OTSIKKO</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
+      <div class="shopping-cart">
+        <h1>Shopping cart</h1>
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+          <tr>
+            <td>Cool cake</td>
+            <td>1</td>
+            <td>100€</td>
+          </tr>
+          <tr>
+            <td>Cool cake</td>
+            <td>1</td>
+            <td>100€</td>
+          </tr>
+          <tr>
+            <td>Cool cake</td>
+            <td>1</td>
+            <td>100€</td>
+          </tr>
+          <tr>
+            <td>Cool cake</td>
+            <td>1</td>
+            <td>100€</td>
+          </tr>
+          <tr>
+            <th colspan="2">Total</th>
+            <th>100€</th>
+          </tr>
+        </table>
+      </div>
     </section>
     <section class="middle-section">
-        <h1>OTSIKKO</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
+      <form id="userInfoForm">
+        <div>
+          <h1>Your information</h1>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" required>
+        </div>
+        <div>
+          <label for="phoneNumber">Phone:</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" required>
+        </div>
+        <div>
+          <input type="radio" id="pickUp" name="deliveryOption" value="pickUp" required>
+          <label for="pickUp">Pick-Up</label>
+          <input type="radio" id="delivery" name="deliveryOption" value="delivery" required>
+          <label for="delivery">Delivery</label>
+        </div>
+        <button class="button" type="submit"><span>Confirm order</span></button>
+      </form>
     </section>
     <section class="side-section">
         <h1>OTSIKKO</h1>
@@ -75,12 +106,8 @@
             Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
         </p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Adipisci atque autem et eveniet in iste nisi vero.
-            Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
+          Adipisci atque autem et eveniet in iste nisi vero.
+          Doloremque eos eum excepturi exercitationem explicabo fuga, impedit natus quod saepe sapiente ut!
         </p>
     </section>
 </div>

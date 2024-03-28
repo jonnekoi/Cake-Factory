@@ -1,0 +1,34 @@
+.shopping-cart {
+  width: 100%;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 20px;
+  text-align: left;
+  background-color: #f2f2f2;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+input[type="text"], input[type="tel"] {
+  padding: 5px;
+  width: 15vw;
+}
+
+
