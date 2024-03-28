@@ -1,26 +1,27 @@
 body, html {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: #F2DEBA;
-    font-family: montserrat, Arial;
-    overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #F2DEBA;
+  font-family: montserrat, Arial, sans-serif;
+  overflow: auto;
 }
 
 .nav-wrapper {
-    display: flex;
-    height: 90px;
-    left: 0;
-    position: fixed;
-    top: 20px;
-    width: 100vw;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 3px solid black;
-    background-color: #F2DEBA;
+  display: flex;
+  height: 90px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 3px solid black;
+  background-color: #F2DEBA;
+  z-index: 100;
 }
 
 #logo {
@@ -28,168 +29,171 @@ body, html {
 }
 
 .logo {
-    align-self: center;
-    justify-content: flex-start;
-    margin-left: 40px;
-    transition: 0.7s;
-    height: 10rem;
+  align-self: center;
+  justify-content: flex-start;
+  margin: 2rem 2rem 0;
+  transition: 0.7s;
+  height: 10rem;
 }
 
-.logo:hover{
-    transform: scale(1.2);
+.logo:hover {
+  transform: scale(1.2);
 }
 
 .nav-links {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .links {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .navLink {
-    display: inline;
-    margin-right: 15px;
+  display: inline;
+  margin-right: 15px;
 }
 
-.navLink a{
-    background-color: #820000;
-    color: white;
-    padding: 10px 20px;
-    font-size: 20px;
-    transition: all 0.5s;
-    border-radius: 5px;
+.navLink a {
+  background-color: #820000;
+  color: white;
+  padding: 10px 20px;
+  font-size: 20px;
+  transition: all 0.5s;
+  border-radius: 5px;
 }
 
 .button {
-    background-color: #820000;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    text-align: center;
-    font-size: 18px;
-    padding: 10px 20px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin-right: 15px;
+  background-color: #820000;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px 20px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-right: 15px;
 }
 
 .button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
 
 .button:hover span {
-    padding-right: 25px;
+  padding-right: 25px;
 }
 
 .button:hover span:after {
-    opacity: 1;
-    right: 0;
+  opacity: 1;
+  right: 0;
 }
 
 .navLink a span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .navLink a span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
 
 .navLink a:hover span {
-    padding-right: 25px;
+  padding-right: 25px;
 }
 
 .navLink a:hover span:after {
-    opacity: 1;
-    right: 0;
-}
-.footer{
-    background-color: #F2DEBA;
-    color: black;
-    position: fixed;
-    bottom: 10px;
-    border-top: 3px solid black;
-    left: 0;
-    right: 0;
-    height: 40px;
-    text-align: center;
-    padding-top: 20px;
+  opacity: 1;
+  right: 0;
 }
 
-.info{
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+.footer {
+  background-color: #F2DEBA;
+  color: black;
+  position: fixed;
+  bottom: 0;
+  border-top: 3px solid black;
+  left: 0;
+  right: 0;
+  height: 40px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.info {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .middle-container {
-    display: flex;
+  display: flex;
+  align-items: center;
 }
 
-.side-section{
-    width: 30%;
-    padding-left: 200px;
-    padding-right: 200px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.side-section {
+  width: 30%;
+  padding-left: 200px;
+  padding-right: 200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.middle-section{
-    width: 30%;
-    padding-left: 80px;
-    padding-right: 80px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.middle-section {
+  width: 30%;
+  padding-left: 80px;
+  padding-right: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .side-section p, .middle-section p {
-    font-size: 14px;
-    line-height: 2;
-    color: black;
-    text-align: center;
+  font-size: 14px;
+  line-height: 2;
+  color: black;
+  text-align: center;
 }
 
 .card {
-    background-color: #FAECD6;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: 50px;
-    text-align: center;
-    transition: 0.7s;
-    border-radius: 5px;
+  background-color: #FAECD6;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: 50px;
+  text-align: center;
+  transition: 0.7s;
+  border-radius: 5px;
 }
 
-.card:hover{
-    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2);
-    transform: scale(1.2);
+.card:hover {
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
 }
 
 .price {
-    color: grey;
-    font-size: 22px;
+  color: grey;
+  font-size: 22px;
 }
 
