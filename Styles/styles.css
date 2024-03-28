@@ -24,7 +24,6 @@ body, html {
 }
 
 #logo {
-  width: 110%;
   height: 10rem;
 }
 
@@ -33,7 +32,6 @@ body, html {
     justify-content: flex-start;
     margin-left: 40px;
     transition: 0.7s;
-    width: 110%;
     height: 10rem;
 }
 
