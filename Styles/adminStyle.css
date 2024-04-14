@@ -1,23 +1,60 @@
-header {
+body{
+  background-color: #bcb6ad;
+  margin: 0;
   display: flex;
-  justify-content: center;
+}
+
+header {
+  font-family: monospace;
+  font-size: 20px;
+  width: 100%;
+  z-index: 100;
+  margin-top: 25px;
+  text-align: center;
 }
 
 #adminControl {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: fixed;
+  width: 200px;
+  height: 100vh;
+  background-color: #f4f4f4;
+  z-index: 101;
 }
 
 #adminControl ul {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  margin-top: 25px;
+  padding-left: 0;
 }
 
 #adminControl li {
   list-style: none;
-  display: flex;
   margin: 1rem;
 }
 
+#adminControl li.navButton {
+  list-style: none;
+  padding: 10px 20px;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#adminControl li.navButton:hover {
+  background-color: #bcb6ad;
+}
+
+#dataContainer {
+  margin: 0;
+  width: 100%;
+}
+
+#dataContainer th {
+  text-align: center;
+}
