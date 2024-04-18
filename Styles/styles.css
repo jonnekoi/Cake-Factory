@@ -150,6 +150,7 @@ body, html {
 .middle-container {
   display: flex;
   align-items: center;
+  width: 100vw;
 }
 
 .side-section {
