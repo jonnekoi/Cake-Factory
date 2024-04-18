@@ -10,8 +10,33 @@
   <link rel="stylesheet" href="../Styles/styles.css">
   <link rel="stylesheet" href="../Styles/stylesShoppingCart.css">
   <script src="../Scripts/auth.js" defer></script>
+  <link rel="stylesheet" href="../Styles/dialog.css">
 </head>
 <body>
+<div id="dialogContainer" class="dialog-container">
+  <div id="dialog" class="dialog">
+    <button id="exitDialog">X</button>
+    <div class="form-wrapper">
+      <form id="loginForm" class="form">
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" name="username" required placeholder="Enter username..."/>
+        <input type="password" id="loginPassword" name="password" required placeholder="Enter password..."/>
+        <input class="button" type="submit" value="Login"/>
+      </form>
+      <form id="registerForm" class="form">
+        <h2>Register</h2>
+        <input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
+        <input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
+        <input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
+        <input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
+        <input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
+        <input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
+        <input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
+        <input class="button" type="submit" value="Register"/>
+      </form>
+    </div>
+  </div>
+</div>
 <header>
     <div class="nav-wrapper">
         <div class="logo">
@@ -34,7 +59,7 @@
                     <a href="contact.html"><span>Contact</span></a>
                 </li>
                 <a href="cart.html" class="button"><span>&#128722;</span></a>
-                <a class="button"><span>&#128274;</span></a>
+                <a class="button" id="loginButton"><span>&#128274;</span></a>
             </ul>
         </div>
     </div>
@@ -77,28 +102,22 @@
       </div>
     </section>
     <section class="side-section">
-      <form id="userInfoForm">
-        <div>
-          <h1>Your information</h1>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-          <label for="address">Address:</label>
-          <input type="text" id="address" name="address" required>
-        </div>
-        <div>
-          <label for="phoneNumber">Phone:</label>
-          <input type="tel" id="phoneNumber" name="phoneNumber" required>
-        </div>
-        <div>
-          <input type="radio" id="pickUp" name="deliveryOption" value="pickUp" required>
-          <label for="pickUp">Pick-Up</label>
-          <input type="radio" id="delivery" name="deliveryOption" value="delivery" required>
+      <div class="orderFormWrapper">
+        <form id="orderForm" class="form">
+          <h2>Your Information</h2>
+          <input type="text" id="orderName" name="orderName" required placeholder="Enter your name"/>
+          <input type="text" id="orderAddress" name="orderAddress" required placeholder="Enter Address"/>
+          <input type="text" id="orderAddressNum" name="orderAddressNum" required placeholder="Enter address number"/>
+          <input type="text" id="orderZipCode" name="orderZipCode" required placeholder="Enter postal code"/>
+          <input type="text" id="orderCity" name="orderCoty" required placeholder="Enter your city"/>
+          <label for="pickUp">Pick up</label>
+          <input id="pickUp" type="radio" name="deliveryOption" value="pickUp" required="">
           <label for="delivery">Delivery</label>
-        </div>
-        <button class="button" type="submit"><span>Confirm order</span></button>
-      </form>
+          <input id="delivery" type="radio" name="deliveryOption" value="delivery" required="">
+          <input class="button" type="submit" value="Register"/>
+        </form>
+      </div>
+
     </section>
 </div>
 <footer class="footer">2024 &copy;</footer>
