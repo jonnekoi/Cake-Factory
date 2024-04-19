@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../Styles/adminStyle.css">
   <title>Administrator</title>
+  <script src="../Scripts/adminScript.js" defer></script>
 </head>
 <body>
 <nav id="adminControl">
@@ -12,20 +13,13 @@
     <h1 id="adminHeading">Dashboard</h1>
   </header>
   <ul>
-    <li class="navButton">Users</li>
-    <li class="navButton">Orders</li>
-    <li class="navButton">Products</li>
+    <li class="navButton" id="adminUsersButton">Users</li>
+    <li class="navButton" id="adminOrdersButton">Orders</li>
+    <li class="navButton" id="adminProductsButton">Products</li>
+    <li class="navButton" id="adminDiscountsButton">Discounts</li>
   </ul>
 </nav>
-<table id="dataContainer">
-  <tr>
-    <th>Data heading1</th>
-    <th>Data heading2</th>
-  </tr>
-  <tr>
-    <td>Data from db</td>
-    <td>More data</td>
-  </tr>
+<table id="Table">
 </table>
 </body>
 </html>

@@ -1,0 +1,28 @@
+#map{
+  border: 3px solid #0f66b5;
+  border-radius: 5px;
+}
+
+.contact-container {
+  text-align: center;
+}
+.contact-section {
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.contact-section:hover {
+  border-color: #7c5ac2;
+}
+.contact-link {
+  display: block;
+  margin-top: 10px;
+  color: #7c5ac2;
+  text-decoration: none;
+  font-weight: bold;
+}
+.hidden {
+  display: none;
+}
