@@ -126,8 +126,8 @@ body, html {
   flex-wrap: wrap;
   align-items: flex-start;
   max-height: calc(100vh - 200px);
-  margin-top: 120px;
-  margin-bottom: 40px;
+  padding-top: 10%;
+  padding-bottom: 5%;
 }
 
 .card-container {
