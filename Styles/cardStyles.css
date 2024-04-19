@@ -1,0 +1,27 @@
+.card {
+  color: white;
+  background-color: rgba(15, 102, 181, 0.49);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.8);
+  width: calc(18% - 40px);
+  height: auto;
+  margin: 25px;
+  text-align: center;
+  transition: 0.8s;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.card img {
+  padding: 10px;
+  max-width: 100%;
+  height: auto;
+}
+
+.price {
+  color: white;
+  font-size: 22px;
+}
