@@ -10,7 +10,12 @@
   z-index: 999;
 }
 
-#exitDialog {
+h2{
+  color: white;
+  font-family: 'Sacramento', cursive;
+}
+
+.exitDialog {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -18,18 +23,18 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
+  color: white;
 }
 
 .dialog {
+  display: inline-block;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f2deba;
-  padding: 20px;
-  border: 2px solid black;
-  width: 40vw;
-  height: 50vh;
+  background-color: #212121;
+  padding: 40px;
+  border: 2px solid #0f66b5;
   border-radius: 5px;
 }
 
@@ -43,7 +48,7 @@
 .form {
   display: block;
   text-align: center;
-  width: 80%;
+  width: 100%;
 }
 .form input,
 .form button {
@@ -55,11 +60,12 @@
 .form input[type="text"],
 .form input[type="password"],
 .form input[type="email"] {
-  width: calc(80% - 20px);
-  padding: 10px;
+  width: calc(90% - 20px);
+  padding: 10px; /* Increase padding */
+  font-size: 15px; /* Increase font size */
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 2px solid #ccc;
+  border: 2px solid #0f66b5;
   background-color: #f9f9f9;
 }
 
@@ -67,9 +73,19 @@
 .form input[type="password"]:focus,
 .form input[type="email"]:focus {
   outline: none;
-  border-color: #143cdc;
+  border-color: white;
 }
 
 #exitDialog:hover {
   color: red;
 }
+
+#firstLogin, #firstRegister, #loginDialogButton, #registerDialogButton{
+  border-radius: 5%;
+  border: 1px solid white;
+}
+
+#loginForm, #registerForm {
+  padding: 40px;
+}
+

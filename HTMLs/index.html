@@ -4,9 +4,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cake Heaven - Products</title>
+    <title>Products</title>
     <script src="../Scripts/productsScript.js" defer></script>
     <script src="../Scripts/auth.js" defer></script>
     <link rel="stylesheet" href="../Styles/dialog.css">
@@ -18,28 +18,45 @@
 <body>
 <div id="dialogContainer" class="dialog-container">
   <div id="dialog" class="dialog">
-    <button id="exitDialog">X</button>
-    <div class="form-wrapper">
-      <form id="loginForm" class="form">
-        <h2>Login</h2>
-        <input type="text" id="loginUsername" name="username" required placeholder="Enter username..."/>
-        <input type="password" id="loginPassword" name="password" required placeholder="Enter password..."/>
-        <input class="button" type="submit" value="Login"/>
-      </form>
-      <form id="registerForm" class="form">
-        <h2>Register</h2>
-        <input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
-        <input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
-        <input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
-        <input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
-        <input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
-        <input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
-        <input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
-        <input class="button" type="submit" value="Register"/>
-      </form>
+
+    <div id="firstDialog">
+      <button class="exitDialog">X</button>
+      <button id="firstLogin" class="button">Login</button>
+      <button id="firstRegister" class="button">Register</button>
     </div>
+
+    <div id="loginDialog">
+      <div class="form-wrapper">
+        <form id="loginForm" class="form">
+          <h2>Login</h2>
+          <button class="exitDialog">X</button>
+          <label for="loginUsername"></label><input type="text" id="loginUsername" name="username" required placeholder="Enter username"/>
+          <label for="loginPassword"></label><input type="password" id="loginPassword" name="password" required placeholder="Enter password"/>
+          <input class="button" id="loginDialogButton" type="submit" value="Login"/>
+        </form>
+      </div>
+    </div>
+
+    <div id="registerDialog">
+      <div class="form-wrapper">
+        <form id="registerForm" class="form">
+          <h2>Register</h2>
+          <button class="exitDialog">X</button>
+          <label for="registerName"></label><input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
+          <label for="registerUsername"></label><input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
+          <label for="registerEmail"></label><input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
+          <label for="registerPassword"></label><input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
+          <label for="registerAddress"></label><input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
+          <label for="registerZipCode"></label><input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
+          <label for="registerCity"></label><input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
+          <input class="button" id="registerDialogButton" type="submit" value="Register"/>
+        </form>
+      </div>
+    </div>
+
   </div>
 </div>
+
 <header>
     <div class="nav-wrapper">
         <div class="logo">
@@ -61,6 +78,13 @@
                 <a href="cart.html" class="button"><span>&#128722;</span></a>
                 <a class="button" id="loginButton"><span>&#128274;</span></a>
             </ul>
+          <div class="hamburger" id="hamburger">
+            <span class="material-symbols-outlined">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+                <path fill="white" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+              </svg>
+            </span>
+          </div>
         </div>
     </div>
 </header>

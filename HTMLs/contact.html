@@ -17,26 +17,42 @@
 <body>
 <div id="dialogContainer" class="dialog-container">
   <div id="dialog" class="dialog">
-    <button id="exitDialog">X</button>
-    <div class="form-wrapper">
-      <form id="loginForm" class="form">
-        <h2>Login</h2>
-        <input type="text" id="loginUsername" name="username" required placeholder="Enter username..."/>
-        <input type="password" id="loginPassword" name="password" required placeholder="Enter password..."/>
-        <input class="button" type="submit" value="Login"/>
-      </form>
-      <form id="registerForm" class="form">
-        <h2>Register</h2>
-        <input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
-        <input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
-        <input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
-        <input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
-        <input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
-        <input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
-        <input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
-        <input class="button" type="submit" value="Register"/>
-      </form>
+
+    <div id="firstDialog">
+      <button class="exitDialog">X</button>
+      <button id="firstLogin" class="button">Login</button>
+      <button id="firstRegister" class="button">Register</button>
     </div>
+
+    <div id="loginDialog">
+      <div class="form-wrapper">
+        <form id="loginForm" class="form">
+          <h2>Login</h2>
+          <button class="exitDialog">X</button>
+          <label for="loginUsername"></label><input type="text" id="loginUsername" name="username" required placeholder="Enter username"/>
+          <label for="loginPassword"></label><input type="password" id="loginPassword" name="password" required placeholder="Enter password"/>
+          <input class="button" id="loginDialogButton" type="submit" value="Login"/>
+        </form>
+      </div>
+    </div>
+
+    <div id="registerDialog">
+      <div class="form-wrapper">
+        <form id="registerForm" class="form">
+          <h2>Register</h2>
+          <button class="exitDialog">X</button>
+          <label for="registerName"></label><input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
+          <label for="registerUsername"></label><input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
+          <label for="registerEmail"></label><input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
+          <label for="registerPassword"></label><input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
+          <label for="registerAddress"></label><input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
+          <label for="registerZipCode"></label><input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
+          <label for="registerCity"></label><input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
+          <input class="button" id="registerDialogButton" type="submit" value="Register"/>
+        </form>
+      </div>
+    </div>
+
   </div>
 </div>
 <header>
