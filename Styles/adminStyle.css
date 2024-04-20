@@ -110,3 +110,14 @@ body, html {
 .findButton:hover{
   background-color: #89b4db;
 }
+
+.button {
+  background-color: #0f66b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 10px;
+}

@@ -3,9 +3,11 @@
 const url = 'http://localhost:3000/v1';
 const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
+const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
 
 let ordersCreated = false;
 let usersCreated = false;
+let deliveryCreated = false;
 
 adminOrdersButton.addEventListener('click', async function() {
   const ulElement = document.querySelector('.navBar ul');
@@ -43,6 +45,20 @@ adminOrdersButton.addEventListener('click', async function() {
 
     allOrders.addEventListener('click', async function() {
       await getAllOrders();
+      ulElement.removeChild(allOrders);
+      ulElement.removeChild(oneOrder);
+      ordersCreated = false;
+      adminOrdersButton.disabled = false;
+    });
+
+    submitButton.addEventListener('click', async function() {
+      const id = inputField.value - 1;
+      if (isNaN(id)) {
+        inputField.value = '';
+        inputField.placeholder = 'Enter a number';
+        return;
+      }
+      await getOrderById(id);
       ulElement.removeChild(allOrders);
       ulElement.removeChild(oneOrder);
       ordersCreated = false;
@@ -146,6 +162,58 @@ const getAllOrders = async () => {
   }
 };
 
+const getNotDeliveredOrders = async () => {
+  try {
+    const response = await fetch(url + '/orders');
+    if (!response.ok) {
+      throw new Error('Error', response.statusText);
+    }
+    const rows = await response.json();
+
+    const tableHeaders =
+      `<thead>
+        <tr>
+          <th>ID</th>
+          <th>Price €</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Orderer</th>
+          <th>Create Delivery</th>
+        </tr>
+      </thead>
+      <tbody>`;
+    const tableRows = rows
+        .filter((row) => row.status === 0)
+        .map((row) => {
+          return `
+      <tr>
+        <td>${row.id}</td>
+        <td>${row.price}</td>
+        <td>${row.date}</td>
+        <td>not delivered</td>
+        <td>${row.orderer}</td>
+        <td><button type="button" class="button" data-order-id="${row.id}">Deliver</button></td>
+      </tr>
+    `;
+        });
+    const tableFooter = `</tbody>`;
+    const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
+    const tableContainer = document.querySelector('#table');
+    tableContainer.innerHTML = tableHTML;
+    const deliverButtons = document.querySelectorAll('.button');
+
+    deliverButtons.forEach((button) => {
+      button.addEventListener('click', async function() {
+        // eslint-disable-next-line no-invalid-this
+        const orderId = this.getAttribute('data-order-id');
+        await deliverOrder(orderId);
+      });
+    });
+  } catch (error) {
+    console.log('getting orders error', error);
+  }
+};
+
 const getAllUsers = async () => {
   try {
     const response = await fetch(url + '/users');
@@ -237,5 +305,107 @@ const getUserById = async (id) => {
     }
   } catch (error) {
     console.log('error gettin all users', error);
+  }
+};
+
+const getOrderById = async (id) =>{
+  try {
+    const response = await fetch(url + `/orders/${id}`);
+    if (!response.ok) {
+      throw new Error('Error', response.statusText);
+    }
+    const rows = await response.json();
+    const tableHeaders =
+        `<thead>
+        <tr>
+          <th>ID</th>
+          <th>Price €</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Orderer</th>
+        </tr>
+      </thead>
+      <tbody>`;
+    let delivered = '';
+    const tableRows = rows.map((row)=> {
+      if (row.status === 0) {
+        delivered = 'not delivered';
+      } else {
+        delivered = 'delivered';
+      }
+      return `
+        <tr>
+          <td>${row.id}</td>
+          <td>${row.price}</td>
+          <td>${row.date}</td>
+          <td>${delivered}</td>
+          <td>${row.orderer}</td>
+        </tr>
+      `;
+    });
+    const tableFooter = `</tbody>`;
+    const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
+    const tableContainer = document.querySelector('#table');
+    tableContainer.innerHTML = tableHTML;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+adminDeliverOrder.addEventListener('click', async function() {
+  const ulElement = document.querySelector('.navBar ul');
+  if (ordersCreated) {
+    // eslint-disable-next-line max-len
+    const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all orders'));
+    // eslint-disable-next-line max-len
+    const oneOrder = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+    if (allOrders) {
+      ulElement.removeChild(allOrders);
+    }
+    if (oneOrder) {
+      ulElement.removeChild(oneOrder);
+    }
+    ordersCreated = false;
+  }
+  if (usersCreated) {
+    // eslint-disable-next-line max-len
+    const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
+    // eslint-disable-next-line max-len
+    const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+    if (allOrders) {
+      ulElement.removeChild(allOrders);
+    }
+    if (oneUser) {
+      ulElement.removeChild(oneUser);
+    }
+    usersCreated = false;
+  }
+  if (!deliveryCreated) {
+    await getNotDeliveredOrders();
+    deliveryCreated = true;
+  }
+});
+
+const deliverOrder = async (id) => {
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const response = await fetch(url + `/orders/${id}`, fetchOptions);
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error delivering order:', errorData);
+      alert('Error delivering order, try again!');
+    } else {
+      console.log('Delivery successful');
+      alert('Delivery successful!');
+    }
+  } catch (error) {
+    console.error('Error delivering order:', error);
+    alert('Error delivering order, try again! ss');
   }
 };
