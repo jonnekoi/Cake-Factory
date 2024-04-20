@@ -48,6 +48,7 @@ adminOrdersButton.addEventListener('click', async function() {
       ulElement.removeChild(allOrders);
       ulElement.removeChild(oneOrder);
       ordersCreated = false;
+      deliveryCreated = false;
       adminOrdersButton.disabled = false;
     });
 
@@ -206,7 +207,20 @@ const getNotDeliveredOrders = async () => {
       button.addEventListener('click', async function() {
         // eslint-disable-next-line no-invalid-this
         const orderId = this.getAttribute('data-order-id');
-        await deliverOrder(orderId);
+        // eslint-disable-next-line no-invalid-this
+        const isConfirming = this.getAttribute('data-confirming');
+        if (!isConfirming) {
+          // eslint-disable-next-line no-invalid-this
+          this.textContent = 'Confirm';
+          // eslint-disable-next-line no-invalid-this
+          this.setAttribute('data-confirming', 'true');
+        } else {
+          await deliverOrder(orderId);
+          // eslint-disable-next-line no-invalid-this
+          this.textContent = 'Deliver';
+          // eslint-disable-next-line no-invalid-this
+          this.removeAttribute('data-confirming');
+        }
       });
     });
   } catch (error) {
@@ -403,6 +417,7 @@ const deliverOrder = async (id) => {
     } else {
       console.log('Delivery successful');
       alert('Delivery successful!');
+      await getNotDeliveredOrders();
     }
   } catch (error) {
     console.error('Error delivering order:', error);
