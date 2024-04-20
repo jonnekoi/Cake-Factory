@@ -1,7 +1,5 @@
 'use strict';
 
-const url = 'http://localhost:3000/v1';
-
 document.addEventListener('DOMContentLoaded', (event) => {
   const loginButton = document.querySelector('#loginButton');
   const dialogContainer = document.querySelector('#dialogContainer');
@@ -48,7 +46,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch(url + '/auth/login', fetchOptions);
+    const response = await fetch( '/auth/login', fetchOptions);
     const json = response.json();
     if (json.user) {
       sessionStorage.setItem('token', json.token);
@@ -69,7 +67,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch(url + '/auth/register', fetchOptions);
+    const response = await fetch('/auth/register', fetchOptions);
     const json = response.json();
     if (json.user) {
       sessionStorage.setItem('token', json.token);

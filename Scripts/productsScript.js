@@ -2,6 +2,7 @@
 const url = 'http://localhost:3000/v1';
 document.addEventListener('DOMContentLoaded', async (event) => {
   await getProducts();
+  cardFlip();
 });
 
 const getProducts = async () => {
@@ -16,11 +17,16 @@ const getProducts = async () => {
       const kuvaObj = URL.createObjectURL(kuva);
       return `
         <div class="card">
-            <img src="${kuvaObj}" alt="${row.name}" style="width:50%">
-            <h1>${row.name}</h1>
-            <p class="price">${row.price + '€'}</p>
-            <p>${row.description}</p>
-            <p><button class="button"><span>Add to Cart</span></button></p>
+            <div class="front">
+              <img src="${kuvaObj}" alt="${row.name}" style="width:50%">
+              <h1>${row.name}</h1>
+              <p class="price">${row.price + '€'}</p>
+              <p>${row.description}</p>
+              <p><button class="button"><span>Add to Cart</span></button></p>
+            </div>
+            <div class="back" style="display: none">
+
+            </div>
         </div>
     `;
     });
@@ -30,5 +36,26 @@ const getProducts = async () => {
   } catch (error) {
     console.log('Error getting products', error);
   }
+};
+
+const cardFlip = () => {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const front = card.querySelector('.front');
+      const back = card.querySelector('.back');
+      card.classList.toggle('back');
+      if (card.classList.contains('back')) {
+        front.style.display = 'none';
+        back.style.display = 'block';
+      } else {
+        back.style.display = 'none';
+        setTimeout(() => {
+          front.style.display = 'block';
+          // eslint-disable-next-line max-len
+        }, 300); // Kortin kääntymisen delay -> kuinka nopeasti front puoli näkyy taas
+      }
+    });
+  });
 };
 
