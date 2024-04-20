@@ -1,80 +1,112 @@
-body{
-  background-color: #fffafa;
+body, html {
   margin: 0;
-  display: flex;
+  padding: 0;
+  height: 100%;
+  font-family: Corbel, cursive;
 }
 
-header {
-  font-family: monospace;
-  font-size: 20px;
-  width: 100%;
-  z-index: 100;
-  margin-top: 25px;
+.wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.photoContainer{
   text-align: center;
 }
 
-#adminControl {
-  justify-content: flex-start;
-  align-items: flex-start;
-  position: fixed;
+.navBar {
   width: 200px;
-  height: 100vh;
-  background-color: #f4f4f4;
-  z-index: 101;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  overflow-x: auto;
 }
 
-#adminControl ul {
-  display: flex;
-  flex-direction: column;
-  margin-top: 25px;
-  padding-left: 0;
+#logo{
+  margin-bottom: -35px;
+  margin-top: -25px;
 }
 
-#adminControl li {
-  list-style: none;
-  margin: 1rem;
+.navBar ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-#adminControl li.navButton {
-  list-style: none;
+.navBar li {
+  margin-bottom: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
   padding: 10px 20px;
   text-align: center;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
   cursor: pointer;
-  margin-bottom: 10px;
   font-weight: bold;
 }
 
-#adminControl li.navButton:hover {
-  background-color: #bcb6ad;
+.li:hover {
+  background-color: #db4726;
 }
 
-#Table {
+.navBar a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+#table {
   margin: 25px auto ;
   width: 50%;
   border-collapse: collapse;
   border: 1px solid black;
 }
 
-#Table th, #ordersTable td {
+#table th, #ordersTable td {
   border: 1px solid black;
   padding: 8px;
 }
 
-#Table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#Table th {
+#table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #0f66b5;
   color: white;
   border: 1px solid black;
 }
 
-#Table td {
+#table td {
+  padding: 10px;
   border: 1px solid black;
+  text-align: center;
+}
+
+#table tr:hover{
+  background-color: lightgray;
+}
+
+.noHover:hover {
+  background-color: inherit;
+}
+
+.findButton {
+  background: none;
+  margin-top: 5px;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid #0f66b5;
+}
+
+.findButton:hover{
+  background-color: #89b4db;
 }
