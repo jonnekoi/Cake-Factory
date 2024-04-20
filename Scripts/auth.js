@@ -1,6 +1,6 @@
 'use strict';
 
-const url = 123;
+const url = 'http://localhost:3000/v1';
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const loginButton = document.querySelector('#loginButton');
