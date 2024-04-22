@@ -38,8 +38,13 @@ body, html {
   padding-bottom: 20px;
 }
 
-.logo:hover {
-  transform: scale(1.2);
+.logo img {
+  height: auto;
+  transition: filter 0.3s; /* Add smooth transition */
+}
+
+.logo:hover img {
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)); /* Adjust glow color and intensity on hover */
 }
 
 .nav-links {

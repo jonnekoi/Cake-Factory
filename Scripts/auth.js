@@ -1,3 +1,4 @@
+import serializeJson from './serialize.js';
 'use strict';
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-undef
     const data = serializeJson(loginForm);
+    delete data[''];
     const fetchOptions = {
       method: 'POST',
       headers: {
@@ -46,13 +48,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch( '/auth/login', fetchOptions);
-    const json = response.json();
+    const response = await fetch( 'http://127.0.0.1:3000/v1/auth/login', fetchOptions);
+    const json = await response.json();
+    console.log(json);
+    console.log(json.user);
     if (json.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', json.stringify(json.user));
     } else {
-      alert('login error', json.error.message);
+      // alert('login error', json.error.message);
+      console.log({ error: 'Error' });
     }
   });
 
