@@ -367,18 +367,16 @@ const getAllProducts = async () => {
           <th>Name</th>
           <th>Price</th>
           <th>Description</th>
-          <th>Delete product</th>
         </tr>
       </thead>
       <tbody>`;
     const tableRows = rows.map((row)=> {
       return `
-        <tr>
+        <tr class="product-row" product-id="${row.id}">
           <td>${row.id}</td>
           <td>${row.name}</td>
           <td>${row.price}</td>
           <td>${row.description}</td>
-          <td><button type="button" class="deleteButton" product-id="${row.id}">DELETE</button></td>
         </tr>
       `;
     });
@@ -386,6 +384,17 @@ const getAllProducts = async () => {
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
     const tableContainer = document.querySelector('#table');
     tableContainer.innerHTML = tableHTML;
+    const productRows = document.querySelectorAll('.product-row');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getProductById = async (id) => {
+  try {
+    const response = await fetch(url + `/products/${id}`);
+    const product = response.json();
+    return product;
   } catch (error) {
     console.log(error);
   }
