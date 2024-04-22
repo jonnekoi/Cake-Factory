@@ -4,123 +4,113 @@ const url = 'http://localhost:3000/v1';
 const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
 const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
+const adminProductsButton = document.querySelector('#adminProductsButton');
 
-let ordersCreated = false;
-let usersCreated = false;
-let deliveryCreated = false;
+const token = localStorage.getItem('token');
+const options = {
+  headers: {
+    Authorization: 'Bearer ' + token,
+  },
+};
+
+const clearContent = () => {
+  const ulElement = document.querySelector('.navBar ul');
+  // eslint-disable-next-line max-len
+  const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all orders'));
+  // eslint-disable-next-line max-len
+  const oneOrder = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+  // eslint-disable-next-line max-len
+  const allUsers = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
+  // eslint-disable-next-line max-len
+  const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+
+  if (allOrders) {
+    ulElement.removeChild(allOrders);
+  }
+  if (oneOrder) {
+    ulElement.removeChild(oneOrder);
+  }
+  if (allUsers) {
+    ulElement.removeChild(allUsers);
+  }
+  if (oneUser) {
+    ulElement.removeChild(oneUser);
+  }
+};
 
 adminOrdersButton.addEventListener('click', async function() {
+  clearContent();
   const ulElement = document.querySelector('.navBar ul');
-  if (usersCreated) {
-    // eslint-disable-next-line max-len
-    const allUsers = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
-    // eslint-disable-next-line max-len
-    const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
-    if (allUsers) {
-      ulElement.removeChild(allUsers);
+  const allOrders = document.createElement('li');
+  allOrders.textContent = 'Get all orders';
+  allOrders.style.marginTop = '100px';
+  ulElement.appendChild(allOrders);
+  const oneOrder = document.createElement('li');
+  const inputField = document.createElement('input');
+  inputField.placeholder = 'Enter order number';
+  const submitButton = document.createElement('button');
+  submitButton.textContent = 'Find';
+  submitButton.className = 'findButton';
+  inputField.type = 'text';
+  oneOrder.appendChild(inputField);
+  oneOrder.appendChild(submitButton);
+  ulElement.appendChild(oneOrder);
+
+  allOrders.addEventListener('click', async function() {
+    await getAllOrders();
+    ulElement.removeChild(allOrders);
+    ulElement.removeChild(oneOrder);
+    adminOrdersButton.disabled = false;
+  });
+
+  submitButton.addEventListener('click', async function() {
+    const id = inputField.value;
+    if (isNaN(id)) {
+      inputField.value = '';
+      inputField.placeholder = 'Enter a number';
+      return;
     }
-    if (oneUser) {
-      ulElement.removeChild(oneUser);
-    }
-    usersCreated = false;
-  }
-  if (!ordersCreated) {
-    // eslint-disable-next-line no-invalid-this
-    this.disabled = true;
-
-    const allOrders = document.createElement('li');
-    allOrders.textContent = 'Get all orders';
-    allOrders.style.marginTop = '100px';
-    ulElement.appendChild(allOrders);
-    const oneOrder = document.createElement('li');
-    const inputField = document.createElement('input');
-    inputField.placeholder = 'Enter order number';
-    const submitButton = document.createElement('button');
-    submitButton.textContent = 'Find';
-    submitButton.className = 'findButton';
-    inputField.type = 'text';
-    oneOrder.appendChild(inputField);
-    oneOrder.appendChild(submitButton);
-    ulElement.appendChild(oneOrder);
-
-    allOrders.addEventListener('click', async function() {
-      await getAllOrders();
-      ulElement.removeChild(allOrders);
-      ulElement.removeChild(oneOrder);
-      ordersCreated = false;
-      deliveryCreated = false;
-      adminOrdersButton.disabled = false;
-    });
-
-    submitButton.addEventListener('click', async function() {
-      const id = inputField.value - 1;
-      if (isNaN(id)) {
-        inputField.value = '';
-        inputField.placeholder = 'Enter a number';
-        return;
-      }
-      await getOrderById(id);
-      ulElement.removeChild(allOrders);
-      ulElement.removeChild(oneOrder);
-      ordersCreated = false;
-      adminOrdersButton.disabled = false;
-    });
-    ordersCreated = true;
-  }
+    await getOrderById(id);
+    ulElement.removeChild(allOrders);
+    ulElement.removeChild(oneOrder);
+    adminOrdersButton.disabled = false;
+  });
 });
 
 adminUsersButton.addEventListener('click', async function() {
+  clearContent();
   const ulElement = document.querySelector('.navBar ul');
+  const allUsers = document.createElement('li');
+  allUsers.textContent = 'Get all users';
+  allUsers.style.marginTop = '100px';
+  ulElement.appendChild(allUsers);
+  const oneUser = document.createElement('li');
+  const inputField = document.createElement('input');
+  inputField.placeholder = 'Enter user id';
+  const submitButton = document.createElement('button');
+  submitButton.textContent = 'Find';
+  submitButton.className = 'findButton';
+  inputField.type = 'text';
+  oneUser.appendChild(inputField);
+  oneUser.appendChild(submitButton);
+  ulElement.appendChild(oneUser);
 
-  if (ordersCreated) {
-    // eslint-disable-next-line max-len
-    const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all orders'));
-    // eslint-disable-next-line max-len
-    const oneOrder = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
-    if (allOrders) {
-      ulElement.removeChild(allOrders);
-    }
-    if (oneOrder) {
-      ulElement.removeChild(oneOrder);
-    }
-    ordersCreated = false;
-  }
-
-  if (!usersCreated) {
-    const allUsers = document.createElement('li');
-    allUsers.textContent = 'Get all users';
-    allUsers.style.marginTop = '100px';
-    ulElement.appendChild(allUsers);
-    const oneUser = document.createElement('li');
-    const inputField = document.createElement('input');
-    inputField.placeholder = 'Enter user id';
-    const submitButton = document.createElement('button');
-    submitButton.textContent = 'Find';
-    submitButton.className = 'findButton';
-    inputField.type = 'text';
-    oneUser.appendChild(inputField);
-    oneUser.appendChild(submitButton);
-    ulElement.appendChild(oneUser);
-
-    allUsers.addEventListener('click', async function() {
-      await getAllUsers();
-      ulElement.removeChild(allUsers);
-      ulElement.removeChild(oneUser);
-      usersCreated = false;
-    });
-    submitButton.addEventListener('click', async function() {
-      const id = inputField.value;
-      await getUserById(id);
-      ulElement.removeChild(allUsers);
-      ulElement.removeChild(oneUser);
-    });
-    usersCreated = true;
-  }
+  allUsers.addEventListener('click', async function() {
+    await getAllUsers();
+    ulElement.removeChild(allUsers);
+    ulElement.removeChild(oneUser);
+  });
+  submitButton.addEventListener('click', async function() {
+    const id = inputField.value;
+    await getUserById(id);
+    ulElement.removeChild(allUsers);
+    ulElement.removeChild(oneUser);
+  });
 });
 
 const getAllOrders = async () => {
   try {
-    const response = await fetch(url + '/orders');
+    const response = await fetch(url + '/orders', options);
     if (!response.ok) {
       throw new Error('Error', response.statusText);
     }
@@ -165,7 +155,7 @@ const getAllOrders = async () => {
 
 const getNotDeliveredOrders = async () => {
   try {
-    const response = await fetch(url + '/orders');
+    const response = await fetch(url + '/orders', options);
     if (!response.ok) {
       throw new Error('Error', response.statusText);
     }
@@ -230,7 +220,7 @@ const getNotDeliveredOrders = async () => {
 
 const getAllUsers = async () => {
   try {
-    const response = await fetch(url + '/users');
+    const response = await fetch(url + '/users', options);
     if (!response.ok) {
       throw new Error('Error', response.statusText);
     } else {
@@ -277,7 +267,7 @@ const getAllUsers = async () => {
 
 const getUserById = async (id) => {
   try {
-    const response = await fetch(url + `/users/${id}`);
+    const response = await fetch(url + `/users/${id}`, options);
     if (!response.ok) {
       throw new Error('Error', response.statusText);
     } else {
@@ -324,7 +314,7 @@ const getUserById = async (id) => {
 
 const getOrderById = async (id) =>{
   try {
-    const response = await fetch(url + `/orders/${id}`);
+    const response = await fetch(url + `/orders/${id}`, options);
     if (!response.ok) {
       throw new Error('Error', response.statusText);
     }
@@ -366,38 +356,49 @@ const getOrderById = async (id) =>{
   }
 };
 
+const getAllProducts = async () => {
+  try {
+    const response = await fetch(url + '/products');
+    const rows = await response.json();
+    const tableHeaders =
+      `<thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Delete product</th>
+        </tr>
+      </thead>
+      <tbody>`;
+    const tableRows = rows.map((row)=> {
+      return `
+        <tr>
+          <td>${row.id}</td>
+          <td>${row.name}</td>
+          <td>${row.price}</td>
+          <td>${row.description}</td>
+          <td><button type="button" class="deleteButton" product-id="${row.id}">DELETE</button></td>
+        </tr>
+      `;
+    });
+    const tableFooter = `</tbody>`;
+    const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
+    const tableContainer = document.querySelector('#table');
+    tableContainer.innerHTML = tableHTML;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 adminDeliverOrder.addEventListener('click', async function() {
-  const ulElement = document.querySelector('.navBar ul');
-  if (ordersCreated) {
-    // eslint-disable-next-line max-len
-    const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all orders'));
-    // eslint-disable-next-line max-len
-    const oneOrder = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
-    if (allOrders) {
-      ulElement.removeChild(allOrders);
-    }
-    if (oneOrder) {
-      ulElement.removeChild(oneOrder);
-    }
-    ordersCreated = false;
-  }
-  if (usersCreated) {
-    // eslint-disable-next-line max-len
-    const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
-    // eslint-disable-next-line max-len
-    const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
-    if (allOrders) {
-      ulElement.removeChild(allOrders);
-    }
-    if (oneUser) {
-      ulElement.removeChild(oneUser);
-    }
-    usersCreated = false;
-  }
-  if (!deliveryCreated) {
-    await getNotDeliveredOrders();
-    deliveryCreated = true;
-  }
+  clearContent();
+  await getNotDeliveredOrders();
+});
+
+adminProductsButton.addEventListener('click', async function() {
+  clearContent();
+  await getAllProducts();
 });
 
 const deliverOrder = async (id) => {
@@ -405,6 +406,7 @@ const deliverOrder = async (id) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     },
   };
 

@@ -111,7 +111,7 @@ body, html {
   background-color: #89b4db;
 }
 
-.button {
+.button, .deleteButton {
   background-color: #0f66b5;
   color: white;
   border: none;
