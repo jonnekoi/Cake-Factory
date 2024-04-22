@@ -235,7 +235,6 @@ const getAllUsers = async () => {
           <th>Postal code</th>
           <th>City</th>
           <th>Username</th>
-          <th>Password</th>
           <th>Access</th>
         </tr>
       </thead>
@@ -250,7 +249,6 @@ const getAllUsers = async () => {
           <td>${row.zip_code}</td>
           <td>${row.city}</td>
           <td>${row.username}</td>
-          <td>${row.password}</td>
           <td>${row.access}</td>
         </tr>
       `;
@@ -367,18 +365,16 @@ const getAllProducts = async () => {
           <th>Name</th>
           <th>Price</th>
           <th>Description</th>
-          <th>Delete product</th>
         </tr>
       </thead>
       <tbody>`;
     const tableRows = rows.map((row)=> {
       return `
-        <tr>
+        <tr product-id="${row.id}">
           <td>${row.id}</td>
           <td>${row.name}</td>
           <td>${row.price}</td>
           <td>${row.description}</td>
-          <td><button type="button" class="deleteButton" product-id="${row.id}">DELETE</button></td>
         </tr>
       `;
     });
@@ -386,6 +382,20 @@ const getAllProducts = async () => {
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
     const tableContainer = document.querySelector('#table');
     tableContainer.innerHTML = tableHTML;
+    const tableRowsElements = document.querySelectorAll('tr[product-id]');
+    tableRowsElements.forEach((row) => {
+      row.addEventListener('click', async (event) => {
+        const productId = row.getAttribute('product-id');
+        const product = await getProductById(productId);
+        const picName = product.img;
+        const picture = await fetch(`http://localhost:3000/uploads/${picName}`);
+        const kuva = await picture.blob();
+        const kuvaObj = URL.createObjectURL(kuva);
+        console.log(product);
+        createProductCard(product, kuvaObj);
+        document.querySelector('.wrapper').classList.add('blur');
+      });
+    });
   } catch (error) {
     console.log(error);
   }
@@ -414,15 +424,150 @@ const deliverOrder = async (id) => {
     const response = await fetch(url + `/orders/${id}`, fetchOptions);
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Error delivering order:', errorData);
-      alert('Error delivering order, try again!');
+      console.log('Error delivering', errorData);
     } else {
-      console.log('Delivery successful');
       alert('Delivery successful!');
       await getNotDeliveredOrders();
     }
   } catch (error) {
     console.error('Error delivering order:', error);
     alert('Error delivering order, try again! ss');
+  }
+};
+
+const getProductById = async (id) => {
+  try {
+    const response = await fetch(url + `/products/${id}`);
+    if (!response.ok) {
+      throw new Error(`Error getting prod ${response.statusText}`);
+    } else {
+      const product = await response.json();
+      return product;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createProductCard = (product, image) => {
+  const dialogContainer = document.createElement('div');
+  dialogContainer.style.position = 'fixed';
+  dialogContainer.style.top = '50%';
+  dialogContainer.style.left = '50%';
+  dialogContainer.style.transform = 'translate(-50%, -50%)';
+  dialogContainer.style.backgroundColor = '#333333';
+  dialogContainer.style.padding = '20px';
+  dialogContainer.style.borderRadius = '10px';
+  dialogContainer.style.zIndex = '1000';
+  dialogContainer.style.width = '50%';
+  dialogContainer.style.height = '50%';
+  dialogContainer.style.display = 'flex';
+  dialogContainer.style.alignItems = 'center';
+  dialogContainer.style.border = '3px solid #0f66b5';
+
+  const form = document.createElement('form');
+  form.style.width = '50%';
+  form.style.padding = '20px';
+  form.style.display = 'flex';
+  form.style.flexDirection = 'column';
+  form.style.justifyContent = 'space-around';
+  // eslint-disable-next-line guard-for-in
+  for (const key in product) {
+    const label = document.createElement('label');
+    label.textContent = key;
+    label.style.color = 'white';
+    label.style.display = 'block';
+    let input;
+    // eslint-disable-next-line no-unused-vars
+    if (key === 'img') {
+      input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+    } else if (key === 'id') {
+      input = document.createElement('input');
+      input.readOnly = true;
+      input.value = product[key];
+    } else {
+      input = document.createElement('input');
+      input.value = product[key];
+    }
+
+    input.id = key;
+    input.style.display = 'block';
+    input.style.padding = '5px';
+    form.appendChild(label);
+    form.appendChild(input);
+  }
+
+  const productImageContainer = document.createElement('div');
+  productImageContainer.style.width = '50%';
+  productImageContainer.style.display = 'flex';
+  productImageContainer.style.justifyContent = 'center';
+  const productImage = document.createElement('img');
+  productImage.src = image;
+  productImage.style.width = '80%';
+  productImage.style.height = 'auto';
+  productImageContainer.appendChild(productImage);
+  dialogContainer.appendChild(form);
+  dialogContainer.appendChild(productImageContainer);
+  document.body.appendChild(dialogContainer);
+
+  const saveButton = document.createElement('button');
+  saveButton.classList.add('button');
+  saveButton.textContent = 'Save changes';
+  saveButton.type = 'submit';
+  form.appendChild(saveButton);
+  const ExitButton = document.createElement('button');
+  ExitButton.textContent = 'Exit';
+  ExitButton.classList.add('button');
+  const IngredientsBtn = document.createElement('button');
+  IngredientsBtn.textContent = 'Ingredients';
+  IngredientsBtn.classList.add('button');
+  const deleteProdBtn = document.createElement('button');
+  deleteProdBtn.textContent = 'Delete product';
+  deleteProdBtn.classList.add('button');
+  form.appendChild(IngredientsBtn);
+  form.appendChild(deleteProdBtn);
+  form.appendChild(ExitButton);
+  dialogContainer.appendChild(form);
+  document.body.appendChild(dialogContainer);
+
+  ExitButton.addEventListener('click', function() {
+    document.body.removeChild(dialogContainer);
+    document.querySelector('.wrapper').classList.remove('blur');
+  });
+
+  deleteProdBtn.addEventListener('click', function() {
+    const idValue = product['id'];
+    deleteProduct(idValue);
+    document.body.removeChild(dialogContainer);
+    document.querySelector('.wrapper').classList.remove('blur');
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    // TODO: PRODUCT UPDATE
+    // document.body.removeChild(dialogContainer);
+    document.querySelector('.wrapper').classList.remove('blur');
+  });
+};
+
+const deleteProduct = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  try {
+    const response = await fetch(url + `/products/${id}`, options);
+    if (!response.ok) {
+      alert('Error deleting product');
+    } else {
+      alert('Product deleted!');
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

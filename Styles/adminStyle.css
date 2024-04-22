@@ -121,3 +121,7 @@ body, html {
   cursor: pointer;
   margin: 10px;
 }
+
+.blur {
+  filter: blur(3px);
+}
