@@ -26,11 +26,7 @@ const clearContent = () => {
   // eslint-disable-next-line max-len
   const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
   const container = document.querySelector('.container');
-  const addProductForm = container.querySelector('form');
-
-  if (addProductForm) {
-    container.removeChild(addProductForm);
-  }
+  container.innerHTML = '';
   if (allOrders) {
     ulElement.removeChild(allOrders);
   }
@@ -67,7 +63,6 @@ adminOrdersButton.addEventListener('click', async function() {
     await getAllOrders();
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
-    adminOrdersButton.disabled = false;
   });
 
   submitButton.addEventListener('click', async function() {
@@ -80,7 +75,6 @@ adminOrdersButton.addEventListener('click', async function() {
     await getOrderById(id);
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
-    adminOrdersButton.disabled = false;
   });
 });
 
@@ -153,8 +147,11 @@ const getAllOrders = async () => {
     });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.innerHTML = tableHTML;
+    const tableContainer = document.querySelector('.container');
+    table.classList.add('table');
+    tableContainer.appendChild(table);
   } catch (error) {
     console.log('getting orders error', error);
   }
@@ -196,8 +193,11 @@ const getNotDeliveredOrders = async () => {
         });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.innerHTML = tableHTML;
+    const tableContainer = document.querySelector('.container');
+    table.classList.add('table');
+    tableContainer.appendChild(table);
     const deliverButtons = document.querySelectorAll('.button');
 
     deliverButtons.forEach((button) => {
@@ -262,8 +262,11 @@ const getAllUsers = async () => {
       });
       const tableFooter = `</tbody>`;
       const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-      const tableContainer = document.querySelector('#table');
-      tableContainer.innerHTML = tableHTML;
+      const table = document.createElement('table');
+      table.innerHTML = tableHTML;
+      const tableContainer = document.querySelector('.container');
+      table.classList.add('table');
+      tableContainer.appendChild(table);
     }
   } catch (error) {
     console.log('error gettin all users', error);
@@ -309,8 +312,11 @@ const getUserById = async (id) => {
       });
       const tableFooter = `</tbody>`;
       const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-      const tableContainer = document.querySelector('#table');
-      tableContainer.innerHTML = tableHTML;
+      const table = document.createElement('table');
+      table.innerHTML = tableHTML;
+      const tableContainer = document.querySelector('.container');
+      table.classList.add('table');
+      tableContainer.appendChild(table);
     }
   } catch (error) {
     console.log('error gettin all users', error);
@@ -354,8 +360,11 @@ const getOrderById = async (id) =>{
     });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.classList.add('table');
+    const tableContainer = document.querySelector('.container');
+    table.innerHTML = tableHTML;
+    tableContainer.appendChild(table);
   } catch (error) {
     console.log(error);
   }
@@ -387,8 +396,11 @@ const getAllProducts = async () => {
     });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.classList.add('table');
+    const tableContainer = document.querySelector('.container');
+    table.innerHTML = tableHTML;
+    tableContainer.appendChild(table);
     const tableRowsElements = document.querySelectorAll('tr[product-id]');
     tableRowsElements.forEach((row) => {
       row.addEventListener('click', async (event) => {
