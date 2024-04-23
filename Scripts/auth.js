@@ -54,17 +54,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
     console.log(json.user);
     if (json.user) {
       sessionStorage.setItem('token', json.token);
-      sessionStorage.setItem('user', json.stringify(json.user));
+      sessionStorage.setItem('user', JSON.stringify(json.user));
+      // Check if the user is an admin
+      if (json.user.access === 'admin') {
+        console.log('yesss admin');
+        // Redirect to the admin page
+        window.location.href = '/Cake-Factory/HTMLs/admin.html';
+      } else {
+        // Redirect to the home page
+        window.location.href = '/Cake-Factory/HTMLs/index.html';
+      }
     } else {
       // alert('login error', json.error.message);
-      console.log({ error: 'Error' });
+      console.log({error: 'Login Error'});
     }
   });
 
   registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-undef
-    const data = serializeJson(loginForm);
+    const data = serializeJson(registerForm);
+    delete data[''];
     const fetchOptions = {
       method: 'POST',
       headers: {
@@ -72,13 +82,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch('/auth/register', fetchOptions);
-    const json = response.json();
-    if (json.user) {
+    const response = await fetch('http://127.0.0.1:3000/v1/users', fetchOptions);
+    const json = await response.json();
+    if (json.result) {
       sessionStorage.setItem('token', json.token);
-      sessionStorage.setItem('user', json.stringify(json.user));
+      sessionStorage.setItem('user', JSON.stringify(json.result));
+      // console.log('register success');
+      window.location.href = '/Cake-Factory/HTMLs/index.html';
     } else {
-      alert('register error', json.error.message);
+      // alert('register error', json.error.message);
+      console.log({error: 'Register Error'});
     }
   });
 });
