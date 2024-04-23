@@ -16,46 +16,61 @@
     <link rel="stylesheet" href="../Styles/contactStyles.css">
 </head>
 <body>
-<div id="dialogContainer" class="dialog-container">
-  <div id="dialog" class="dialog">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Heaven - Contact</title>
+    <link rel="stylesheet" href="../Styles/styles.css">
+    <link rel="stylesheet" href="../Styles/contactStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <div id="firstDialog">
-      <button class="exitDialog">X</button>
-      <button id="firstLogin" class="button">Login</button>
-      <button id="firstRegister" class="button">Register</button>
-    </div>
+</head>
+<body>
+  <div id="dialogContainer" class="dialog-container">
+    <div id="dialog" class="dialog">
 
-    <div id="loginDialog">
-      <div class="form-wrapper">
-        <form id="loginForm" class="form">
-          <h2>Login</h2>
-          <button class="exitDialog">X</button>
-          <label for="loginUsername"></label><input type="text" id="loginUsername" name="username" required placeholder="Enter username"/>
-          <label for="loginPassword"></label><input type="password" id="loginPassword" name="password" required placeholder="Enter password"/>
-          <input class="button" id="loginDialogButton" type="submit" value="Login"/>
-        </form>
+      <div id="firstDialog">
+        <button class="exitDialog">X</button>
+        <button id="firstLogin" class="button">Login</button>
+        <button id="firstRegister" class="button">Register</button>
       </div>
-    </div>
 
-    <div id="registerDialog">
-      <div class="form-wrapper">
-        <form id="registerForm" class="form">
-          <h2>Register</h2>
-          <button class="exitDialog">X</button>
-          <label for="registerName"></label><input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
-          <label for="registerUsername"></label><input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
-          <label for="registerEmail"></label><input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
-          <label for="registerPassword"></label><input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
-          <label for="registerAddress"></label><input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
-          <label for="registerZipCode"></label><input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
-          <label for="registerCity"></label><input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
-          <input class="button" id="registerDialogButton" type="submit" value="Register"/>
-        </form>
+      <div id="loginDialog">
+        <div class="form-wrapper">
+          <form id="loginForm" class="form">
+            <h2>Login</h2>
+            <button class="exitDialog">X</button>
+            <label for="loginUsername"></label><input type="text" id="loginUsername" name="username" required placeholder="Enter username"/>
+            <label for="loginPassword"></label><input type="password" id="loginPassword" name="password" required placeholder="Enter password"/>
+            <input class="button" id="loginDialogButton" type="submit" value="Login"/>
+          </form>
+        </div>
       </div>
-    </div>
 
+      <div id="registerDialog">
+        <div class="form-wrapper">
+          <form id="registerForm" class="form">
+            <h2>Register</h2>
+            <button class="exitDialog">X</button>
+            <label for="registerName"></label><input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
+            <label for="registerUsername"></label><input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
+            <label for="registerEmail"></label><input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
+            <label for="registerPassword"></label><input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
+            <label for="registerAddress"></label><input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
+            <label for="registerZipCode"></label><input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
+            <label for="registerCity"></label><input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
+            <input class="button" id="registerDialogButton" type="submit" value="Register"/>
+          </form>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
 <header>
   <div class="nav-wrapper">
     <div class="logo">
@@ -87,15 +102,61 @@
     </div>
   </div>
 </header>
-<div class="middle-container">
-    <section class="side-section">
 
-    </section>
-    <section class="side-section">
-      <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d255.3514629739512!2d24.956126868044805!3d60.169863802579606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfi!2sfi!4v1713546455616!5m2!1sfi!2sfi"
-              width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </section>
+
+<div class="middle-container">
+    <div class="contact-container">
+        <h1>Get in touch with our friendly support team</h1>
+        <p>Our business hours are 9AM-6PM ET Monday-Friday and 9AM-5PM ET on weekends.</p>
+
+        <div class="contact-section">
+          <h2>Call us</h2>
+          <p>Our support team is just a click away.</p>
+          <a href="javascript:void(0);" onclick="toggleVisibilityAndContact('phone-number', 'tel:040124241')" class="contact-link"><i class="fas fa-phone"></i> Call now</a>
+            <div id="phone-number" class="hidden">040124241</div>
+        </div>
+
+        <div class="contact-section">
+          <h2>Email us</h2>
+          <p>Prefer to email? <br>Send us an email and we'll get back to you as soon as possible.</p>
+          <a href="javascript:void(0);" onclick="toggleVisibilityAndContact('email-address', 'mailto:support@cakefactory.com')" class="contact-link"><i class="fas fa-envelope"></i> Send email</a>
+          <div id="email-address" class="hidden">support@cakefactory.com</div>
+        </div>
+
+        <div class="contact-section">
+            <h2>Visit in person</h2>
+            <p>Find us at the address below 🦍</p>
+            <div class="map-wrapper">
+              <p>
+                Cake Factory<br>
+                123 Baking Street<br>
+                Flavor Town, FT 12345
+              </p>
+              <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d255.3514629739512!2d24.956126868044805!3d60.169863802579606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfi!2sfi!4v1713546455616!5m2!1sfi!2sfi"
+                        width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </div>
+
+            </div>
+          </div>
+    </div>
+
+    <!-- FOR TOGGLING THE HIDDEN ELEMENT ON/OFF -->
+    <script>
+        function toggleVisibilityAndContact(elementId, link) {
+          // Toggle the visibility of the phone number
+          var element = document.getElementById(elementId);
+          if (element) {
+            element.classList.toggle('hidden');
+          }
+
+          // Set a short delay before triggering the call
+          setTimeout(function() {
+            window.location.href = link;
+          }, 500); // Adjust the delay as needed
+        }
+      </script>
 </div>
-<footer class="footer">2024 &copy;</footer>
+<footer class="footer"> 2024🌚 &copy;</footer>
 </body>
 </html>
