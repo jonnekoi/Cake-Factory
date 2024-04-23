@@ -59,6 +59,7 @@ body, html {
   align-items: center;
   padding: 20px;
   overflow-x: auto;
+  margin-top: 50px;
 }
 
 .table {
