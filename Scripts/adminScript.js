@@ -687,7 +687,6 @@ adminAddProduct.addEventListener('click', async function() {
     return;
   }
   await createAddProductForm();
-  // TODO: HANDLE productAddForm submit + add ingredients
 });
 
 const getIngredients = async () => {
