@@ -7,7 +7,10 @@
   text-align: center;
 }
 .contact-section {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction:column;
+  flex-basis: 100%;
+  min-height: 50vh;
   margin: 20px;
   padding: 20px;
   border: 1px solid #ccc;
