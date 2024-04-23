@@ -5,6 +5,8 @@ const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
 const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
 const adminProductsButton = document.querySelector('#adminProductsButton');
+const adminAddProduct = document.querySelector('#adminAddProduct');
+
 
 const token = localStorage.getItem('token');
 const options = {
@@ -23,7 +25,12 @@ const clearContent = () => {
   const allUsers = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
   // eslint-disable-next-line max-len
   const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+  const container = document.querySelector('.container');
+  const addProductForm = container.querySelector('form');
 
+  if (addProductForm) {
+    container.removeChild(addProductForm);
+  }
   if (allOrders) {
     ulElement.removeChild(allOrders);
   }
@@ -571,3 +578,58 @@ const deleteProduct = async (id) => {
     console.log(error);
   }
 };
+
+const createAddProductForm = () => {
+  const form = document.createElement('form');
+  form.style.display = 'flex';
+  form.style.flexDirection = 'column';
+  form.style.padding = '35px';
+  form.style.borderRadius = '5px';
+  form.style.border = '3px solid #0f66b5';
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.name = 'name';
+  nameInput.style.padding = '5px';
+  nameInput.style.marginBottom = '10px';
+  nameInput.placeholder = 'Product name';
+  form.appendChild(nameInput);
+  const priceInput = document.createElement('input');
+  priceInput.type = 'number';
+  priceInput.name = 'price';
+  priceInput.style.padding = '5px';
+  priceInput.style.marginBottom = '10px';
+  priceInput.placeholder = 'Product price';
+  form.appendChild(priceInput);
+  const descInput = document.createElement('input');
+  descInput.type = 'text';
+  descInput.name = 'description';
+  descInput.style.padding = '5px';
+  descInput.style.marginBottom = '10px';
+  descInput.placeholder = 'Product desc';
+  form.appendChild(descInput);
+  const imgInput = document.createElement('input');
+  imgInput.type = 'file';
+  imgInput.style.padding = '5px';
+  imgInput.name = 'img';
+  imgInput.style.marginBottom = '10px';
+  imgInput.accept = 'image/*';
+  form.appendChild(imgInput);
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Submit';
+  submitButton.classList.add('button');
+  form.appendChild(submitButton);
+
+  const container = document.querySelector('.container');
+  container.appendChild(form);
+};
+
+adminAddProduct.addEventListener('click', async function() {
+  clearContent();
+  const existingForm = document.querySelector('.container form');
+  if (existingForm) {
+    return;
+  }
+  await createAddProductForm();
+  // TODO: HANDLE productAddForm submit + add ingredients
+});
