@@ -6,6 +6,7 @@ const adminUsersButton = document.querySelector('#adminUsersButton');
 const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
 const adminProductsButton = document.querySelector('#adminProductsButton');
 const adminAddProduct = document.querySelector('#adminAddProduct');
+const adminAddIng = document.querySelector('#addIngredients');
 
 
 const token = localStorage.getItem('token');
@@ -26,11 +27,7 @@ const clearContent = () => {
   // eslint-disable-next-line max-len
   const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
   const container = document.querySelector('.container');
-  const addProductForm = container.querySelector('form');
-
-  if (addProductForm) {
-    container.removeChild(addProductForm);
-  }
+  container.innerHTML = '';
   if (allOrders) {
     ulElement.removeChild(allOrders);
   }
@@ -67,7 +64,6 @@ adminOrdersButton.addEventListener('click', async function() {
     await getAllOrders();
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
-    adminOrdersButton.disabled = false;
   });
 
   submitButton.addEventListener('click', async function() {
@@ -80,7 +76,6 @@ adminOrdersButton.addEventListener('click', async function() {
     await getOrderById(id);
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
-    adminOrdersButton.disabled = false;
   });
 });
 
@@ -153,8 +148,11 @@ const getAllOrders = async () => {
     });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.innerHTML = tableHTML;
+    const tableContainer = document.querySelector('.container');
+    table.classList.add('table');
+    tableContainer.appendChild(table);
   } catch (error) {
     console.log('getting orders error', error);
   }
@@ -196,8 +194,11 @@ const getNotDeliveredOrders = async () => {
         });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.innerHTML = tableHTML;
+    const tableContainer = document.querySelector('.container');
+    table.classList.add('table');
+    tableContainer.appendChild(table);
     const deliverButtons = document.querySelectorAll('.button');
 
     deliverButtons.forEach((button) => {
@@ -262,8 +263,11 @@ const getAllUsers = async () => {
       });
       const tableFooter = `</tbody>`;
       const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-      const tableContainer = document.querySelector('#table');
-      tableContainer.innerHTML = tableHTML;
+      const table = document.createElement('table');
+      table.innerHTML = tableHTML;
+      const tableContainer = document.querySelector('.container');
+      table.classList.add('table');
+      tableContainer.appendChild(table);
     }
   } catch (error) {
     console.log('error gettin all users', error);
@@ -309,8 +313,11 @@ const getUserById = async (id) => {
       });
       const tableFooter = `</tbody>`;
       const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-      const tableContainer = document.querySelector('#table');
-      tableContainer.innerHTML = tableHTML;
+      const table = document.createElement('table');
+      table.innerHTML = tableHTML;
+      const tableContainer = document.querySelector('.container');
+      table.classList.add('table');
+      tableContainer.appendChild(table);
     }
   } catch (error) {
     console.log('error gettin all users', error);
@@ -354,8 +361,11 @@ const getOrderById = async (id) =>{
     });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.classList.add('table');
+    const tableContainer = document.querySelector('.container');
+    table.innerHTML = tableHTML;
+    tableContainer.appendChild(table);
   } catch (error) {
     console.log(error);
   }
@@ -387,8 +397,11 @@ const getAllProducts = async () => {
     });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
-    const tableContainer = document.querySelector('#table');
-    tableContainer.innerHTML = tableHTML;
+    const table = document.createElement('table');
+    table.classList.add('table');
+    const tableContainer = document.querySelector('.container');
+    table.innerHTML = tableHTML;
+    tableContainer.appendChild(table);
     const tableRowsElements = document.querySelectorAll('tr[product-id]');
     tableRowsElements.forEach((row) => {
       row.addEventListener('click', async (event) => {
@@ -434,6 +447,7 @@ const deliverOrder = async (id) => {
       console.log('Error delivering', errorData);
     } else {
       alert('Delivery successful!');
+      clearContent();
       await getNotDeliveredOrders();
     }
   } catch (error) {
@@ -579,8 +593,10 @@ const deleteProduct = async (id) => {
   }
 };
 
-const createAddProductForm = () => {
+const createAddProductForm = async () => {
   const form = document.createElement('form');
+  form.method = 'POST';
+  form.enctype = 'multipart/form-data';
   form.style.display = 'flex';
   form.style.flexDirection = 'column';
   form.style.padding = '35px';
@@ -607,6 +623,28 @@ const createAddProductForm = () => {
   descInput.style.marginBottom = '10px';
   descInput.placeholder = 'Product desc';
   form.appendChild(descInput);
+  const ingredients = await getIngredients();
+
+  const dropMenu = document.createElement('div');
+  const dropdownContent = document.createElement('div');
+
+  ingredients.forEach((ingredient) => {
+    const checkboxContainer = document.createElement('label');
+    checkboxContainer.style.margin = '5px';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = ingredient.name;
+    checkbox.name = 'ingredient';
+    checkbox.id = `${ingredient.id}`;
+    const labelText = document.createElement('span');
+    labelText.textContent = ingredient.name;
+    checkboxContainer.appendChild(checkbox);
+    checkboxContainer.appendChild(labelText);
+    dropdownContent.appendChild(checkboxContainer);
+  });
+
+  dropMenu.appendChild(dropdownContent);
+  form.appendChild(dropMenu);
   const imgInput = document.createElement('input');
   imgInput.type = 'file';
   imgInput.style.padding = '5px';
@@ -622,7 +660,25 @@ const createAddProductForm = () => {
 
   const container = document.querySelector('.container');
   container.appendChild(form);
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('name', form.elements.name.value);
+    formData.append('price', form.elements.price.value);
+    formData.append('description', form.elements.description.value);
+
+    const selectedIngredientIDs = [];
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach((checkbox) => {
+      selectedIngredientIDs.push(checkbox.id); // Push the ID directly
+    });
+    formData.append('ingredients', JSON.stringify(selectedIngredientIDs));
+    formData.append('img', form.elements.img.files[0]);
+    await addProduct(formData);
+  });
 };
+
 
 adminAddProduct.addEventListener('click', async function() {
   clearContent();
@@ -631,5 +687,111 @@ adminAddProduct.addEventListener('click', async function() {
     return;
   }
   await createAddProductForm();
-  // TODO: HANDLE productAddForm submit + add ingredients
 });
+
+const getIngredients = async () => {
+  try {
+    const response = await fetch(url + '/products/ingredients');
+    if (!response.ok) {
+      throw new Error('Error ingredients', response.statusText);
+    } else {
+      const rows = await response.json();
+      return rows;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createAddIngForm = async () => {
+  const form = document.createElement('form');
+  form.style.display = 'flex';
+  form.style.flexDirection = 'column';
+  form.style.padding = '35px';
+  form.style.borderRadius = '5px';
+  form.style.border = '3px solid #0f66b5';
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.name = 'name';
+  nameInput.style.padding = '5px';
+  nameInput.style.marginBottom = '10px';
+  nameInput.placeholder = 'Ingredient name';
+  form.appendChild(nameInput);
+  const priceInput = document.createElement('input');
+  priceInput.type = 'number';
+  priceInput.name = 'price';
+  priceInput.style.padding = '5px';
+  priceInput.style.marginBottom = '10px';
+  priceInput.placeholder = 'Ingredient price';
+  form.appendChild(priceInput);
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Submit';
+  submitButton.classList.add('button');
+  form.appendChild(submitButton);
+  const container = document.querySelector('.container');
+  container.appendChild(form);
+
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const ingredientName = nameInput.value;
+    const ingredientPrice = priceInput.value;
+
+    const ingredientData = {
+      name: ingredientName,
+      price: ingredientPrice,
+    };
+    console.log(ingredientData);
+    await sendIngredient(ingredientData);
+    form.reset();
+  });
+};
+
+adminAddIng.addEventListener('click', async function() {
+  clearContent();
+  await createAddIngForm();
+});
+
+const sendIngredient = async (item) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify(item),
+  };
+
+  try {
+    const response = await fetch(url + '/products/ingredients', options);
+    if (!response.ok) {
+      const errorD = await response.json();
+      console.log('error', errorD);
+    } else {
+      alert('Ingredient added ok');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addProduct = async (formData) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+    },
+    body: formData,
+  };
+  try {
+    const response = await fetch(url + '/products', options);
+    if (!response.ok) {
+      const error = await response.json();
+      console.log('error', error);
+    } else {
+      alert('Product added successfully!');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
