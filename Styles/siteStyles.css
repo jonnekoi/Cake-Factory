@@ -47,6 +47,10 @@ body, html {
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)); /* Adjust glow color and intensity on hover */
 }
 
+.logo:hover{
+  transform: scale(1.1);
+}
+
 .nav-links {
   display: flex;
   align-items: center;
