@@ -61,8 +61,8 @@ h2{
 .form input[type="password"],
 .form input[type="email"] {
   width: calc(90% - 20px);
-  padding: 10px; /* Increase padding */
-  font-size: 15px; /* Increase font size */
+  padding: 10px;
+  font-size: 15px;
   margin-bottom: 10px;
   border-radius: 5px;
   border: 2px solid #0f66b5;
