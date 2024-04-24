@@ -11,17 +11,17 @@ const getProducts = async () => {
     const rows = await response.json();
 
     const productsPromises = rows.map(async (row) => {
-      const pictureName = row.img;
+      const pictureName = row.product_img;
       const picture = await fetch(`http://localhost:3000/uploads/${pictureName}`);
       const kuva = await picture.blob();
       const kuvaObj = URL.createObjectURL(kuva);
       return `
         <div class="card">
             <div class="front">
-              <img src="${kuvaObj}" alt="${row.name}" style="width:50%">
-              <h1>${row.name}</h1>
-              <p class="price">${row.price + '€'}</p>
-              <p>${row.description}</p>
+              <img src="${kuvaObj}" alt="${row.product_name}" style="width:50%">
+              <h1>${row.product_name}</h1>
+              <p class="price">${row.product_price + '€'}</p>
+              <p>${row.product_description}</p>
               <p><button class="button"><span>Add to Cart</span></button></p>
             </div>
             <div class="back" style="display: none">

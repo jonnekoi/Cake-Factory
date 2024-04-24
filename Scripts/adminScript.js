@@ -375,6 +375,7 @@ const getAllProducts = async () => {
   try {
     const response = await fetch(url + '/products');
     const rows = await response.json();
+    console.log(rows);
     const tableHeaders =
       `<thead>
         <tr>
@@ -387,11 +388,11 @@ const getAllProducts = async () => {
       <tbody>`;
     const tableRows = rows.map((row)=> {
       return `
-        <tr product-id="${row.id}">
-          <td>${row.id}</td>
-          <td>${row.name}</td>
-          <td>${row.price}</td>
-          <td>${row.description}</td>
+        <tr product-id="${row.product_id}">
+          <td>${row.product_id}</td>
+          <td>${row.product_name}</td>
+          <td>${row.product_price}</td>
+          <td>${row.product_description}</td>
         </tr>
       `;
     });
@@ -411,7 +412,6 @@ const getAllProducts = async () => {
         const picture = await fetch(`http://localhost:3000/uploads/${picName}`);
         const kuva = await picture.blob();
         const kuvaObj = URL.createObjectURL(kuva);
-        console.log(product);
         createProductCard(product, kuvaObj);
         document.querySelector('.wrapper').classList.add('blur');
       });
@@ -471,6 +471,7 @@ const getProductById = async (id) => {
 };
 
 const createProductCard = (product, image) => {
+  console.log(product);
   const dialogContainer = document.createElement('div');
   dialogContainer.style.position = 'fixed';
   dialogContainer.style.top = '50%';
