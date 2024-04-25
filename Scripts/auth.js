@@ -1,4 +1,6 @@
 import serializeJson from './serialize.js';
+import appendInfoToElement from './utils.js';
+
 'use strict';
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -150,14 +152,35 @@ document.querySelector('.hamburger').addEventListener('click', function() {
   hamburger.removeAttribute('disabled');
 });
 
-
 window.addEventListener('DOMContentLoaded', (event) => {
   const loginButton = document.querySelector('#loginButton');
+  const firstLogin = document.querySelector('#firstLogin');
+  const firstRegister = document.querySelector('#firstRegister');
   const user = sessionStorage.getItem('user');
   const userObj = JSON.parse(user);
   if (user) {
+    // Writes username instead of lock
     loginButton.innerHTML = `<span>${userObj.username}</span>`;
     loginButton.style.color = '#ffca19';
+
+    // Hides the firstLogin and firstRegister buttons
+    firstLogin.style.display = 'none';
+    firstRegister.style.display = 'none';
+
+    // Populates dialog box with user info
+    const dialog = document.querySelector('#firstDialog');
+    appendInfoToElement('Profile', dialog, {color: '#f1e9dd', bold: true});
+    appendInfoToElement(`Name: ${userObj.name}`, dialog, {color: '#f1e9dd', img: true});
+    appendInfoToElement(
+        `Address: ${userObj.street_name},${userObj.street_num}`,
+        dialog,
+        {color: '#f1e9dd', img: true},
+    );
+    appendInfoToElement(
+        `City: ${userObj.city}, ${userObj.zip_code}`,
+        dialog,
+        {color: '#f1e9dd', img: true},
+    );
 
     // Logout button
     // Create a new 'a' element
