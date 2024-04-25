@@ -2,7 +2,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: Corbel, cursive;
+  font-family: Corbel, serif;
 }
 
 .wrapper {
@@ -40,10 +40,6 @@ body, html {
   text-align: center;
   cursor: pointer;
   font-weight: bold;
-}
-
-.li:hover {
-  background-color: #db4726;
 }
 
 .navBar a {

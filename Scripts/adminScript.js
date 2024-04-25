@@ -1,6 +1,6 @@
 'use strict';
 
-const url = 'http://localhost:3000/v1';
+const url = 'http://127.0.0.1:3000/v1';
 const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
 const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
@@ -9,7 +9,7 @@ const adminAddProduct = document.querySelector('#adminAddProduct');
 const adminAddIng = document.querySelector('#addIngredients');
 
 
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 const options = {
   headers: {
     Authorization: 'Bearer ' + token,
@@ -17,34 +17,20 @@ const options = {
 };
 
 const clearContent = () => {
-  const ulElement = document.querySelector('.navBar ul');
-  // eslint-disable-next-line max-len
-  const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all orders'));
-  // eslint-disable-next-line max-len
-  const oneOrder = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
-  // eslint-disable-next-line max-len
-  const allUsers = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
-  // eslint-disable-next-line max-len
-  const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+  const links = document.querySelector('#navLinks');
   const container = document.querySelector('.container');
   container.innerHTML = '';
-  if (allOrders) {
-    ulElement.removeChild(allOrders);
-  }
-  if (oneOrder) {
-    ulElement.removeChild(oneOrder);
-  }
-  if (allUsers) {
-    ulElement.removeChild(allUsers);
-  }
-  if (oneUser) {
-    ulElement.removeChild(oneUser);
-  }
+  links.innerHTML = '';
 };
+
+adminDeliverOrder.addEventListener('click', async function() {
+  clearContent();
+  await getNotDeliveredOrders();
+});
 
 adminOrdersButton.addEventListener('click', async function() {
   clearContent();
-  const ulElement = document.querySelector('.navBar ul');
+  const ulElement = document.querySelector('#navLinks');
   const allOrders = document.createElement('li');
   allOrders.textContent = 'Get all orders';
   allOrders.style.marginTop = '100px';
@@ -73,6 +59,7 @@ adminOrdersButton.addEventListener('click', async function() {
       inputField.placeholder = 'Enter a number';
       return;
     }
+    console.log(id);
     await getOrderById(id);
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
@@ -81,7 +68,7 @@ adminOrdersButton.addEventListener('click', async function() {
 
 adminUsersButton.addEventListener('click', async function() {
   clearContent();
-  const ulElement = document.querySelector('.navBar ul');
+  const ulElement = document.querySelector('#navLinks');
   const allUsers = document.createElement('li');
   allUsers.textContent = 'Get all users';
   allUsers.style.marginTop = '100px';
@@ -108,6 +95,25 @@ adminUsersButton.addEventListener('click', async function() {
     ulElement.removeChild(allUsers);
     ulElement.removeChild(oneUser);
   });
+});
+
+adminProductsButton.addEventListener('click', async function() {
+  clearContent();
+  await getAllProducts();
+});
+
+adminAddProduct.addEventListener('click', async function() {
+  clearContent();
+  const existingForm = document.querySelector('.container form');
+  if (existingForm) {
+    return;
+  }
+  await createAddProductForm();
+});
+
+adminAddIng.addEventListener('click', async function() {
+  clearContent();
+  await createAddIngForm();
 });
 
 const getAllOrders = async () => {
@@ -291,7 +297,6 @@ const getUserById = async (id) => {
           <th>Postal code</th>
           <th>City</th>
           <th>Username</th>
-          <th>Password</th>
           <th>Access</th>
         </tr>
       </thead>
@@ -306,7 +311,6 @@ const getUserById = async (id) => {
           <td>${row.zip_code}</td>
           <td>${row.city}</td>
           <td>${row.username}</td>
-          <td>${row.password}</td>
           <td>${row.access}</td>
         </tr>
       `;
@@ -420,16 +424,6 @@ const getAllProducts = async () => {
     console.log(error);
   }
 };
-
-adminDeliverOrder.addEventListener('click', async function() {
-  clearContent();
-  await getNotDeliveredOrders();
-});
-
-adminProductsButton.addEventListener('click', async function() {
-  clearContent();
-  await getAllProducts();
-});
 
 const deliverOrder = async (id) => {
   const fetchOptions = {
@@ -680,16 +674,6 @@ const createAddProductForm = async () => {
   });
 };
 
-
-adminAddProduct.addEventListener('click', async function() {
-  clearContent();
-  const existingForm = document.querySelector('.container form');
-  if (existingForm) {
-    return;
-  }
-  await createAddProductForm();
-});
-
 const getIngredients = async () => {
   try {
     const response = await fetch(url + '/products/ingredients');
@@ -747,11 +731,6 @@ const createAddIngForm = async () => {
     form.reset();
   });
 };
-
-adminAddIng.addEventListener('click', async function() {
-  clearContent();
-  await createAddIngForm();
-});
 
 const sendIngredient = async (item) => {
   const options = {
