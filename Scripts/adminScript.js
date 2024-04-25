@@ -1,6 +1,7 @@
 'use strict';
 
 const url = 'http://127.0.0.1:3000/v1';
+
 const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
 const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
@@ -379,7 +380,6 @@ const getAllProducts = async () => {
   try {
     const response = await fetch(url + '/products');
     const rows = await response.json();
-    console.log(rows);
     const tableHeaders =
       `<thead>
         <tr>
@@ -482,7 +482,7 @@ const createProductCard = (product, image) => {
   dialogContainer.style.border = '3px solid #0f66b5';
 
   const form = document.createElement('form');
-  form.style.width = '50%';
+  form.style.width = '100%';
   form.style.padding = '20px';
   form.style.display = 'flex';
   form.style.flexDirection = 'column';
@@ -524,7 +524,12 @@ const createProductCard = (product, image) => {
   productImage.style.width = '80%';
   productImage.style.height = 'auto';
   productImageContainer.appendChild(productImage);
-  dialogContainer.appendChild(form);
+  const rightSide = document.createElement('div');
+  rightSide.style.display = 'flex';
+  rightSide.style.flexDirection = 'column';
+  rightSide.style.justifyContent = 'space-around';
+  rightSide.appendChild(form);
+  dialogContainer.appendChild(rightSide);
   dialogContainer.appendChild(productImageContainer);
   document.body.appendChild(dialogContainer);
 
@@ -542,10 +547,18 @@ const createProductCard = (product, image) => {
   const deleteProdBtn = document.createElement('button');
   deleteProdBtn.textContent = 'Delete product';
   deleteProdBtn.classList.add('button');
-  form.appendChild(IngredientsBtn);
-  form.appendChild(deleteProdBtn);
-  form.appendChild(ExitButton);
-  dialogContainer.appendChild(form);
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.style.display = 'block';
+  buttonsDiv.style.display = 'flex';
+  buttonsDiv.style.flexDirection = 'column';
+  buttonsDiv.style.justifyContent = 'space-around';
+  buttonsDiv.style.padding = '20px';
+  buttonsDiv.style.width = '100%';
+  buttonsDiv.appendChild(IngredientsBtn);
+  buttonsDiv.appendChild(deleteProdBtn);
+  buttonsDiv.appendChild(ExitButton);
+  rightSide.appendChild(buttonsDiv);
+  dialogContainer.appendChild(rightSide);
   document.body.appendChild(dialogContainer);
 
   ExitButton.addEventListener('click', function() {
@@ -560,13 +573,51 @@ const createProductCard = (product, image) => {
     document.querySelector('.wrapper').classList.remove('blur');
   });
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    // TODO: PRODUCT UPDATE
-    // document.body.removeChild(dialogContainer);
+    const id = document.getElementById('id').value;
+    const name = document.getElementById('name').value;
+    const price = document.getElementById('price').value;
+    const desc = document.getElementById('description').value;
+    const data = {
+      name: name,
+      price: price,
+      description: desc,
+    };
+    const jsonData = JSON.stringify(data);
+    await updateProduct(jsonData, id);
+    document.body.removeChild(dialogContainer);
     document.querySelector('.wrapper').classList.remove('blur');
   });
+
+  IngredientsBtn.addEventListener('click', function() {
+    form.style.display = 'none';
+    buttonsDiv.style.display = 'none';
+  });
 };
+
+const updateProduct = async (product, id) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: product,
+  };
+  try {
+    const response = await fetch(url + `/products/${id}`, options);
+    console.log(response);
+    if (!response.ok) {
+      alert('Error updating product!');
+    } else {
+      alert('Product updated');
+    }
+  } catch (error) {
+    console.log('Error updating product: ' + error);
+  }
+};
+
 
 const deleteProduct = async (id) => {
   const options = {
