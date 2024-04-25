@@ -149,3 +149,49 @@ document.querySelector('.hamburger').addEventListener('click', function() {
   }
   hamburger.removeAttribute('disabled');
 });
+
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  const loginButton = document.querySelector('#loginButton');
+  const user = sessionStorage.getItem('user');
+  const userObj = JSON.parse(user);
+  if (user) {
+    loginButton.innerHTML = `<span>${userObj.username}</span>`;
+    loginButton.style.color = '#ffca19';
+
+    // Logout button
+    // Create a new 'a' element
+    const logoutButton = document.createElement('a');
+
+    // Set the class and id of the 'a' element
+    logoutButton.className = 'button';
+    logoutButton.id = 'logoutButton';
+
+    // Create a new 'span' element and set its innerHTML to 'Logout'
+    const span = document.createElement('span');
+    span.innerHTML = 'Logout';
+
+    // Append the 'span' element to the 'a' element
+    logoutButton.appendChild(span);
+
+    // Append the 'a' element to the parent element
+    // Replace 'parentElement' with the actual parent element
+    // where you want the logout button to appear
+    document.querySelector('.nav-links').appendChild(logoutButton);
+    logoutButton.addEventListener('click', logout);
+  }
+});
+
+function logout() {
+  // Remove the user and token from the session storage
+  sessionStorage.removeItem('user');
+  sessionStorage.removeItem('token');
+  // Select the logout button and its parent element
+  const logoutButton = document.querySelector('#logoutButton');
+  const parentElement = logoutButton.parentElement;
+
+  // Remove the logout button from its parent element
+  parentElement.removeChild(logoutButton);
+  // Redirect to the login page
+  window.location.href = '/Cake-Factory/HTMLs/index.html';
+}
