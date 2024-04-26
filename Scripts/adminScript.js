@@ -8,7 +8,7 @@ const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
 const adminProductsButton = document.querySelector('#adminProductsButton');
 const adminAddProduct = document.querySelector('#adminAddProduct');
 const adminAddIng = document.querySelector('#addIngredients');
-
+const adminDiscountButton = document.querySelector('#adminDiscountsButton');
 
 const token = sessionStorage.getItem('token');
 const options = {
@@ -23,6 +23,11 @@ const clearContent = () => {
   container.innerHTML = '';
   links.innerHTML = '';
 };
+
+adminDiscountButton.addEventListener('click', async function() {
+  clearContent();
+  await getAllDiscounts();
+})
 
 adminDeliverOrder.addEventListener('click', async function() {
   clearContent();
@@ -116,6 +121,47 @@ adminAddIng.addEventListener('click', async function() {
   clearContent();
   await createAddIngForm();
 });
+
+const getAllDiscounts = async () => {
+  try {
+    const response = await fetch(url + '/discounts', options);
+    if (!response.ok) {
+      throw new Error('Error', response.statusText);
+    }
+    const rows = await response.json();
+
+    const tableHeaders =
+      `<thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    const tableRow = rows.map((row) => {
+      return `
+        <tr>
+          <td>${row.id}</td>
+          <td>${row.name}</td>
+          <td>${row.amount}</td>
+          <td>${row.code}</td>
+        </tr>
+      `;
+    });
+    const tableFooter = `</tbody>`;
+    const tableHTML = tableHeaders + tableRow.join('') + tableFooter;
+    const table = document.createElement('table');
+    table.innerHTML = tableHTML;
+    const container = document.querySelector('.container');
+    table.classList.add('table');
+    container.appendChild(table);
+  } catch (error) {
+    console.log('Error getting orders' + error)
+  }
+}
 
 const getAllOrders = async () => {
   try {
@@ -380,6 +426,7 @@ const getAllProducts = async () => {
   try {
     const response = await fetch(url + '/products');
     const rows = await response.json();
+    console.log(rows);
     const tableHeaders =
       `<thead>
         <tr>
