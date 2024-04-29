@@ -1,15 +1,16 @@
 'use strict';
 
-const url = 'http://localhost:3000/v1';
+const url = 'http://127.0.0.1:3000/v1';
+
 const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
 const adminDeliverOrder = document.querySelector('#adminDeliverOrder');
 const adminProductsButton = document.querySelector('#adminProductsButton');
 const adminAddProduct = document.querySelector('#adminAddProduct');
 const adminAddIng = document.querySelector('#addIngredients');
+const adminDiscountButton = document.querySelector('#adminDiscountsButton');
 
-
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 const options = {
   headers: {
     Authorization: 'Bearer ' + token,
@@ -17,34 +18,25 @@ const options = {
 };
 
 const clearContent = () => {
-  const ulElement = document.querySelector('.navBar ul');
-  // eslint-disable-next-line max-len
-  const allOrders = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all orders'));
-  // eslint-disable-next-line max-len
-  const oneOrder = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
-  // eslint-disable-next-line max-len
-  const allUsers = Array.from(ulElement.children).find((li) => li.textContent.includes('Get all users'));
-  // eslint-disable-next-line max-len
-  const oneUser = Array.from(ulElement.children).find((li) => li.querySelector('input[type="text"]'));
+  const links = document.querySelector('#navLinks');
   const container = document.querySelector('.container');
   container.innerHTML = '';
-  if (allOrders) {
-    ulElement.removeChild(allOrders);
-  }
-  if (oneOrder) {
-    ulElement.removeChild(oneOrder);
-  }
-  if (allUsers) {
-    ulElement.removeChild(allUsers);
-  }
-  if (oneUser) {
-    ulElement.removeChild(oneUser);
-  }
+  links.innerHTML = '';
 };
+
+adminDiscountButton.addEventListener('click', async function() {
+  clearContent();
+  await getAllDiscounts();
+})
+
+adminDeliverOrder.addEventListener('click', async function() {
+  clearContent();
+  await getNotDeliveredOrders();
+});
 
 adminOrdersButton.addEventListener('click', async function() {
   clearContent();
-  const ulElement = document.querySelector('.navBar ul');
+  const ulElement = document.querySelector('#navLinks');
   const allOrders = document.createElement('li');
   allOrders.textContent = 'Get all orders';
   allOrders.style.marginTop = '100px';
@@ -73,6 +65,7 @@ adminOrdersButton.addEventListener('click', async function() {
       inputField.placeholder = 'Enter a number';
       return;
     }
+    console.log(id);
     await getOrderById(id);
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
@@ -81,7 +74,7 @@ adminOrdersButton.addEventListener('click', async function() {
 
 adminUsersButton.addEventListener('click', async function() {
   clearContent();
-  const ulElement = document.querySelector('.navBar ul');
+  const ulElement = document.querySelector('#navLinks');
   const allUsers = document.createElement('li');
   allUsers.textContent = 'Get all users';
   allUsers.style.marginTop = '100px';
@@ -110,11 +103,6 @@ adminUsersButton.addEventListener('click', async function() {
   });
 });
 
-adminDeliverOrder.addEventListener('click', async function() {
-  clearContent();
-  await getNotDeliveredOrders();
-});
-
 adminProductsButton.addEventListener('click', async function() {
   clearContent();
   await getAllProducts();
@@ -133,6 +121,47 @@ adminAddIng.addEventListener('click', async function() {
   clearContent();
   await createAddIngForm();
 });
+
+const getAllDiscounts = async () => {
+  try {
+    const response = await fetch(url + '/discounts', options);
+    if (!response.ok) {
+      throw new Error('Error', response.statusText);
+    }
+    const rows = await response.json();
+
+    const tableHeaders =
+      `<thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    const tableRow = rows.map((row) => {
+      return `
+        <tr>
+          <td>${row.id}</td>
+          <td>${row.name}</td>
+          <td>${row.amount}</td>
+          <td>${row.code}</td>
+        </tr>
+      `;
+    });
+    const tableFooter = `</tbody>`;
+    const tableHTML = tableHeaders + tableRow.join('') + tableFooter;
+    const table = document.createElement('table');
+    table.innerHTML = tableHTML;
+    const container = document.querySelector('.container');
+    table.classList.add('table');
+    container.appendChild(table);
+  } catch (error) {
+    console.log('Error getting orders' + error)
+  }
+}
 
 const getAllOrders = async () => {
   try {
@@ -315,7 +344,6 @@ const getUserById = async (id) => {
           <th>Postal code</th>
           <th>City</th>
           <th>Username</th>
-          <th>Password</th>
           <th>Access</th>
         </tr>
       </thead>
@@ -330,7 +358,6 @@ const getUserById = async (id) => {
           <td>${row.zip_code}</td>
           <td>${row.city}</td>
           <td>${row.username}</td>
-          <td>${row.password}</td>
           <td>${row.access}</td>
         </tr>
       `;
@@ -445,7 +472,6 @@ const getAllProducts = async () => {
   }
 };
 
-
 const deliverOrder = async (id) => {
   const fetchOptions = {
     method: 'PUT',
@@ -503,7 +529,7 @@ const createProductCard = (product, image) => {
   dialogContainer.style.border = '3px solid #0f66b5';
 
   const form = document.createElement('form');
-  form.style.width = '50%';
+  form.style.width = '100%';
   form.style.padding = '20px';
   form.style.display = 'flex';
   form.style.flexDirection = 'column';
@@ -545,7 +571,12 @@ const createProductCard = (product, image) => {
   productImage.style.width = '80%';
   productImage.style.height = 'auto';
   productImageContainer.appendChild(productImage);
-  dialogContainer.appendChild(form);
+  const rightSide = document.createElement('div');
+  rightSide.style.display = 'flex';
+  rightSide.style.flexDirection = 'column';
+  rightSide.style.justifyContent = 'space-around';
+  rightSide.appendChild(form);
+  dialogContainer.appendChild(rightSide);
   dialogContainer.appendChild(productImageContainer);
   document.body.appendChild(dialogContainer);
 
@@ -563,10 +594,18 @@ const createProductCard = (product, image) => {
   const deleteProdBtn = document.createElement('button');
   deleteProdBtn.textContent = 'Delete product';
   deleteProdBtn.classList.add('button');
-  form.appendChild(IngredientsBtn);
-  form.appendChild(deleteProdBtn);
-  form.appendChild(ExitButton);
-  dialogContainer.appendChild(form);
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.style.display = 'block';
+  buttonsDiv.style.display = 'flex';
+  buttonsDiv.style.flexDirection = 'column';
+  buttonsDiv.style.justifyContent = 'space-around';
+  buttonsDiv.style.padding = '20px';
+  buttonsDiv.style.width = '100%';
+  buttonsDiv.appendChild(IngredientsBtn);
+  buttonsDiv.appendChild(deleteProdBtn);
+  buttonsDiv.appendChild(ExitButton);
+  rightSide.appendChild(buttonsDiv);
+  dialogContainer.appendChild(rightSide);
   document.body.appendChild(dialogContainer);
 
   ExitButton.addEventListener('click', function() {
@@ -581,13 +620,51 @@ const createProductCard = (product, image) => {
     document.querySelector('.wrapper').classList.remove('blur');
   });
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    // TODO: PRODUCT UPDATE
-    // document.body.removeChild(dialogContainer);
+    const id = document.getElementById('id').value;
+    const name = document.getElementById('name').value;
+    const price = document.getElementById('price').value;
+    const desc = document.getElementById('description').value;
+    const data = {
+      name: name,
+      price: price,
+      description: desc,
+    };
+    const jsonData = JSON.stringify(data);
+    await updateProduct(jsonData, id);
+    document.body.removeChild(dialogContainer);
     document.querySelector('.wrapper').classList.remove('blur');
   });
+
+  IngredientsBtn.addEventListener('click', function() {
+    form.style.display = 'none';
+    buttonsDiv.style.display = 'none';
+  });
 };
+
+const updateProduct = async (product, id) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: product,
+  };
+  try {
+    const response = await fetch(url + `/products/${id}`, options);
+    console.log(response);
+    if (!response.ok) {
+      alert('Error updating product!');
+    } else {
+      alert('Product updated');
+    }
+  } catch (error) {
+    console.log('Error updating product: ' + error);
+  }
+};
+
 
 const deleteProduct = async (id) => {
   const options = {

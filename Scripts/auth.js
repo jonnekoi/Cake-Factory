@@ -1,3 +1,4 @@
+import serializeJson from './serialize.js';
 'use strict';
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-undef
     const data = serializeJson(loginForm);
+    delete data[''];
     const fetchOptions = {
       method: 'POST',
       headers: {
@@ -46,20 +48,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch( '/auth/login', fetchOptions);
-    const json = response.json();
+    const response = await fetch( 'http://127.0.0.1:3000/v1/auth/login', fetchOptions);
+    const json = await response.json();
+    console.log(json);
+    console.log(json.user);
     if (json.user) {
       sessionStorage.setItem('token', json.token);
-      sessionStorage.setItem('user', json.stringify(json.user));
+      sessionStorage.setItem('user', JSON.stringify(json.user));
+      // Check if the user is an admin
+      if (json.user.access === 'admin') {
+        console.log('yesss admin');
+        // Redirect to the admin page
+        window.location.href = '/Cake-Factory/HTMLs/admin.html';
+      } else {
+        // Redirect to the home page
+        window.location.href = '/Cake-Factory/HTMLs/index.html';
+      }
     } else {
-      alert('login error', json.error.message);
+      // alert('login error', json.error.message);
+      console.log({error: 'Login Error'});
     }
   });
 
   registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-undef
-    const data = serializeJson(loginForm);
+    const data = serializeJson(registerForm);
+    delete data[''];
     const fetchOptions = {
       method: 'POST',
       headers: {
@@ -67,13 +82,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch('/auth/register', fetchOptions);
-    const json = response.json();
-    if (json.user) {
+    const response = await fetch('http://127.0.0.1:3000/v1/users', fetchOptions);
+    const json = await response.json();
+    if (json.result) {
       sessionStorage.setItem('token', json.token);
-      sessionStorage.setItem('user', json.stringify(json.user));
+      sessionStorage.setItem('user', JSON.stringify(json.result));
+      // console.log('register success');
+      window.location.href = '/Cake-Factory/HTMLs/index.html';
     } else {
-      alert('register error', json.error.message);
+      // alert('register error', json.error.message);
+      console.log({error: 'Register Error'});
     }
   });
 });
@@ -131,3 +149,49 @@ document.querySelector('.hamburger').addEventListener('click', function() {
   }
   hamburger.removeAttribute('disabled');
 });
+
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  const loginButton = document.querySelector('#loginButton');
+  const user = sessionStorage.getItem('user');
+  const userObj = JSON.parse(user);
+  if (user) {
+    loginButton.innerHTML = `<span>${userObj.username}</span>`;
+    loginButton.style.color = '#ffca19';
+
+    // Logout button
+    // Create a new 'a' element
+    const logoutButton = document.createElement('a');
+
+    // Set the class and id of the 'a' element
+    logoutButton.className = 'button';
+    logoutButton.id = 'logoutButton';
+
+    // Create a new 'span' element and set its innerHTML to 'Logout'
+    const span = document.createElement('span');
+    span.innerHTML = 'Logout';
+
+    // Append the 'span' element to the 'a' element
+    logoutButton.appendChild(span);
+
+    // Append the 'a' element to the parent element
+    // Replace 'parentElement' with the actual parent element
+    // where you want the logout button to appear
+    document.querySelector('.nav-links').appendChild(logoutButton);
+    logoutButton.addEventListener('click', logout);
+  }
+});
+
+function logout() {
+  // Remove the user and token from the session storage
+  sessionStorage.removeItem('user');
+  sessionStorage.removeItem('token');
+  // Select the logout button and its parent element
+  const logoutButton = document.querySelector('#logoutButton');
+  const parentElement = logoutButton.parentElement;
+
+  // Remove the logout button from its parent element
+  parentElement.removeChild(logoutButton);
+  // Redirect to the login page
+  window.location.href = '/Cake-Factory/HTMLs/index.html';
+}
