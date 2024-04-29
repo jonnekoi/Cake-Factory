@@ -9,6 +9,7 @@
 
 .footer {
   background-color: #212121;
+  border-top: 3px solid #0f66b5;
   color: white;
   text-align: center;
   padding-top: 20px;
