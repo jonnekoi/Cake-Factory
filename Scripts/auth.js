@@ -157,7 +157,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const userObj = JSON.parse(user);
   if (user) {
     loginButton.innerHTML = `<span>${userObj.username}</span>`;
-    loginButton.style.color = '#ffca19';
+    loginButton.style.color = '#ffc212';
 
     // Logout button
     // Create a new 'a' element
