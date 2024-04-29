@@ -10,14 +10,12 @@
 .footer {
   background-color: #212121;
   color: white;
-  position: fixed;
-  bottom: 0;
-  border-top: 3px solid #0f66b5;
-  left: 0;
-  right: 0;
-  height: 40px;
   text-align: center;
   padding-top: 20px;
+  padding-bottom: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .info {
