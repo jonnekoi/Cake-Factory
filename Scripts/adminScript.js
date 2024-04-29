@@ -110,6 +110,30 @@ adminUsersButton.addEventListener('click', async function() {
   });
 });
 
+adminDeliverOrder.addEventListener('click', async function() {
+  clearContent();
+  await getNotDeliveredOrders();
+});
+
+adminProductsButton.addEventListener('click', async function() {
+  clearContent();
+  await getAllProducts();
+});
+
+adminAddProduct.addEventListener('click', async function() {
+  clearContent();
+  const existingForm = document.querySelector('.container form');
+  if (existingForm) {
+    return;
+  }
+  await createAddProductForm();
+});
+
+adminAddIng.addEventListener('click', async function() {
+  clearContent();
+  await createAddIngForm();
+});
+
 const getAllOrders = async () => {
   try {
     const response = await fetch(url + '/orders', options);
@@ -421,15 +445,6 @@ const getAllProducts = async () => {
   }
 };
 
-adminDeliverOrder.addEventListener('click', async function() {
-  clearContent();
-  await getNotDeliveredOrders();
-});
-
-adminProductsButton.addEventListener('click', async function() {
-  clearContent();
-  await getAllProducts();
-});
 
 const deliverOrder = async (id) => {
   const fetchOptions = {
@@ -680,16 +695,6 @@ const createAddProductForm = async () => {
   });
 };
 
-
-adminAddProduct.addEventListener('click', async function() {
-  clearContent();
-  const existingForm = document.querySelector('.container form');
-  if (existingForm) {
-    return;
-  }
-  await createAddProductForm();
-});
-
 const getIngredients = async () => {
   try {
     const response = await fetch(url + '/products/ingredients');
@@ -747,11 +752,6 @@ const createAddIngForm = async () => {
     form.reset();
   });
 };
-
-adminAddIng.addEventListener('click', async function() {
-  clearContent();
-  await createAddIngForm();
-});
 
 const sendIngredient = async (item) => {
   const options = {
