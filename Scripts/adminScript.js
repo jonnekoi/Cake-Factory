@@ -26,8 +26,27 @@ const clearContent = () => {
 
 adminDiscountButton.addEventListener('click', async function() {
   clearContent();
-  await getAllDiscounts();
-})
+  const ulElement = document.querySelector('#navLinks');
+  const allCodes = document.createElement('li');
+  allCodes.textContent = 'Get all codes';
+  allCodes.style.marginTop = '100px';
+  const createCode = document.createElement('li');
+  createCode.textContent = 'Create a code';
+  ulElement.appendChild(allCodes);
+  ulElement.appendChild(createCode);
+
+  allCodes.addEventListener('click', async function() {
+    await getAllDiscounts();
+    ulElement.removeChild(createCode);
+    ulElement.removeChild(allCodes);
+  });
+
+  createCode.addEventListener('click', async function() {
+    await createNewCode();
+    ulElement.removeChild(createCode);
+    ulElement.removeChild(allCodes);
+  });
+});
 
 adminDeliverOrder.addEventListener('click', async function() {
   clearContent();
@@ -137,6 +156,7 @@ const getAllDiscounts = async () => {
           <th>Name</th>
           <th>Amount</th>
           <th>Code</th>
+          <th>Delete code</th>
         </tr>
       </thead>
       <tbody>`;
@@ -148,6 +168,7 @@ const getAllDiscounts = async () => {
           <td>${row.name}</td>
           <td>${row.amount}</td>
           <td>${row.code}</td>
+          <td><button type="button" class="button" code-id="${row.id}">Delete Code</button></td>
         </tr>
       `;
     });
@@ -158,10 +179,34 @@ const getAllDiscounts = async () => {
     const container = document.querySelector('.container');
     table.classList.add('table');
     container.appendChild(table);
+
+    const deleteButtons = document.querySelectorAll('.button');
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', async function() {
+        // eslint-disable-next-line no-invalid-this
+        const codeId = this.getAttribute('code-id');
+        // eslint-disable-next-line no-invalid-this
+        const isConfirm = this.getAttribute('confirm');
+        if (!isConfirm) {
+          // eslint-disable-next-line no-invalid-this
+          this.textContent = 'Confirm';
+          // eslint-disable-next-line no-invalid-this
+          this.setAttribute('confirm', 'true');
+        } else {
+          await deleteCode(codeId);
+          await clearContent();
+          await getAllDiscounts();
+          // eslint-disable-next-line no-invalid-this
+          this.textContent = 'Delete Code';
+          // eslint-disable-next-line no-invalid-this
+          this.removeAttribute('confirm');
+        }
+      });
+    });
   } catch (error) {
-    console.log('Error getting orders' + error)
+    console.log('Error getting discounts' + error);
   }
-}
+};
 
 const getAllOrders = async () => {
   try {
@@ -764,7 +809,7 @@ const createAddProductForm = async () => {
     const selectedIngredientIDs = [];
     const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
     checkboxes.forEach((checkbox) => {
-      selectedIngredientIDs.push(checkbox.id); // Push the ID directly
+      selectedIngredientIDs.push(checkbox.id);
     });
     formData.append('ingredients', JSON.stringify(selectedIngredientIDs));
     formData.append('img', form.elements.img.files[0]);
@@ -868,6 +913,97 @@ const addProduct = async (formData) => {
       console.log('error', error);
     } else {
       alert('Product added successfully!');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createNewCode = async () => {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.style.display = 'flex';
+  form.style.flexDirection = 'column';
+  form.style.padding = '35px';
+  form.style.borderRadius = '5px';
+  form.style.border = '3px solid #0f66b5';
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.name = 'name';
+  nameInput.style.padding = '5px';
+  nameInput.style.marginBottom = '10px';
+  nameInput.placeholder = 'Code name';
+  form.appendChild(nameInput);
+  const amountInput = document.createElement('input');
+  amountInput.type = 'number';
+  amountInput.name = 'amount';
+  amountInput.style.padding = '5px';
+  amountInput.style.marginBottom = '10px';
+  amountInput.placeholder = 'Amount';
+  form.appendChild(amountInput);
+  const codeInput = document.createElement('input');
+  codeInput.type = 'text';
+  codeInput.name = 'code';
+  codeInput.style.padding = '5px';
+  codeInput.style.marginBottom = '10px';
+  codeInput.placeholder = 'Code';
+  form.appendChild(codeInput);
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Add code';
+  submitButton.classList.add('button');
+  form.appendChild(submitButton);
+  const container = document.querySelector('.container');
+  container.appendChild(form);
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = {
+      name: form.elements.name.value,
+      amount: parseFloat(form.elements.amount.value),
+      code: form.elements.code.value,
+    };
+    await addCode(data);
+  });
+};
+
+const addCode = async (data) => {
+  console.log(data);
+  const options = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+  try {
+    const response = await fetch(url + '/discounts', options);
+    if (!response.ok) {
+      const error = await response.json();
+      console.log('error', error);
+    } else {
+      alert('Code added ok.');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteCode = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  try {
+    const response = await fetch(url + `/discounts/${id}`, options);
+    if (!response.ok) {
+      alert('Error deleting code');
+    } else {
+      alert('Code deleted!');
     }
   } catch (error) {
     console.log(error);

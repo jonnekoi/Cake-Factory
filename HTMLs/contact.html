@@ -3,19 +3,16 @@
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact</title>
   <link rel="stylesheet" href="../Styles/styles.css">
   <link rel="stylesheet" href="../Styles/contactStyle.css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="../Styles/indexStyles.css">
   <script src="../Scripts/contactScript.js" defer></script>
-  <script src="../Scripts/auth.js" defer></script>
+  <script type="module" src="../Scripts/auth.js" defer></script>
   <link rel="stylesheet" href="../Styles/dialog.css">
   <link rel="stylesheet" href="../Styles/siteStyles.css">
   <link rel="stylesheet" href="../Styles/buttonStyles.css">
@@ -111,8 +108,17 @@
         <li class="navLink">
           <a href="contact.html"><span>Contact</span></a>
         </li>
-        <a href="cart.html" class="button"><span>&#128722;</span></a>
-        <a class="button" id="loginButton"><span>&#128274;</span></a>
+        <a href="cart.html" class="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="auto" height="38px">
+            <circle cx="176" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            <circle cx="400" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 80h64l48 272h256"/>
+            <path d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+          </svg>
+        </a>
+        <a class="button" id="loginButton">
+          <img src="../Styles/images/log-in-outline.svg" alt="Login">
+        </a>
       </ul>
       <div class="hamburger" id="hamburger">
             <span class="material-symbols-outlined">
