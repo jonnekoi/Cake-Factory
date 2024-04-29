@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+  <link rel="stylesheet" href="./Styles/indexStyles.css">
+  <script src="./Scripts/aboutScript.js" defer></script>
+  <link rel="stylesheet" href="./Styles/dialog.css">
+  <script src="./Scripts/auth.js" defer></script>
+  <link rel="stylesheet" href="./Styles/siteStyles.css">
+  <link rel="stylesheet" href="./Styles/buttonStyles.css">
+  <link rel="stylesheet" href="./Styles/aboutStyles.css">
+</head>
+<body>
+<div id="dialogContainer" class="dialog-container">
+  <div id="dialog" class="dialog">
+
+    <div id="firstDialog">
+      <button class="exitDialog">X</button>
+      <button id="firstLogin" class="button">Login</button>
+      <button id="firstRegister" class="button">Register</button>
+    </div>
+
+    <div id="loginDialog">
+      <div class="form-wrapper">
+        <form id="loginForm" class="form">
+          <h2>Login</h2>
+          <button class="exitDialog">X</button>
+          <label for="loginUsername"></label><input type="text" id="loginUsername" name="username" required placeholder="Enter username"/>
+          <label for="loginPassword"></label><input type="password" id="loginPassword" name="password" required placeholder="Enter password"/>
+          <input class="button" id="loginDialogButton" type="submit" value="Login"/>
+        </form>
+      </div>
+    </div>
+
+    <div id="registerDialog">
+      <div class="form-wrapper">
+        <form id="registerForm" class="form">
+          <h2>Register</h2>
+          <button class="exitDialog">X</button>
+          <label for="registerName"></label><input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
+          <label for="registerUsername"></label><input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
+          <label for="registerEmail"></label><input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
+          <label for="registerPassword"></label><input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
+          <label for="registerAddress"></label><input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
+          <label for="registerZipCode"></label><input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
+          <label for="registerCity"></label><input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
+          <input class="button" id="registerDialogButton" type="submit" value="Register"/>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<header>
+  <div class="nav-wrapper">
+    <div class="logo">
+      <a href="index.html">
+        <img id="logo" src="./Styles/images/CA-KE-logo.png" height="80" width="auto"/>
+      </a>
+    </div>
+    <div class="links">
+      <ul class="nav-links">
+        <li class="navLink">
+          <a href="index.html"><span>Products</span></a>
+        </li>
+        <li class="navLink">
+          <a href="about.html"><span>About</span></a>
+        </li>
+        <li class="navLink">
+          <a href="contact.html"><span>Contact</span></a>
+        </li>
+        <a href="cart.html" class="button"><span>&#128722;</span></a>
+        <a class="button" id="loginButton"><span>&#128274;</span></a>
+      </ul>
+      <div class="hamburger" id="hamburger">
+            <span class="material-symbols-outlined">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+                <path fill="white" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+              </svg>
+            </span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="middle-container">
+  <section class="middle-section about-section">
+      <h1>About Cake Factory</h1>
+      <p>Welcome to Cake Factory, where every slice tells a story! Founded in Helsinki in 2024,
+          we are passionate about crafting exquisite cakes that celebrate life's sweetest moments.
+          At Cake Factory, we believe in the magic of homemade recipes, quality ingredients, and innovative design.
+      </p>
+      <p>Our journey began with Jafar, Jasper, Jonne & Miro, whose love for baking and artistry turned into a flourishing local business.
+          Today, Cake Factory is a cherished destination for cake enthusiasts, offering a diverse range of flavors from classic vanilla to exotic passion fruit.
+          Each cake is a masterpiece, adorned with precision and care, and designed to not only look spectacular but taste heavenly.
+      </p>
+      <p>At Cake Factory, we are committed to sustainability and community involvement. We source our ingredients from local suppliers to ensure freshness and support our community.
+           Our team of talented bakers and decorators work tirelessly to create cakes that not only meet, but exceed your expectations.
+      </p>
+      <p>
+          Whether you're celebrating a birthday, wedding, or just a Tuesday, Cake Factory is here to make your day unforgettable.
+           Join us in our sweet adventure and discover why every celebration deserves a Cake Factory cake!
+      </p>
+      <p>Visit us or order online, and let us add a sprinkle of joy to your next occasion!</p>
+  </section>
+  </div>
+<footer class="footer">2024 &copy;</footer>
+</body>
+</html>

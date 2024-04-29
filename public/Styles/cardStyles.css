@@ -1,0 +1,46 @@
+.card {
+  color: white;
+  background-color: rgba(15, 102, 181, 0.49);
+  width: calc(18% - 40px);
+  height: auto;
+  margin: 25px;
+  text-align: center;
+  transition: 0.8s;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.8);
+}
+
+.card img {
+  padding: 10px;
+  max-width: 100%;
+  height: auto;
+}
+
+.price {
+  color: white;
+  font-size: 22px;
+}
+
+.card .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card .back {
+  transform: rotateY(180deg);
+}
+
+.card.back {
+  transform: rotateY(180deg);
+}
+
+.card-container {
+  perspective: 10000px;
+}
+
