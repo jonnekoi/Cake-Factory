@@ -156,6 +156,7 @@ const getAllDiscounts = async () => {
           <th>Name</th>
           <th>Amount</th>
           <th>Code</th>
+          <th>Delete code</th>
         </tr>
       </thead>
       <tbody>`;
@@ -167,6 +168,7 @@ const getAllDiscounts = async () => {
           <td>${row.name}</td>
           <td>${row.amount}</td>
           <td>${row.code}</td>
+          <td><button type="button" class="button" code-id="${row.id}">Delete Code</button></td>
         </tr>
       `;
     });
@@ -177,8 +179,32 @@ const getAllDiscounts = async () => {
     const container = document.querySelector('.container');
     table.classList.add('table');
     container.appendChild(table);
+
+    const deleteButtons = document.querySelectorAll('.button');
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', async function() {
+        // eslint-disable-next-line no-invalid-this
+        const codeId = this.getAttribute('code-id');
+        // eslint-disable-next-line no-invalid-this
+        const isConfirm = this.getAttribute('confirm');
+        if (!isConfirm) {
+          // eslint-disable-next-line no-invalid-this
+          this.textContent = 'Confirm';
+          // eslint-disable-next-line no-invalid-this
+          this.setAttribute('confirm', 'true');
+        } else {
+          await deleteCode(codeId);
+          await clearContent();
+          await getAllDiscounts();
+          // eslint-disable-next-line no-invalid-this
+          this.textContent = 'Delete Code';
+          // eslint-disable-next-line no-invalid-this
+          this.removeAttribute('confirm');
+        }
+      });
+    });
   } catch (error) {
-    console.log('Error getting orders' + error);
+    console.log('Error getting discounts' + error);
   }
 };
 
@@ -958,6 +984,26 @@ const addCode = async (data) => {
       console.log('error', error);
     } else {
       alert('Code added ok.');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteCode = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  try {
+    const response = await fetch(url + `/discounts/${id}`, options);
+    if (!response.ok) {
+      alert('Error deleting code');
+    } else {
+      alert('Code deleted!');
     }
   } catch (error) {
     console.log(error);
