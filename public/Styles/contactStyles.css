@@ -1,11 +1,16 @@
 #map{
-  border: 3px solid #0f66b5;
-  border-radius: 5px;
+  border-radius: 10px;
+  border: none;
 }
 
 .contact-container {
   text-align: center;
 }
+
+.contact-container h1, h2, p, a {
+  color: black;
+}
+
 .contact-section {
   display: inline-flex;
   flex-direction:column;
@@ -13,18 +18,24 @@
   min-height: 50vh;
   margin: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 2px solid #fff9ff;
   border-radius: 5px;
+  background-color: rgb(14, 84, 154, 0.5);
 }
 .contact-section:hover {
-  border-color: #7c5ac2;
+  border-color: #0f66b5;
 }
 .contact-link {
   display: block;
   margin-top: 10px;
-  color: #7c5ac2;
+  color: black;
   text-decoration: none;
   font-weight: bold;
+}
+
+.contact-link:hover{
+  color: white;
+
 }
 .hidden {
   display: none;

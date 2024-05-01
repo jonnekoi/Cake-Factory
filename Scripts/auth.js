@@ -161,7 +161,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   if (user) {
     // Writes username instead of lock
     loginButton.innerHTML = `<span>${userObj.username}</span>`;
-    loginButton.style.color = '#ffca19';
+    loginButton.style.color = '#ffc212';
 
     // Hides the firstLogin and firstRegister buttons
     firstLogin.style.display = 'none';

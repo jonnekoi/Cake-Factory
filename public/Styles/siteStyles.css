@@ -135,3 +135,6 @@ body, html {
   border-bottom: 3px solid #0f66b5;
 }
 
+#loginButton img {
+  height: 40px;
+}
