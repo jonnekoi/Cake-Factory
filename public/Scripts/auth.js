@@ -52,9 +52,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const response = await fetch( 'http://127.0.0.1:3000/v1/auth/login', fetchOptions);
     const json = await response.json();
-    // console.log(json);
-    // console.log(json.user);
-    if (json.result && !json.result.user) {
+    //console.log(json);
+    //console.log(json.user);
+    //console.log(json.result);
+    if (json.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.user));
       // Check if the user is an admin
@@ -67,9 +68,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         window.location.href = '/index.html';
       }
     } else {
-      console.log('json.result:', json.result);
-      console.log('json.result.message:', json.result.message);
-      alert(json.result.message);
+      console.log(json.message);
     }
   });
 
@@ -87,15 +86,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const response = await fetch('http://127.0.0.1:3000/v1/users', fetchOptions);
     const json = await response.json();
-    if (json.result && !json.result.user) {
+    if (json.result) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.result));
       // console.log('register success');
       dialogContainer.style.display = 'none';
-      alert('Register Success');
     } else {
       // alert('register error', json.error.message);
-      alert(json.result.message);
+      console.log(json.message);
     }
   });
 });
