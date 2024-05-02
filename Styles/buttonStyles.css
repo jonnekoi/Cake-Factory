@@ -17,3 +17,25 @@
   cursor: pointer;
   display: inline-block;
 }
+
+.addToCartButton {
+  font-family: 'Sacramento', cursive;
+  border: none;
+  color: white;
+  background: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.addToCartButton:hover{
+  text-shadow: 0 0 15px #ffffff;
+}
+
+.addToCartButton span {
+  cursor: pointer;
+  display: inline-block;
+}
+
+

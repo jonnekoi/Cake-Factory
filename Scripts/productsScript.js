@@ -26,7 +26,7 @@ const getProducts = async () => {
               <h1>${row.product_name}</h1>
               <p class="price">${row.product_price + '€'}</p>
               <p>${row.product_description}</p>
-              <p><button class="button" data-product="${encodeURIComponent(JSON.stringify(row))}"><span>Add to Cart</span></button></p>
+              <p><button class="addToCartButton" data-product-id="${row.product_id}"><span>Add to Cart</span></button></p>
             </div>
             <div class="back" style="display: none">
             </div>
@@ -34,20 +34,22 @@ const getProducts = async () => {
     `;
       return cardHtml;
     });
-
     const products = await Promise.all(productsPromises);
     const cardContainer = document.querySelector('.card-container');
     cardContainer.innerHTML = products.join('');
 
-    const addToCartButton = document.querySelectorAll('.button');
-    addToCartButton.forEach((button, index) => {
+    const addToCartButton = document.querySelectorAll('.addToCartButton');
+    addToCartButton.forEach((button) => {
       button.addEventListener('click', async (event) => {
         event.preventDefault();
-        //   console.log(event.currentTarget.dataset.product);
-        const product = JSON.parse(
-          decodeURIComponent(event.currentTarget.dataset.product)
-        );
-        addToCart(product);
+        const productId = parseInt(event.currentTarget.dataset.productId);
+        const product = rows.find((row) => row.product_id === productId);
+        console.log(product);
+        if (product) {
+          addToCart(product);
+        } else {
+          console.error(`Product with that id ${productId} not found`);
+        }
       });
     });
 
