@@ -12,7 +12,9 @@ const getProducts = async () => {
 
     const productsPromises = rows.map(async (row) => {
       const pictureName = row.product_img;
-      const picture = await fetch(`http://localhost:3000/uploads/${pictureName}`);
+      const picture = await fetch(
+        `http://localhost:3000/uploads/${pictureName}`
+      );
       const kuva = await picture.blob();
       const kuvaObj = URL.createObjectURL(kuva);
       return `
@@ -58,4 +60,3 @@ const cardFlip = () => {
     });
   });
 };
-
