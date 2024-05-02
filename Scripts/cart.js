@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       totalTd.textContent = product.product_price * product.quantity + '€';
       grandTotal += product.product_price;
       grandTotalSum.textContent = grandTotal + '€';
+
+      localStorage.setItem('cart', JSON.stringify(productsOnCart));
     });
 
     decrementButton.addEventListener('click', () => {
@@ -50,6 +52,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       totalTd.textContent = product.product_price * product.quantity + '€';
       grandTotal += product.product_price;
       grandTotalSum.textContent = grandTotal + '€';
+
+      localStorage.setItem('cart', JSON.stringify(productsOnCart));
     });
 
     nameTd.textContent = product.product_name;
