@@ -1,11 +1,22 @@
 'use strict';
 
+const cartTable = document.createElement('table');
 const cartContainer = document.querySelector('.shopping-cart');
 const grandTotalSum = document.createElement('th');
 let grandTotal = 0;
 
 document.addEventListener('DOMContentLoaded', async (event) => {
   event.preventDefault();
+  const productTh = document.createElement('th');
+  const priceTh = document.createElement('th');
+  const quantityTh = document.createElement('th');
+  const totalTh = document.createElement('th');
+  productTh.innerText = 'Product';
+  priceTh.innerText = 'Price';
+  quantityTh.innerText = 'Quantity';
+  totalTh.innerText = 'Total';
+  cartTable.append(productTh, priceTh, quantityTh, totalTh);
+  cartContainer.appendChild(cartTable);
   const productsOnCart = JSON.parse(localStorage.getItem('cart'));
   console.log(productsOnCart);
   productsOnCart.forEach((product) => {
@@ -22,16 +33,15 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     grandTotal += product.product_price * product.quantity;
 
     tr.append(nameTd, priceTd, quantityTd, totalTd);
-    cartContainer.appendChild(tr);
+    cartTable.appendChild(tr);
+    cartContainer.appendChild(cartTable);
   });
 
   const grandTotalTh = document.createElement('th');
   const empty = document.createElement('th');
   const empty2 = document.createElement('th');
-  grandTotalTh.textContent = 'Grand Total';
-  cartContainer.appendChild(grandTotalTh);
-  cartContainer.appendChild(empty);
-  cartContainer.appendChild(empty2);
   grandTotalSum.textContent = grandTotal + '€';
-  cartContainer.appendChild(grandTotalSum);
+  grandTotalTh.textContent = 'Grand Total';
+  cartTable.append(grandTotalTh, empty, empty2, grandTotalSum);
+  cartContainer.appendChild(cartTable);
 });
