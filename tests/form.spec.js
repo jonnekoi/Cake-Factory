@@ -83,7 +83,7 @@ test('user should not be able to login with incorrect credentials', async ({page
 test('login button should be present on the page', async ({page}) => {
   await page.goto('http://localhost:3040/index.html');
   const loginButton = await page.locator('#loginButton');
-  expect(loginButton).toBeVisible();
+  await expect(loginButton).toBeVisible();
 });
 
 // Test to verify that the register button is present on the page
@@ -91,14 +91,14 @@ test('register button should be present on the page', async ({page}) => {
   await page.goto('http://localhost:3040/index.html');
   await page.locator('#loginButton').click();
   const registerButton = await page.getByRole('button', {name: 'Register'});
-  expect(registerButton).toBeVisible();
+  await expect(registerButton).toBeVisible();
 });
 
 // Test to verify that the logout button is not present on the page before login
 test('logout button should not be present on the page before login', async ({page}) => {
   await page.goto('http://localhost:3040/index.html');
   const logoutButton = await page.locator('#logoutButton');
-  expect(logoutButton).toBeHidden();
+  await expect(logoutButton).toBeHidden();
 });
 
 async function registerUser(page, username, email = username + '@gmail.com') {
