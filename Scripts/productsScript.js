@@ -19,7 +19,7 @@ const getProducts = async () => {
       const picture = await fetch(uploadUrl + pictureName);
       const kuva = await picture.blob();
       const kuvaObj = URL.createObjectURL(kuva);
-      const cardHtml = `
+      return `
         <div class="card">
             <div class="front">
               <img src="${kuvaObj}" alt="${row.product_name}" style="width:50%">
@@ -32,7 +32,6 @@ const getProducts = async () => {
             </div>
         </div>
     `;
-      return cardHtml;
     });
     const products = await Promise.all(productsPromises);
     const cardContainer = document.querySelector('.card-container');
