@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-  <link rel="stylesheet" href="../public/Styles/indexStyles.css">
-  <link rel="stylesheet" href="../public/Styles/stylesShoppingCart.css">
-  <script type="module" src="../Scripts/auth.js" defer></script>
-  <link rel="stylesheet" href="../public/Styles/dialog.css">
-  <link rel="stylesheet" href="../public/Styles/siteStyles.css">
-  <link rel="stylesheet" href="../public/Styles/buttonStyles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap"
+    rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="../Styles/indexStyles.css">
+  <link rel="stylesheet" href="../Styles/stylesShoppingCart.css">
+  <script  type="module" src="../Scripts/auth.js" defer></script>
+  <script src="../Scripts/cart.js" defer></script>
+  <link rel="stylesheet" href="../Styles/dialog.css">
+  <link rel="stylesheet" href="../Styles/siteStyles.css">
+  <link rel="stylesheet" href="../Styles/buttonStyles.css">
 </head>
 <body>
 <div id="dialogContainer" class="dialog-container">
@@ -29,9 +32,16 @@
         <form id="loginForm" class="form">
           <h2>Login</h2>
           <button class="exitDialog">X</button>
-          <label for="loginUsername"></label><input type="text" id="loginUsername" name="username" required placeholder="Enter username"/>
-          <label for="loginPassword"></label><input type="password" id="loginPassword" name="password" required placeholder="Enter password"/>
-          <input class="button" id="loginDialogButton" type="submit" value="Login"/>
+          <label for="loginUsername"></label><input type="text"
+                                                    id="loginUsername"
+                                                    name="username" required
+                                                    placeholder="Enter username"/>
+          <label for="loginPassword"></label><input type="password"
+                                                    id="loginPassword"
+                                                    name="password" required
+                                                    placeholder="Enter password"/>
+          <input class="button" id="loginDialogButton" type="submit"
+                 value="Login"/>
         </form>
       </div>
     </div>
@@ -41,14 +51,37 @@
         <form id="registerForm" class="form">
           <h2>Register</h2>
           <button class="exitDialog">X</button>
-          <label for="registerName"></label><input type="text" id="registerName" name="regName" required placeholder="Enter your name"/>
-          <label for="registerUsername"></label><input type="text" id="registerUsername" name="regUsername" required placeholder="Enter your username"/>
-          <label for="registerEmail"></label><input type="email" id="registerEmail" name="regEmail" required placeholder="Enter your email"/>
-          <label for="registerPassword"></label><input type="password" id="registerPassword" name="regPassword" required placeholder="Enter your password"/>
-          <label for="registerAddress"></label><input type="text" id="registerAddress" name="registerAddress" required placeholder="Enter your address"/>
-          <label for="registerZipCode"></label><input type="text" id="registerZipCode" name="regZipCode" required placeholder="Enter your postal code"/>
-          <label for="registerCity"></label><input type="text" id="registerCity" name="regCity" required placeholder="Enter your city"/>
-          <input class="button" id="registerDialogButton" type="submit" value="Register"/>
+          <label for="registerName"></label><input type="text" id="registerName"
+                                                   name="regName" required
+                                                   placeholder="Enter your name"/>
+          <label for="registerUsername"></label><input type="text"
+                                                       id="registerUsername"
+                                                       name="regUsername"
+                                                       required
+                                                       placeholder="Enter your username"/>
+          <label for="registerEmail"></label><input type="email"
+                                                    id="registerEmail"
+                                                    name="regEmail" required
+                                                    placeholder="Enter your email"/>
+          <label for="registerPassword"></label><input type="password"
+                                                       id="registerPassword"
+                                                       name="regPassword"
+                                                       required
+                                                       placeholder="Enter your password"/>
+          <label for="registerAddress"></label><input type="text"
+                                                      id="registerAddress"
+                                                      name="registerAddress"
+                                                      required
+                                                      placeholder="Enter your address"/>
+          <label for="registerZipCode"></label><input type="text"
+                                                      id="registerZipCode"
+                                                      name="regZipCode" required
+                                                      placeholder="Enter your postal code"/>
+          <label for="registerCity"></label><input type="text" id="registerCity"
+                                                   name="regCity" required
+                                                   placeholder="Enter your city"/>
+          <input class="button" id="registerDialogButton" type="submit"
+                 value="Register"/>
         </form>
       </div>
     </div>
@@ -74,11 +107,21 @@
           <a href="contact.html"><span>Contact</span></a>
         </li>
         <a href="cart.html" class="button">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="auto" height="38px">
-            <circle cx="176" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            <circle cx="400" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 80h64l48 272h256"/>
-            <path d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+               width="auto" height="38px">
+            <circle cx="176" cy="416" r="16" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="32"/>
+            <circle cx="400" cy="416" r="16" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="32"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="32"
+                  d="M48 80h64l48 272h256"/>
+            <path
+              d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128"
+              fill="none" stroke="currentColor" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="32"/>
           </svg>
         </a>
         <a class="button" id="loginButton">
@@ -87,8 +130,10 @@
       </ul>
       <div class="hamburger" id="hamburger">
             <span class="material-symbols-outlined">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
-                <path fill="white" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   width="40" height="40">
+                <path fill="white"
+                      d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
               </svg>
             </span>
       </div>
@@ -96,60 +141,36 @@
   </div>
 </header>
 <div class="middle-container">
-    <section class="side-section">
-      <div class="shopping-cart">
-        <h1>Shopping cart</h1>
-        <table>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-          <tr>
-            <td>Cool cake</td>
-            <td>1</td>
-            <td>100€</td>
-          </tr>
-          <tr>
-            <td>Cool cake</td>
-            <td>1</td>
-            <td>100€</td>
-          </tr>
-          <tr>
-            <td>Cool cake</td>
-            <td>1</td>
-            <td>100€</td>
-          </tr>
-          <tr>
-            <td>Cool cake</td>
-            <td>1</td>
-            <td>100€</td>
-          </tr>
-          <tr>
-            <th colspan="2">Total</th>
-            <th>100€</th>
-          </tr>
-        </table>
-      </div>
-    </section>
-    <section class="side-section">
-      <div class="orderFormWrapper">
-        <form id="orderForm" class="form">
-          <h2>Your Information</h2>
-          <input type="text" id="orderName" name="orderName" required placeholder="Enter your name"/>
-          <input type="text" id="orderAddress" name="orderAddress" required placeholder="Enter Address"/>
-          <input type="text" id="orderAddressNum" name="orderAddressNum" required placeholder="Enter address number"/>
-          <input type="text" id="orderZipCode" name="orderZipCode" required placeholder="Enter postal code"/>
-          <input type="text" id="orderCity" name="orderCoty" required placeholder="Enter your city"/>
-          <label for="pickUp">Pick up</label>
-          <input id="pickUp" type="radio" name="deliveryOption" value="pickUp" required="">
-          <label for="delivery">Delivery</label>
-          <input id="delivery" type="radio" name="deliveryOption" value="delivery" required="">
-          <input class="button" type="submit" value="Register"/>
-        </form>
-      </div>
+  <section class="side-section">
+    <div class="shopping-cart">
+      <h1>Shopping cart</h1>
+    </div>
+  </section>
+  <section class="side-section">
+    <div class="orderFormWrapper">
+      <form id="orderForm" class="form">
+        <h2>Your Information</h2>
+        <input type="text" id="orderName" name="orderName" required
+               placeholder="Enter your name"/>
+        <input type="text" id="orderAddress" name="orderAddress" required
+               placeholder="Enter Address"/>
+        <input type="text" id="orderAddressNum" name="orderAddressNum" required
+               placeholder="Enter address number"/>
+        <input type="text" id="orderZipCode" name="orderZipCode" required
+               placeholder="Enter postal code"/>
+        <input type="text" id="orderCity" name="orderCoty" required
+               placeholder="Enter your city"/>
+        <label for="pickUp">Pick up</label>
+        <input id="pickUp" type="radio" name="deliveryOption" value="pickUp"
+               required="">
+        <label for="delivery">Delivery</label>
+        <input id="delivery" type="radio" name="deliveryOption" value="delivery"
+               required="">
+        <input class="button" type="submit" value="Register"/>
+      </form>
+    </div>
 
-    </section>
+  </section>
 </div>
 <footer class="footer">2024 &copy;</footer>
 </body>

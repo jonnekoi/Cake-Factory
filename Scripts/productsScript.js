@@ -1,5 +1,9 @@
 'use strict';
+
 const url = 'http://localhost:3000/v1';
+const uploadUrl = 'http://localhost:3000/uploads/';
+let rows;
+
 document.addEventListener('DOMContentLoaded', async (event) => {
   await getProducts();
   cardFlip();
@@ -8,16 +12,16 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 const getProducts = async () => {
   try {
     const response = await fetch(url + '/products');
-    const rows = await response.json();
+    rows = await response.json();
 
     const productsPromises = rows.map(async (row) => {
       const pictureName = row.product_img;
+      const picture = await fetch(uploadUrl + pictureName);
       const picture = await fetch(
         `http://localhost:3000/uploads/${pictureName}`
       );
       const kuva = await picture.blob();
       const kuvaObj = URL.createObjectURL(kuva);
-      console.log(row);
       return `
         <div class="card">
             <div class="front">
@@ -25,7 +29,7 @@ const getProducts = async () => {
               <h1>${row.product_name}</h1>
               <p class="price">${row.product_price + '€'}</p>
               <p>${row.product_description}</p>
-              <p><button class="button"><span>Add to Cart</span></button></p>
+              <p><button class="addToCartButton" data-product-id="${row.product_id}"><span>Add to Cart</span></button></p>
             </div>
             <div class="back" style="display: none">
               <h2>Ingrediets</h2>
@@ -47,6 +51,36 @@ const getProducts = async () => {
     const products = await Promise.all(productsPromises);
     const cardContainer = document.querySelector('.card-container');
     cardContainer.innerHTML = products.join('');
+
+    const addToCartButton = document.querySelectorAll('.addToCartButton');
+    addToCartButton.forEach((button) => {
+      button.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const productId = parseInt(event.currentTarget.dataset.productId);
+        const product = rows.find((row) => row.product_id === productId);
+        console.log(product);
+        if (product) {
+          addToCart(product);
+        } else {
+          console.error(`Product with that id ${productId} not found`);
+        }
+      });
+    });
+
+    const addToCart = (product) => {
+      let cart = localStorage.getItem('cart');
+      cart = cart ? JSON.parse(cart) : [];
+      const productIndex = cart.findIndex(
+        (cartProduct) => cartProduct.product_id === product.product_id
+      );
+      if (productIndex !== -1) {
+        cart[productIndex].quantity = (cart[productIndex].quantity || 1) + 1;
+      } else {
+        product.quantity = 1;
+        cart.push(product);
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+    };
   } catch (error) {
     console.log('Error getting products', error);
   }
