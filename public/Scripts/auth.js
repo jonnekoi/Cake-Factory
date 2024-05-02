@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const response = await fetch( 'http://127.0.0.1:3000/v1/auth/login', fetchOptions);
     const json = await response.json();
-    console.log(json);
-    console.log(json.user);
-    if (json.user) {
+    // console.log(json);
+    // console.log(json.user);
+    if (json.result && !json.result.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.user));
       // Check if the user is an admin
@@ -67,8 +67,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         window.location.href = '/index.html';
       }
     } else {
-      // alert('login error', json.error.message);
-      console.log({error: 'Login Error'});
+      console.log('json.result:', json.result);
+      console.log('json.result.message:', json.result.message);
+      alert(json.result.message);
     }
   });
 
@@ -86,14 +87,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const response = await fetch('http://127.0.0.1:3000/v1/users', fetchOptions);
     const json = await response.json();
-    if (json.result) {
+    if (json.result && !json.result.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.result));
       // console.log('register success');
-      window.location.href = '/Cake-Factory/HTMLs/index.html';
+      dialogContainer.style.display = 'none';
+      alert('Register Success');
     } else {
       // alert('register error', json.error.message);
-      console.log({error: 'Register Error'});
+      alert(json.result.message);
     }
   });
 });

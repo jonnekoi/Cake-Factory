@@ -21,6 +21,7 @@
     "dev": "nodemon server.js",
     "test": "npx playwright test",
     "test:ui": "npm test -- --ui",
+    "codegen": "npx playwright codegen",
     "debugBackEnd": "cd ../CakeFactoryBackend && npm run dev"
   }
 ,
