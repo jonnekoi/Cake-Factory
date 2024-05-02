@@ -111,6 +111,5 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const emptyCart = document.createElement('p');
     emptyCart.innerText = 'Shopping cart is empty';
     cartContainer.appendChild(emptyCart);
-    return;
   }
 });
