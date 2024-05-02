@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const response = await fetch( 'http://127.0.0.1:3000/v1/auth/login', fetchOptions);
     const json = await response.json();
-    console.log(json);
-    console.log(json.user);
+    //console.log(json);
+    //console.log(json.user);
+    //console.log(json.result);
     if (json.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.user));
@@ -61,14 +62,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
       if (json.user.access === 'admin') {
         console.log('yesss admin');
         // Redirect to the admin page
-        window.location.href = '/Cake-Factory/HTMLs/admin.html';
+        window.location.href = '/admin.html';
       } else {
         // Redirect to the home page
-        window.location.href = '/Cake-Factory/HTMLs/index.html';
+        window.location.href = '/index.html';
       }
     } else {
-      // alert('login error', json.error.message);
-      console.log({error: 'Login Error'});
+      console.log(json.message);
     }
   });
 
@@ -90,10 +90,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.result));
       // console.log('register success');
-      window.location.href = '/Cake-Factory/HTMLs/index.html';
+      dialogContainer.style.display = 'none';
     } else {
       // alert('register error', json.error.message);
-      console.log({error: 'Register Error'});
+      console.log(json.message);
     }
   });
 });
@@ -161,7 +161,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   if (user) {
     // Writes username instead of lock
     loginButton.innerHTML = `<span>${userObj.username}</span>`;
-    loginButton.style.color = '#ffc212';
+    loginButton.style.color = '#ffca19';
 
     // Hides the firstLogin and firstRegister buttons
     firstLogin.style.display = 'none';
@@ -216,5 +216,5 @@ function logout() {
   // Remove the logout button from its parent element
   parentElement.removeChild(logoutButton);
   // Redirect to the login page
-  window.location.href = '/Cake-Factory/HTMLs/index.html';
+  window.location.href = '/index.html';
 }

@@ -12,12 +12,9 @@ const getProducts = async () => {
 
     const productsPromises = rows.map(async (row) => {
       const pictureName = row.product_img;
-      const picture = await fetch(
-        `http://localhost:3000/uploads/${pictureName}`
-      );
+      const picture = await fetch(`http://localhost:3000/uploads/${pictureName}`);
       const kuva = await picture.blob();
       const kuvaObj = URL.createObjectURL(kuva);
-      console.log(row);
       return `
         <div class="card">
             <div class="front">
@@ -28,18 +25,7 @@ const getProducts = async () => {
               <p><button class="button"><span>Add to Cart</span></button></p>
             </div>
             <div class="back" style="display: none">
-              <h2>Ingrediets</h2>
-              <p>
-  ${row.ingredients.map((ingredient) => {
-    return `${ingredient.ingredient_name}`;
-  }).join(',')}
-  </p>
-              <h2>Allergens</h2>
-   <p>
-  ${row.allergens.map((allergen) => {
-    return `${allergen.allergen_name}`;
-  }).join(',')}
-  </p>
+
             </div>
         </div>
     `;
@@ -72,3 +58,4 @@ const cardFlip = () => {
     });
   });
 };
+
