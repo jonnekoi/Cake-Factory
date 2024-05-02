@@ -13,6 +13,7 @@ const getProducts = async () => {
   try {
     const response = await fetch(url + '/products');
     rows = await response.json();
+    console.log(rows);
 
     const productsPromises = rows.map(async (row) => {
       const pictureName = row.product_img;
@@ -45,9 +46,10 @@ const getProducts = async () => {
         event.preventDefault();
         //   console.log(event.currentTarget.dataset.product);
         const product = JSON.parse(
-          decodeURIComponent(event.currentTarget.dataset.product)
+            decodeURIComponent(event.currentTarget.dataset.product),
         );
-        addToCart(product);
+        console.log(product);
+        await addToCart(product);
       });
     });
 
@@ -55,7 +57,7 @@ const getProducts = async () => {
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
       const productIndex = cart.findIndex(
-        (cartProduct) => cartProduct.product_id === product.product_id
+          (cartProduct) => cartProduct.product_id === product.product_id,
       );
       if (productIndex !== -1) {
         cart[productIndex].quantity = (cart[productIndex].quantity || 1) + 1;

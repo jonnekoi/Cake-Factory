@@ -154,7 +154,7 @@ const getAllDiscounts = async () => {
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Amount</th>
+          <th>Amount %</th>
           <th>Code</th>
           <th>Delete code</th>
         </tr>
