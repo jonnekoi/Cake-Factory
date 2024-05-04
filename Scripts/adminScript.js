@@ -215,6 +215,7 @@ const getAllOrders = async () => {
       throw new Error('Error', response.statusText);
     }
     const rows = await response.json();
+    console.log(rows);
 
     const tableHeaders =
       `<thead>
@@ -240,7 +241,7 @@ const getAllOrders = async () => {
           <td>${row.price}</td>
           <td>${row.date}</td>
           <td>${delivered}</td>
-          <td>${row.orderer.name}</td>
+          <td>${row.orderer.name}, ${row.orderer.id}</td>
         </tr>
       `;
     });
@@ -263,8 +264,6 @@ const getNotDeliveredOrders = async () => {
       throw new Error('Error', response.statusText);
     }
     const rows = await response.json();
-    console.log(rows);
-    console.log(rows);
     const tableHeaders =
       `<thead>
         <tr>
@@ -274,6 +273,7 @@ const getNotDeliveredOrders = async () => {
           <th>Status</th>
           <th>Products</th>
           <th>Orderer</th>
+          <th>Address</th>
           <th>Create Delivery</th>
         </tr>
       </thead>
@@ -290,6 +290,7 @@ const getNotDeliveredOrders = async () => {
         <td>not delivered</td>
         <td>${productNames}</td>
         <td>${row.orderer.name}</td>
+        <td>${row.orderer.street_name}, ${row.orderer.street_num}, ${row.orderer.city}, ${row.orderer.zip_code}</td>
         <td><button type="button" class="button" data-order-id="${row.id}">Deliver</button></td>
       </tr>
     `;
