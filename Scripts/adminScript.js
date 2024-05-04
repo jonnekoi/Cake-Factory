@@ -263,7 +263,8 @@ const getNotDeliveredOrders = async () => {
       throw new Error('Error', response.statusText);
     }
     const rows = await response.json();
-
+    console.log(rows);
+    console.log(rows);
     const tableHeaders =
       `<thead>
         <tr>
@@ -271,6 +272,7 @@ const getNotDeliveredOrders = async () => {
           <th>Price €</th>
           <th>Date</th>
           <th>Status</th>
+          <th>Products</th>
           <th>Orderer</th>
           <th>Create Delivery</th>
         </tr>
@@ -279,12 +281,14 @@ const getNotDeliveredOrders = async () => {
     const tableRows = rows
         .filter((row) => row.status === 0)
         .map((row) => {
+          const productNames = row.products.map((product) => product.name).join(', ');
           return `
-      <tr>
+      <tr order-id="${row.id}">
         <td>${row.id}</td>
         <td>${row.price}</td>
         <td>${row.date}</td>
         <td>not delivered</td>
+        <td>${productNames}</td>
         <td>${row.orderer.name}</td>
         <td><button type="button" class="button" data-order-id="${row.id}">Deliver</button></td>
       </tr>
@@ -581,7 +585,6 @@ const getProductById = async (id) => {
 };
 
 const createProductCard = (product, image) => {
-  console.log(product);
   const dialogContainer = document.createElement('div');
   dialogContainer.style.position = 'fixed';
   dialogContainer.style.top = '50%';
