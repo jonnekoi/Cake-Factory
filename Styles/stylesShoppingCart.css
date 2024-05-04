@@ -11,11 +11,10 @@ h1 {
 }
 
 table {
-  border-radius: 10px;
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 }
 
 .quantityButton {
@@ -71,6 +70,14 @@ tr.total-row td {
 }
 
 #orderFormWrapper{
+  width: 100%;
+}
+
+#orderForm {
+  background-color: #89b4db;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {

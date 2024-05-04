@@ -13,6 +13,7 @@ let user = null;
 document.addEventListener('DOMContentLoaded', async (event) => {
   event.preventDefault();
   const submitForm = document.createElement('button');
+  submitForm.classList.add('button');
   submitForm.innerText = 'Order';
   orderForm.appendChild(submitForm);
   if (sessionStorage.getItem('user') !== null) {
@@ -208,3 +209,4 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     }
   });
 });
+
