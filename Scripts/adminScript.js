@@ -240,7 +240,7 @@ const getAllOrders = async () => {
           <td>${row.price}</td>
           <td>${row.date}</td>
           <td>${delivered}</td>
-          <td>${row.orderer}</td>
+          <td>${row.orderer.name}</td>
         </tr>
       `;
     });
@@ -285,7 +285,7 @@ const getNotDeliveredOrders = async () => {
         <td>${row.price}</td>
         <td>${row.date}</td>
         <td>not delivered</td>
-        <td>${row.orderer}</td>
+        <td>${row.orderer.name}</td>
         <td><button type="button" class="button" data-order-id="${row.id}">Deliver</button></td>
       </tr>
     `;
@@ -342,6 +342,7 @@ const getAllUsers = async () => {
           <th>City</th>
           <th>Username</th>
           <th>Access</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>`;
@@ -356,6 +357,7 @@ const getAllUsers = async () => {
           <td>${row.city}</td>
           <td>${row.username}</td>
           <td>${row.access}</td>
+          <td><button type="button" class="button" id="${row.id}">Delete</button></td>
         </tr>
       `;
       });
@@ -366,6 +368,28 @@ const getAllUsers = async () => {
       const tableContainer = document.querySelector('.container');
       table.classList.add('table');
       tableContainer.appendChild(table);
+      const deleteBtn = document.querySelectorAll('.button');
+
+      deleteBtn.forEach((button) => {
+        button.addEventListener('click', async function() {
+          // eslint-disable-next-line no-invalid-this
+          const id = this.getAttribute('id');
+          // eslint-disable-next-line no-invalid-this
+          const isConfirm = this.getAttribute('data-confirm');
+          if (!isConfirm) {
+            // eslint-disable-next-line no-invalid-this
+            this.textContent = 'Confirm';
+            // eslint-disable-next-line no-invalid-this
+            this.setAttribute('data-confirm', true);
+          } else {
+            await deleteUser(id);
+            // eslint-disable-next-line no-invalid-this
+            this.textContent = 'Delete';
+            // eslint-disable-next-line no-invalid-this
+            this.removeAttribute('data-confirm');
+          }
+        });
+      });
     }
   } catch (error) {
     console.log('error gettin all users', error);
@@ -1004,6 +1028,26 @@ const deleteCode = async (id) => {
       alert('Error deleting code');
     } else {
       alert('Code deleted!');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteUser = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+  };
+  try {
+    const response = await fetch(url + `/users/${id}`, options);
+    if (!response.ok) {
+      alert('Error deleting user');
+    } else {
+      alert('User deleted!');
     }
   } catch (error) {
     console.log(error);
