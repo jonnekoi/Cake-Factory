@@ -73,3 +73,21 @@ tr.total-row td {
 #orderFormWrapper{
 }
 
+@media screen and (max-width: 768px) {
+  .middle-container {
+    overflow-y: auto;
+    flex-direction: column;
+  }
+
+  .shopping-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 20px;
+  }
+
+  .shopping-cart h1 {
+    display: none;
+  }
+}

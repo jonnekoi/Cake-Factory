@@ -3,18 +3,12 @@
   border: none;
 }
 
-body {
-  background-image: url('../Styles/images/banner.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .contact-container {
   text-align: center;
 }
 
 .contact-container h1, h2, p, a {
-  color: black;
+  color: white;
   font-family: 'Sacramento', cursive;
 }
 
@@ -38,7 +32,7 @@ body {
 .contact-link {
   display: block;
   margin-top: 10px;
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: bold;
 }
