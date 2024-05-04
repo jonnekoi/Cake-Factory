@@ -21,7 +21,7 @@ body, html {
   width: 100vw;
   align-items: center;
   border-bottom: 3px solid #0f66b5;
-  background-color: #212121;
+  background-image: radial-gradient(circle at center center, rgba(33,33,33,0),rgb(33,33,33)),repeating-linear-gradient(135deg, rgb(33,33,33) 0px, rgb(33,33,33) 1px,transparent 1px, transparent 4px),repeating-linear-gradient(45deg, rgb(56,56,56) 0px, rgb(56,56,56) 5px,transparent 5px, transparent 6px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
   z-index: 100;
 }
 
@@ -40,11 +40,11 @@ body, html {
 
 .logo img {
   height: auto;
-  transition: filter 0.3s; /* Add smooth transition */
+  transition: filter 0.3s;
 }
 
 .logo:hover img {
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)); /* Adjust glow color and intensity on hover */
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
 }
 
 .logo:hover{

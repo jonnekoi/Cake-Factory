@@ -32,18 +32,18 @@ const getProducts = async () => {
               <h2>Ingrediets</h2>
               <p>
   ${row.ingredients
-    .map((ingredient) => {
-      return `${ingredient.ingredient_name}`;
-    })
-    .join(',')}
+      .map((ingredient) => {
+        return `${ingredient.ingredient_name}`;
+      })
+      .join(',')}
   </p>
               <h2>Allergens</h2>
    <p>
   ${row.allergens
-    .map((allergen) => {
-      return `${allergen.allergen_name}`;
-    })
-    .join(',')}
+      .map((allergen) => {
+        return `${allergen.allergen_name}`;
+      })
+      .join(',')}
   </p>
             </div>
         </div>
@@ -72,7 +72,7 @@ const getProducts = async () => {
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
       const productIndex = cart.findIndex(
-        (cartProduct) => cartProduct.product_id === product.product_id
+          (cartProduct) => cartProduct.product_id === product.product_id,
       );
       if (productIndex !== -1) {
         cart[productIndex].quantity = (cart[productIndex].quantity || 1) + 1;
@@ -88,22 +88,34 @@ const getProducts = async () => {
 };
 
 const cardFlip = () => {
+  // eslint-disable-next-line max-len
+  let flippedCard = null;
+
   const cards = document.querySelectorAll('.card');
   cards.forEach((card) => {
     card.addEventListener('click', () => {
-      const front = card.querySelector('.front');
-      const back = card.querySelector('.back');
-      card.classList.toggle('back');
-      if (card.classList.contains('back')) {
-        front.style.display = 'none';
-        back.style.display = 'block';
-      } else {
-        back.style.display = 'none';
-        setTimeout(() => {
-          front.style.display = 'block';
-          // eslint-disable-next-line max-len
-        }, 300); // Kortin kääntymisen delay -> kuinka nopeasti front puoli näkyy taas
+      if (flippedCard && flippedCard !== card) {
+        flipCard(flippedCard);
       }
+      flipCard(card);
+      flippedCard = card;
     });
   });
 };
+
+const flipCard = (card) => {
+  const front = card.querySelector('.front');
+  const back = card.querySelector('.back');
+  card.classList.toggle('back');
+
+  if (card.classList.contains('back')) {
+    front.style.display = 'none';
+    back.style.display = 'block';
+  } else {
+    back.style.display = 'none';
+    setTimeout(() => {
+      front.style.display = 'block';
+    }, 300); // aika flippaukseen
+  }
+};
+

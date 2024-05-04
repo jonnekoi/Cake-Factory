@@ -3,12 +3,18 @@
   display: inline-block;
 }
 
+body {
+  background-image: url('../Styles/images/banner.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .navLink a span:hover{
   text-shadow: 0 0 15px #ffffff;
 }
 
 .footer {
-  background-color: #212121;
+  background-image: radial-gradient(circle at center center, rgba(33,33,33,0),rgb(33,33,33)),repeating-linear-gradient(135deg, rgb(33,33,33) 0px, rgb(33,33,33) 1px,transparent 1px, transparent 4px),repeating-linear-gradient(45deg, rgb(56,56,56) 0px, rgb(56,56,56) 5px,transparent 5px, transparent 6px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
   color: white;
   position: fixed;
   bottom: 0;
@@ -33,7 +39,7 @@
   flex: 1;
   overflow-y: auto;
   margin-top: 120px;
-  margin-bottom: 80px;
+  margin-bottom: 63px;
 }
 
 .card-container {
