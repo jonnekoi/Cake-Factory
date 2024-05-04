@@ -88,7 +88,6 @@ const getProducts = async () => {
 };
 
 const cardFlip = () => {
-  // eslint-disable-next-line max-len
   let flippedCard = null;
 
   const cards = document.querySelectorAll('.card');
@@ -96,9 +95,14 @@ const cardFlip = () => {
     card.addEventListener('click', () => {
       if (flippedCard && flippedCard !== card) {
         flipCard(flippedCard);
+        flippedCard = null;
+      } else if (flippedCard === card) {
+        flipCard(card);
+        flippedCard = null;
+      } else {
+        flipCard(card);
+        flippedCard = card;
       }
-      flipCard(card);
-      flippedCard = card;
     });
   });
 };
@@ -115,7 +119,8 @@ const flipCard = (card) => {
     back.style.display = 'none';
     setTimeout(() => {
       front.style.display = 'block';
-    }, 300); // aika flippaukseen
+    }, 300); // Time for flipping
   }
 };
+
 
