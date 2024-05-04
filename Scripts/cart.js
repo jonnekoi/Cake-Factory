@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       const decrementButton = document.createElement('button');
       decrementButton.textContent = '-';
       decrementButton.classList.add('quantityButton');
-      deleteImg.setAttribute('src', './Styles/images/delete.svg');
+      deleteImg.setAttribute('src', '../Styles/images/delete.svg');
 
       const quantitySpan = document.createElement('span');
       quantitySpan.textContent = product.quantity;
@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       const totalTd = document.createElement('td');
       const deleteProduct = document.createElement('button');
       const deleteTd = document.createElement('td');
+      deleteProduct.style.background = 'none';
+      deleteProduct.style.border = 'none';
+      deleteProduct.style.cursor = 'pointer';
 
       incrementButton.addEventListener('click', () => {
         product.quantity++;
@@ -87,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       deleteProduct.addEventListener('click', () => {
         productsOnCart = productsOnCart.filter(
-          (p) => p.product_id !== product.product_id
+            (p) => p.product_id !== product.product_id,
         );
         localStorage.setItem('cart', JSON.stringify(productsOnCart));
         location.reload();
@@ -112,10 +115,12 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const empty2 = document.createElement('th');
     const clear = document.createElement('button');
     const cleatTh = document.createElement('th');
+    clear.classList.add('button');
+    clear.style.padding = '0px';
     clear.innerText = 'Clear';
     cleatTh.appendChild(clear);
     grandTotalSum.textContent = grandTotal + '€';
-    grandTotalTh.textContent = 'Grand Total';
+    grandTotalTh.textContent = 'Total';
     cartTable.append(cleatTh, empty, empty2, grandTotalTh, grandTotalSum);
     cartContainer.appendChild(cartTable);
 
