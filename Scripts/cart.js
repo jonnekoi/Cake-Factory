@@ -194,6 +194,11 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     console.log(jsonResult);
     if (result.ok) {
       localStorage.removeItem('cart');
+      document.querySelector('#orderName').value = '';
+      document.querySelector('#orderAddress').value = '';
+      document.querySelector('#orderAddressNum').value = '';
+      document.querySelector('#orderZipCode').value = '';
+      document.querySelector('#orderCity').value = '';
       location.reload();
     }
   });
