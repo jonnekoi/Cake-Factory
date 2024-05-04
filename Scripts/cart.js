@@ -1,14 +1,31 @@
 'use strict';
 
+const URL = 'http://localhost:3000/v1/orders/';
 const cartTable = document.createElement('table');
 const cartContainer = document.querySelector('.shopping-cart');
 const grandTotalSum = document.createElement('th');
 let grandTotal = 0;
+const orderForm = document.querySelector('#orderForm');
+let productsOnCart = null;
+let price = 0;
+let user = null;
 
 document.addEventListener('DOMContentLoaded', async (event) => {
   event.preventDefault();
+  const submitForm = document.createElement('button');
+  submitForm.innerText = 'Order';
+  orderForm.appendChild(submitForm);
+  if (sessionStorage.getItem('user') !== null) {
+    user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(user);
+    document.querySelector('#orderName').value = user.name;
+    document.querySelector('#orderAddress').value = user.street_name;
+    document.querySelector('#orderAddressNum').value = user.street_num;
+    document.querySelector('#orderZipCode').value = user.zip_code;
+    document.querySelector('#orderCity').value = user.city;
+  }
   try {
-    const productsOnCart = JSON.parse(localStorage.getItem('cart'));
+    productsOnCart = JSON.parse(localStorage.getItem('cart'));
 
     const productTh = document.createElement('th');
     const priceTh = document.createElement('th');
@@ -112,4 +129,72 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     emptyCart.innerText = 'Shopping cart is empty';
     cartContainer.appendChild(emptyCart);
   }
+
+  submitForm.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const name = document.querySelector('#orderName').value;
+    const streetName = document.querySelector('#orderAddress').value;
+    const streetNum = document.querySelector('#orderAddressNum').value;
+    const zipCode = document.querySelector('#orderZipCode').value;
+    const city = document.querySelector('#orderCity').value;
+
+    if (!productsOnCart || productsOnCart.length === 0) {
+      alert('Shopping cart is empty.');
+      return;
+    }
+
+    if (!name || !streetName || !streetNum || !zipCode || !city) {
+      alert('Please fill in all the fields.');
+      return;
+    }
+
+    const products = [];
+    productsOnCart.forEach((p) => {
+      if (p.quantity > 1) {
+        for (let i = 0; i < p.quantity; i++) {
+          products.push(p.product_id);
+        }
+        price += p.product_price * p.quantity;
+        return;
+      }
+      products.push(p.product_id);
+      price += p.product_price;
+    });
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const data = {
+      price: price,
+      date: `${year}-${month}-${day}`,
+      products: products,
+    };
+
+    const token = sessionStorage.getItem('token');
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    if (token) {
+      options.headers.Authorization = 'Bearer ' + token;
+    }
+    data.name = name;
+    data.street_name = streetName;
+    data.street_num = streetNum;
+    data.zip_code = zipCode;
+    data.city = city;
+    options.body = JSON.stringify(data);
+    const result = await fetch(URL, options);
+    const jsonResult = await result.json();
+    console.log(jsonResult);
+    if (result.ok) {
+      localStorage.removeItem('cart');
+      location.reload();
+    }
+  });
 });
