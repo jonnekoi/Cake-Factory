@@ -1,4 +1,10 @@
 'use strict';
+import {updateCartCount} from './functions.js';
+
+addEventListener('DOMContentLoaded', (event) => {
+  event.preventDefault();
+  updateCartCount();
+});
 
 // eslint-disable-next-line no-unused-vars
 function toggleVisibilityAndContact(elementId, link) {
@@ -6,7 +12,7 @@ function toggleVisibilityAndContact(elementId, link) {
   if (element) {
     element.classList.toggle('hidden');
   }
-  setTimeout(function() {
+  setTimeout(function () {
     window.location.href = link;
   }, 500);
 }

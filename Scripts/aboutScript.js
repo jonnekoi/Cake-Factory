@@ -1,3 +1,5 @@
-/* eslint-disable linebreak-style */
-'use strict';
+import {updateCartCount} from './functions.js';
 
+addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+});

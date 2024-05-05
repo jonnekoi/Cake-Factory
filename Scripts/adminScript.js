@@ -24,7 +24,7 @@ const clearContent = () => {
   links.innerHTML = '';
 };
 
-adminDiscountButton.addEventListener('click', async function() {
+adminDiscountButton.addEventListener('click', async function () {
   clearContent();
   const ulElement = document.querySelector('#navLinks');
   const allCodes = document.createElement('li');
@@ -35,25 +35,25 @@ adminDiscountButton.addEventListener('click', async function() {
   ulElement.appendChild(allCodes);
   ulElement.appendChild(createCode);
 
-  allCodes.addEventListener('click', async function() {
+  allCodes.addEventListener('click', async function () {
     await getAllDiscounts();
     ulElement.removeChild(createCode);
     ulElement.removeChild(allCodes);
   });
 
-  createCode.addEventListener('click', async function() {
+  createCode.addEventListener('click', async function () {
     await createNewCode();
     ulElement.removeChild(createCode);
     ulElement.removeChild(allCodes);
   });
 });
 
-adminDeliverOrder.addEventListener('click', async function() {
+adminDeliverOrder.addEventListener('click', async function () {
   clearContent();
   await getNotDeliveredOrders();
 });
 
-adminOrdersButton.addEventListener('click', async function() {
+adminOrdersButton.addEventListener('click', async function () {
   clearContent();
   const ulElement = document.querySelector('#navLinks');
   const allOrders = document.createElement('li');
@@ -71,13 +71,13 @@ adminOrdersButton.addEventListener('click', async function() {
   oneOrder.appendChild(submitButton);
   ulElement.appendChild(oneOrder);
 
-  allOrders.addEventListener('click', async function() {
+  allOrders.addEventListener('click', async function () {
     await getAllOrders();
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
   });
 
-  submitButton.addEventListener('click', async function() {
+  submitButton.addEventListener('click', async function () {
     const id = inputField.value;
     if (isNaN(id)) {
       inputField.value = '';
@@ -91,7 +91,7 @@ adminOrdersButton.addEventListener('click', async function() {
   });
 });
 
-adminUsersButton.addEventListener('click', async function() {
+adminUsersButton.addEventListener('click', async function () {
   clearContent();
   const ulElement = document.querySelector('#navLinks');
   const allUsers = document.createElement('li');
@@ -109,12 +109,12 @@ adminUsersButton.addEventListener('click', async function() {
   oneUser.appendChild(submitButton);
   ulElement.appendChild(oneUser);
 
-  allUsers.addEventListener('click', async function() {
+  allUsers.addEventListener('click', async function () {
     await getAllUsers();
     ulElement.removeChild(allUsers);
     ulElement.removeChild(oneUser);
   });
-  submitButton.addEventListener('click', async function() {
+  submitButton.addEventListener('click', async function () {
     const id = inputField.value;
     await getUserById(id);
     ulElement.removeChild(allUsers);
@@ -122,12 +122,12 @@ adminUsersButton.addEventListener('click', async function() {
   });
 });
 
-adminProductsButton.addEventListener('click', async function() {
+adminProductsButton.addEventListener('click', async function () {
   clearContent();
   await getAllProducts();
 });
 
-adminAddProduct.addEventListener('click', async function() {
+adminAddProduct.addEventListener('click', async function () {
   clearContent();
   const existingForm = document.querySelector('.container form');
   if (existingForm) {
@@ -136,7 +136,7 @@ adminAddProduct.addEventListener('click', async function() {
   await createAddProductForm();
 });
 
-adminAddIng.addEventListener('click', async function() {
+adminAddIng.addEventListener('click', async function () {
   clearContent();
   await createAddIngForm();
 });
@@ -149,8 +149,7 @@ const getAllDiscounts = async () => {
     }
     const rows = await response.json();
 
-    const tableHeaders =
-      `<thead>
+    const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -182,7 +181,7 @@ const getAllDiscounts = async () => {
 
     const deleteButtons = document.querySelectorAll('.button');
     deleteButtons.forEach((button) => {
-      button.addEventListener('click', async function() {
+      button.addEventListener('click', async function () {
         // eslint-disable-next-line no-invalid-this
         const codeId = this.getAttribute('code-id');
         // eslint-disable-next-line no-invalid-this
@@ -217,8 +216,7 @@ const getAllOrders = async () => {
     const rows = await response.json();
     console.log(rows);
 
-    const tableHeaders =
-      `<thead>
+    const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Price €</th>
@@ -229,7 +227,7 @@ const getAllOrders = async () => {
       </thead>
       <tbody>`;
     let delivered = '';
-    const tableRows = rows.map((row)=> {
+    const tableRows = rows.map((row) => {
       if (row.status === 0) {
         delivered = 'not delivered';
       } else {
@@ -264,8 +262,7 @@ const getNotDeliveredOrders = async () => {
       throw new Error('Error', response.statusText);
     }
     const rows = await response.json();
-    const tableHeaders =
-      `<thead>
+    const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Price €</th>
@@ -279,10 +276,12 @@ const getNotDeliveredOrders = async () => {
       </thead>
       <tbody>`;
     const tableRows = rows
-        .filter((row) => row.status === 0)
-        .map((row) => {
-          const productNames = row.products.map((product) => product.name).join(', ');
-          return `
+      .filter((row) => row.status === 0)
+      .map((row) => {
+        const productNames = row.products
+          .map((product) => product.name)
+          .join(', ');
+        return `
       <tr order-id="${row.id}">
         <td>${row.id}</td>
         <td>${row.price}</td>
@@ -294,7 +293,7 @@ const getNotDeliveredOrders = async () => {
         <td><button type="button" class="button" data-order-id="${row.id}">Deliver</button></td>
       </tr>
     `;
-        });
+      });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
     const table = document.createElement('table');
@@ -305,7 +304,7 @@ const getNotDeliveredOrders = async () => {
     const deliverButtons = document.querySelectorAll('.button');
 
     deliverButtons.forEach((button) => {
-      button.addEventListener('click', async function() {
+      button.addEventListener('click', async function () {
         // eslint-disable-next-line no-invalid-this
         const orderId = this.getAttribute('data-order-id');
         // eslint-disable-next-line no-invalid-this
@@ -336,8 +335,7 @@ const getAllUsers = async () => {
       throw new Error('Error', response.statusText);
     } else {
       const rows = await response.json();
-      const tableHeaders =
-        `<thead>
+      const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -351,7 +349,7 @@ const getAllUsers = async () => {
         </tr>
       </thead>
       <tbody>`;
-      const tableRows = rows.map((row)=> {
+      const tableRows = rows.map((row) => {
         return `
         <tr>
           <td>${row.id}</td>
@@ -376,7 +374,7 @@ const getAllUsers = async () => {
       const deleteBtn = document.querySelectorAll('.button');
 
       deleteBtn.forEach((button) => {
-        button.addEventListener('click', async function() {
+        button.addEventListener('click', async function () {
           // eslint-disable-next-line no-invalid-this
           const id = this.getAttribute('id');
           // eslint-disable-next-line no-invalid-this
@@ -408,8 +406,7 @@ const getUserById = async (id) => {
       throw new Error('Error', response.statusText);
     } else {
       const rows = await response.json();
-      const tableHeaders =
-        `<thead>
+      const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -422,7 +419,7 @@ const getUserById = async (id) => {
         </tr>
       </thead>
       <tbody>`;
-      const tableRows = rows.map((row)=> {
+      const tableRows = rows.map((row) => {
         return `
         <tr>
           <td>${row.id}</td>
@@ -449,15 +446,14 @@ const getUserById = async (id) => {
   }
 };
 
-const getOrderById = async (id) =>{
+const getOrderById = async (id) => {
   try {
     const response = await fetch(url + `/orders/${id}`, options);
     if (!response.ok) {
       throw new Error('Error', response.statusText);
     }
     const rows = await response.json();
-    const tableHeaders =
-        `<thead>
+    const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Price €</th>
@@ -468,7 +464,7 @@ const getOrderById = async (id) =>{
       </thead>
       <tbody>`;
     let delivered = '';
-    const tableRows = rows.map((row)=> {
+    const tableRows = rows.map((row) => {
       if (row.status === 0) {
         delivered = 'not delivered';
       } else {
@@ -501,8 +497,7 @@ const getAllProducts = async () => {
     const response = await fetch(url + '/products');
     const rows = await response.json();
     console.log(rows);
-    const tableHeaders =
-      `<thead>
+    const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -511,12 +506,12 @@ const getAllProducts = async () => {
         </tr>
       </thead>
       <tbody>`;
-    const tableRows = rows.map((row)=> {
+    const tableRows = rows.map((row) => {
       return `
         <tr product-id="${row.product_id}">
           <td>${row.product_id}</td>
           <td>${row.product_name}</td>
-          <td>${row.product_price}</td>
+          <td>${row.product_price}€</td>
           <td>${row.product_description}</td>
         </tr>
       `;
@@ -551,7 +546,7 @@ const deliverOrder = async (id) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
   };
 
@@ -595,11 +590,13 @@ const createProductCard = (product, image) => {
   dialogContainer.style.padding = '20px';
   dialogContainer.style.borderRadius = '10px';
   dialogContainer.style.zIndex = '1000';
-  dialogContainer.style.width = '50%';
-  dialogContainer.style.height = '50%';
+  dialogContainer.style.width = 'auto';
+  dialogContainer.style.height = 'auto';
   dialogContainer.style.display = 'flex';
   dialogContainer.style.alignItems = 'center';
   dialogContainer.style.border = '3px solid #0f66b5';
+  dialogContainer.style.overflowY = 'auto';
+  dialogContainer.style.maxHeight = '100vh';
 
   const form = document.createElement('form');
   form.style.width = '100%';
@@ -681,12 +678,12 @@ const createProductCard = (product, image) => {
   dialogContainer.appendChild(rightSide);
   document.body.appendChild(dialogContainer);
 
-  ExitButton.addEventListener('click', function() {
+  ExitButton.addEventListener('click', function () {
     document.body.removeChild(dialogContainer);
     document.querySelector('.wrapper').classList.remove('blur');
   });
 
-  deleteProdBtn.addEventListener('click', function() {
+  deleteProdBtn.addEventListener('click', function () {
     const idValue = product['id'];
     deleteProduct(idValue);
     document.body.removeChild(dialogContainer);
@@ -710,7 +707,7 @@ const createProductCard = (product, image) => {
     document.querySelector('.wrapper').classList.remove('blur');
   });
 
-  IngredientsBtn.addEventListener('click', function() {
+  IngredientsBtn.addEventListener('click', function () {
     form.style.display = 'none';
     buttonsDiv.style.display = 'none';
   });
@@ -721,7 +718,7 @@ const updateProduct = async (product, id) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
     body: product,
   };
@@ -738,13 +735,12 @@ const updateProduct = async (product, id) => {
   }
 };
 
-
 const deleteProduct = async (id) => {
   const options = {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
   };
   try {
@@ -888,7 +884,7 @@ const createAddIngForm = async () => {
   const container = document.querySelector('.container');
   container.appendChild(form);
 
-  form.addEventListener('submit', async function(event) {
+  form.addEventListener('submit', async function (event) {
     event.preventDefault();
     const ingredientName = nameInput.value;
     const ingredientPrice = priceInput.value;
@@ -908,7 +904,7 @@ const sendIngredient = async (item) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
     body: JSON.stringify(item),
   };
@@ -930,7 +926,7 @@ const addProduct = async (formData) => {
   const options = {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
     body: formData,
   };
@@ -1000,7 +996,7 @@ const addCode = async (data) => {
   const options = {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
@@ -1023,7 +1019,7 @@ const deleteCode = async (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
   };
   try {
@@ -1043,7 +1039,7 @@ const deleteUser = async (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
   };
   try {

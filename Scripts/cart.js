@@ -1,14 +1,25 @@
 'use strict';
 
 const URL = 'http://localhost:3000/v1/orders/';
+const URL2 = 'http://localhost:3000/v1/discounts/';
 const cartTable = document.createElement('table');
 const cartContainer = document.querySelector('.shopping-cart');
 const grandTotalSum = document.createElement('th');
+const cartH1 = document.querySelector('h1');
 let grandTotal = 0;
 const orderForm = document.querySelector('#orderForm');
 let productsOnCart = null;
 let price = 0;
 let user = null;
+cartH1.style.textShadow = '2px 2px 4px #000000';
+
+const emptyCart = () => {
+  const emptyCart = document.createElement('p');
+  emptyCart.style.color = 'white';
+  emptyCart.style.textShadow = '2px 2px 4px #000000';
+  emptyCart.innerText = 'Shopping cart is empty';
+  cartContainer.appendChild(emptyCart);
+};
 
 document.addEventListener('DOMContentLoaded', async (event) => {
   event.preventDefault();
@@ -26,6 +37,10 @@ document.addEventListener('DOMContentLoaded', async (event) => {
   }
   try {
     productsOnCart = JSON.parse(localStorage.getItem('cart'));
+    if (productsOnCart.length === 0) {
+      cartTable.style.display = 'none';
+      emptyCart();
+    }
 
     const productTh = document.createElement('th');
     const priceTh = document.createElement('th');
@@ -66,6 +81,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       incrementButton.addEventListener('click', () => {
         product.quantity++;
         decrementButton.disabled = false;
+        decrementButton.style.cursor = 'pointer';
         quantitySpan.textContent = product.quantity;
         totalTd.textContent = product.product_price * product.quantity + '€';
         grandTotal += product.product_price;
@@ -77,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       decrementButton.addEventListener('click', () => {
         if (product.quantity <= 1) {
           decrementButton.disabled = true;
+          decrementButton.style.cursor = 'default';
           return;
         }
         product.quantity--;
@@ -90,10 +107,16 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       deleteProduct.addEventListener('click', () => {
         productsOnCart = productsOnCart.filter(
-            (p) => p.product_id !== product.product_id,
+          (p) => p.product_id !== product.product_id
         );
         localStorage.setItem('cart', JSON.stringify(productsOnCart));
-        location.reload();
+        tr.remove();
+        grandTotal -= product.product_price * product.quantity;
+        grandTotalSum.textContent = grandTotal + '€';
+        if (productsOnCart.length === 0) {
+          cartTable.style.display = 'none';
+          emptyCart();
+        }
       });
 
       nameTd.textContent = product.product_name;
@@ -102,7 +125,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       totalTd.textContent = product.product_price * product.quantity + '€';
       grandTotal += product.product_price * product.quantity;
       deleteProduct.appendChild(deleteImg);
-      // deleteProduct.textContent = ;
       deleteTd.appendChild(deleteProduct);
 
       tr.append(nameTd, priceTd, quantityTd, deleteTd, totalTd);
@@ -115,6 +137,13 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const empty2 = document.createElement('th');
     const clear = document.createElement('button');
     const cleatTh = document.createElement('th');
+    const discountCode = document.createElement('input');
+    const discountButton = document.createElement('button');
+    discountButton.innerText = 'Check';
+    discountCode.setAttribute('type', 'text');
+    discountCode.placeholder = 'Type discount code';
+    empty2.appendChild(discountButton);
+    empty.appendChild(discountCode);
     clear.classList.add('button');
     clear.style.padding = '0px';
     clear.innerText = 'Clear';
@@ -124,15 +153,38 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     cartTable.append(cleatTh, empty, empty2, grandTotalTh, grandTotalSum);
     cartContainer.appendChild(cartTable);
 
+    discountButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const payload = {
+        code: discountCode.value,
+      };
+      const options = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      };
+
+      const res = await fetch(URL2, options);
+      const data = await res.json();
+      if (!res.ok) {
+        grandTotalSum.textContent = grandTotal + '€';
+        console.log('Invalid code');
+      } else {
+        const newSum =
+          grandTotal - (grandTotal * data.response.result.amount) / 100;
+        grandTotalSum.textContent = `${newSum}€`;
+      }
+    });
+
     clear.addEventListener('click', () => {
       productsOnCart.splice(0, productsOnCart.length);
       localStorage.setItem('cart', productsOnCart);
       location.reload();
     });
   } catch (err) {
-    const emptyCart = document.createElement('p');
-    emptyCart.innerText = 'Shopping cart is empty';
-    cartContainer.appendChild(emptyCart);
+    emptyCart();
   }
 
   submitForm.addEventListener('click', async (event) => {
