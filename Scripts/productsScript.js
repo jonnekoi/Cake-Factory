@@ -15,7 +15,6 @@ const getProducts = async () => {
   try {
     const response = await fetch(url + '/products');
     rows = await response.json();
-
     const productsPromises = rows.map(async (row) => {
       const pictureName = row.product_img;
       const picture = await fetch(uploadUrl + pictureName);
