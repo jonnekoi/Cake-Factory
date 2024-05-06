@@ -1,5 +1,5 @@
 import serializeJson from './serialize.js';
-import appendInfoToElement from './utils.js';
+import populateProfile from './utils.js';
 
 'use strict';
 
@@ -26,6 +26,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         dialogContainer.style.display = 'none';
       });
     });
+    const user = sessionStorage.getItem('user');
+    if (user) {
+      document.querySelector('.dialog').classList.add('profile-dialog');
+      document.querySelector('.exitDialog').addEventListener('click', () => {
+        const dialog = document.querySelector('.dialog');
+        if (dialog.classList.contains('profile-dialog')) {
+          dialog.classList.remove('profile-dialog');
+        }
+      });
+    }
   });
 
   firstLogin.addEventListener('click', function() {
@@ -167,34 +177,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     firstLogin.style.display = 'none';
     firstRegister.style.display = 'none';
 
-
-    // Populates dialog box with user info
-    const dialog = document.querySelector('#firstDialog');
-    appendInfoToElement(
-        'Profile',
-        dialog,
-        {color: '#f1e9dd', bold: true});
-    appendInfoToElement(`${userObj.name}`,
-        dialog,
-        {heading: 'Name', color: '#f1e9dd', img: true});
-    appendInfoToElement(
-        `${userObj.street_name}`,
-        dialog,
-        {heading: 'Street name', color: '#f1e9dd', img: true},
-    );
-
-    appendInfoToElement(`${userObj.street_num}`,
-        dialog,
-        {heading: 'Street number', color: '#f1e9dd', img: true});
-    appendInfoToElement(
-        `${userObj.city}`,
-        dialog,
-        {heading: 'City', color: '#f1e9dd', img: true},
-    );
-    appendInfoToElement(`${userObj.zip_code}`,
-        dialog,
-        {heading: 'Zip Code', color: '#f1e9dd', img: true});
-
+    populateProfile();
 
     // Logout button
     // Create a new 'a' element

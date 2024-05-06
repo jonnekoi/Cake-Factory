@@ -38,6 +38,12 @@ h2{
   border-radius: 5px;
 }
 
+.dialog.profile-dialog {
+  width: 26vw;
+  height: 35vh;
+  overflow-y: auto;
+}
+
 .form-wrapper{
   display: flex;
   justify-content: center;
