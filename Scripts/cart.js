@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       deleteProduct.addEventListener('click', () => {
         productsOnCart = productsOnCart.filter(
-          (p) => p.product_id !== product.product_id
+            (p) => p.product_id !== product.product_id,
         );
         localStorage.setItem('cart', JSON.stringify(productsOnCart));
         tr.remove();
@@ -140,12 +140,16 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const discountCode = document.createElement('input');
     const discountButton = document.createElement('button');
     discountButton.innerText = 'Check';
+    discountButton.classList.add('button');
+    discountButton.style.border = '1px solid #0f66b5';
+    discountButton.style.borderRadius = '10px';
     discountCode.setAttribute('type', 'text');
     discountCode.placeholder = 'Type discount code';
     empty2.appendChild(discountButton);
     empty.appendChild(discountCode);
     clear.classList.add('button');
-    clear.style.padding = '0px';
+    clear.style.border = '1px solid #0f66b5';
+    clear.style.borderRadius = '10px';
     clear.innerText = 'Clear';
     cleatTh.appendChild(clear);
     grandTotalSum.textContent = grandTotal + '€';

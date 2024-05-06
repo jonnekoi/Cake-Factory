@@ -33,18 +33,18 @@ const getProducts = async () => {
               <h2>Ingrediets</h2>
               <p>
   ${row.ingredients
-    .map((ingredient) => {
-      return `${ingredient.ingredient_name}`;
-    })
-    .join(', ')}
+      .map((ingredient) => {
+        return `${ingredient.ingredient_name}`;
+      })
+      .join(', ')}
   </p>
               <h2>Allergens</h2>
    <p>
   ${row.allergens
-    .map((allergen) => {
-      return `${allergen.allergen_name}`;
-    })
-    .join(', ')}
+      .map((allergen) => {
+        return `${allergen.allergen_name}`;
+      })
+      .join(', ')}
   </p>
             </div>
         </div>
@@ -73,7 +73,7 @@ const getProducts = async () => {
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
       const productIndex = cart.findIndex(
-        (cartProduct) => cartProduct.product_id === product.product_id
+          (cartProduct) => cartProduct.product_id === product.product_id,
       );
       if (productIndex !== -1) {
         cart[productIndex].quantity = (cart[productIndex].quantity || 1) + 1;

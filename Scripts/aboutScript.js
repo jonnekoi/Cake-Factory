@@ -1,7 +1,7 @@
 'use strict';
 import {updateCartCount} from './functions.js';
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   updateCartCount();
   const carousel = document.getElementById('carousel');
   const photos = [

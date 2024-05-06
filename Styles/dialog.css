@@ -66,7 +66,7 @@ h2{
 .form input[type="text"],
 .form input[type="password"],
 .form input[type="email"] {
-  width: calc(90% - 20px);
+  width: 100%;
   padding: 10px;
   font-size: 15px;
   margin-bottom: 10px;
@@ -95,3 +95,6 @@ h2{
   padding: 40px;
 }
 
+form label {
+  color: white;
+}
