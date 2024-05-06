@@ -34,18 +34,18 @@ const getProducts = async () => {
               <h2>Ingrediets</h2>
               <p>
   ${row.ingredients
-    .map((ingredient) => {
-      return `${ingredient.ingredient_name}`;
-    })
-    .join(',')}
+      .map((ingredient) => {
+        return `${ingredient.ingredient_name}`;
+      })
+      .join(', ')}
   </p>
               <h2>Allergens</h2>
    <p>
   ${row.allergens
-    .map((allergen) => {
-      return `${allergen.allergen_name}`;
-    })
-    .join(',')}
+      .map((allergen) => {
+        return `${allergen.allergen_name}`;
+      })
+      .join(', ')}
   </p>
             </div>
         </div>
@@ -58,6 +58,7 @@ const getProducts = async () => {
     const addToCartButton = document.querySelectorAll('.addToCartButton');
     addToCartButton.forEach((button) => {
       button.addEventListener('click', async (event) => {
+        event.stopPropagation();
         event.preventDefault();
         const productId = parseInt(event.currentTarget.dataset.productId);
         const product = rows.find((row) => row.product_id === productId);
@@ -107,10 +108,6 @@ const cardFlip = () => {
         flippedCard = card;
       }
     });
-    const addToCartButton = card.querySelector('.addToCartButton');
-    addToCartButton.addEventListener('click', (event) => {
-      event.stopPropagation();
-    });
   });
 };
 
@@ -121,13 +118,15 @@ const flipCard = (card) => {
 
   if (card.classList.contains('back')) {
     front.style.display = 'none';
-    back.style.display = 'block';
+    setTimeout(()=> {
+      back.style.display = 'block';
+    }, 300); // timeout to make sure card flipped before showing content
   } else {
     back.style.display = 'none';
     setTimeout(() => {
       front.style.display = 'block';
-    }, 300); // Time for flipping
+    }, 300); // timeout to make sure card flipped before showing content
   }
 };
 
-export {updateCartCount};
+

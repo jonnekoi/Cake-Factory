@@ -25,7 +25,6 @@ function appendInfoToElement(info, element,
   pElement.style.color = color;
 
 
-
   element.append(pElement);
 }
 
