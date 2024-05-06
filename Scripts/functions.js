@@ -6,7 +6,7 @@ export const updateCartCount = () => {
   if (cart.length === 0) {
     cartCount.style.display = 'none';
   } else {
-    const count = cart.length;
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
     document.querySelector('.cartItemCount').innerText = count;
     document.querySelector('.cartItemCount').style.color = 'lightblue';
   }

@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
   orderForm.appendChild(submitForm);
   if (sessionStorage.getItem('user') !== null) {
     user = JSON.parse(sessionStorage.getItem('user'));
-    console.log(user);
     document.querySelector('#orderName').value = user.name;
     document.querySelector('#orderAddress').value = user.street_name;
     document.querySelector('#orderAddressNum').value = user.street_num;
@@ -248,8 +247,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     data.city = city;
     options.body = JSON.stringify(data);
     const result = await fetch(URL, options);
-    const jsonResult = await result.json();
-    console.log(jsonResult);
     if (result.ok) {
       localStorage.removeItem('cart');
       document.querySelector('#orderName').value = '';
@@ -261,4 +258,3 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     }
   });
 });
-
