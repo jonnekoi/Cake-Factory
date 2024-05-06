@@ -167,20 +167,34 @@ window.addEventListener('DOMContentLoaded', (event) => {
     firstLogin.style.display = 'none';
     firstRegister.style.display = 'none';
 
+
     // Populates dialog box with user info
     const dialog = document.querySelector('#firstDialog');
-    appendInfoToElement('Profile', dialog, {color: '#f1e9dd', bold: true});
-    appendInfoToElement(`Name: ${userObj.name}`, dialog, {color: '#f1e9dd', img: true});
     appendInfoToElement(
-        `Address: ${userObj.street_name},${userObj.street_num}`,
+        'Profile',
         dialog,
-        {color: '#f1e9dd', img: true},
-    );
+        {color: '#f1e9dd', bold: true});
+    appendInfoToElement(`${userObj.name}`,
+        dialog,
+        {heading: 'Name', color: '#f1e9dd', img: true});
     appendInfoToElement(
-        `City: ${userObj.city}, ${userObj.zip_code}`,
+        `${userObj.street_name}`,
         dialog,
-        {color: '#f1e9dd', img: true},
+        {heading: 'Street name', color: '#f1e9dd', img: true},
     );
+
+    appendInfoToElement(`${userObj.street_num}`,
+        dialog,
+        {heading: 'Street number', color: '#f1e9dd', img: true});
+    appendInfoToElement(
+        `${userObj.city}`,
+        dialog,
+        {heading: 'City', color: '#f1e9dd', img: true},
+    );
+    appendInfoToElement(`${userObj.zip_code}`,
+        dialog,
+        {heading: 'Zip Code', color: '#f1e9dd', img: true});
+
 
     // Logout button
     // Create a new 'a' element
