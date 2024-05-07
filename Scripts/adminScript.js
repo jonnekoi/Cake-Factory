@@ -1,6 +1,6 @@
 'use strict';
 
-const url = 'http://127.0.0.1:3000/v1';
+const url = 'http://10.120.32.97/app/v1';
 
 const adminOrdersButton = document.querySelector('#adminOrdersButton');
 const adminUsersButton = document.querySelector('#adminUsersButton');
@@ -24,7 +24,7 @@ const clearContent = () => {
   links.innerHTML = '';
 };
 
-adminDiscountButton.addEventListener('click', async function () {
+adminDiscountButton.addEventListener('click', async function() {
   clearContent();
   const ulElement = document.querySelector('#navLinks');
   const allCodes = document.createElement('li');
@@ -35,25 +35,25 @@ adminDiscountButton.addEventListener('click', async function () {
   ulElement.appendChild(allCodes);
   ulElement.appendChild(createCode);
 
-  allCodes.addEventListener('click', async function () {
+  allCodes.addEventListener('click', async function() {
     await getAllDiscounts();
     ulElement.removeChild(createCode);
     ulElement.removeChild(allCodes);
   });
 
-  createCode.addEventListener('click', async function () {
+  createCode.addEventListener('click', async function() {
     await createNewCode();
     ulElement.removeChild(createCode);
     ulElement.removeChild(allCodes);
   });
 });
 
-adminDeliverOrder.addEventListener('click', async function () {
+adminDeliverOrder.addEventListener('click', async function() {
   clearContent();
   await getNotDeliveredOrders();
 });
 
-adminOrdersButton.addEventListener('click', async function () {
+adminOrdersButton.addEventListener('click', async function() {
   clearContent();
   const ulElement = document.querySelector('#navLinks');
   const allOrders = document.createElement('li');
@@ -71,27 +71,26 @@ adminOrdersButton.addEventListener('click', async function () {
   oneOrder.appendChild(submitButton);
   ulElement.appendChild(oneOrder);
 
-  allOrders.addEventListener('click', async function () {
+  allOrders.addEventListener('click', async function() {
     await getAllOrders();
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
   });
 
-  submitButton.addEventListener('click', async function () {
+  submitButton.addEventListener('click', async function() {
     const id = inputField.value;
     if (isNaN(id)) {
       inputField.value = '';
       inputField.placeholder = 'Enter a number';
       return;
     }
-    console.log(id);
     await getOrderById(id);
     ulElement.removeChild(allOrders);
     ulElement.removeChild(oneOrder);
   });
 });
 
-adminUsersButton.addEventListener('click', async function () {
+adminUsersButton.addEventListener('click', async function() {
   clearContent();
   const ulElement = document.querySelector('#navLinks');
   const allUsers = document.createElement('li');
@@ -109,12 +108,12 @@ adminUsersButton.addEventListener('click', async function () {
   oneUser.appendChild(submitButton);
   ulElement.appendChild(oneUser);
 
-  allUsers.addEventListener('click', async function () {
+  allUsers.addEventListener('click', async function() {
     await getAllUsers();
     ulElement.removeChild(allUsers);
     ulElement.removeChild(oneUser);
   });
-  submitButton.addEventListener('click', async function () {
+  submitButton.addEventListener('click', async function() {
     const id = inputField.value;
     await getUserById(id);
     ulElement.removeChild(allUsers);
@@ -122,12 +121,12 @@ adminUsersButton.addEventListener('click', async function () {
   });
 });
 
-adminProductsButton.addEventListener('click', async function () {
+adminProductsButton.addEventListener('click', async function() {
   clearContent();
   await getAllProducts();
 });
 
-adminAddProduct.addEventListener('click', async function () {
+adminAddProduct.addEventListener('click', async function() {
   clearContent();
   const existingForm = document.querySelector('.container form');
   if (existingForm) {
@@ -136,7 +135,7 @@ adminAddProduct.addEventListener('click', async function () {
   await createAddProductForm();
 });
 
-adminAddIng.addEventListener('click', async function () {
+adminAddIng.addEventListener('click', async function() {
   clearContent();
   await createAddIngForm();
 });
@@ -181,7 +180,7 @@ const getAllDiscounts = async () => {
 
     const deleteButtons = document.querySelectorAll('.button');
     deleteButtons.forEach((button) => {
-      button.addEventListener('click', async function () {
+      button.addEventListener('click', async function() {
         // eslint-disable-next-line no-invalid-this
         const codeId = this.getAttribute('code-id');
         // eslint-disable-next-line no-invalid-this
@@ -214,7 +213,6 @@ const getAllOrders = async () => {
       throw new Error('Error', response.statusText);
     }
     const rows = await response.json();
-    console.log(rows);
 
     const tableHeaders = `<thead>
         <tr>
@@ -276,12 +274,12 @@ const getNotDeliveredOrders = async () => {
       </thead>
       <tbody>`;
     const tableRows = rows
-      .filter((row) => row.status === 0)
-      .map((row) => {
-        const productNames = row.products
-          .map((product) => product.name)
-          .join(', ');
-        return `
+        .filter((row) => row.status === 0)
+        .map((row) => {
+          const productNames = row.products
+              .map((product) => product.name)
+              .join(', ');
+          return `
       <tr order-id="${row.id}">
         <td>${row.id}</td>
         <td>${row.price}</td>
@@ -293,7 +291,7 @@ const getNotDeliveredOrders = async () => {
         <td><button type="button" class="button" data-order-id="${row.id}">Deliver</button></td>
       </tr>
     `;
-      });
+        });
     const tableFooter = `</tbody>`;
     const tableHTML = tableHeaders + tableRows.join('') + tableFooter;
     const table = document.createElement('table');
@@ -304,7 +302,7 @@ const getNotDeliveredOrders = async () => {
     const deliverButtons = document.querySelectorAll('.button');
 
     deliverButtons.forEach((button) => {
-      button.addEventListener('click', async function () {
+      button.addEventListener('click', async function() {
         // eslint-disable-next-line no-invalid-this
         const orderId = this.getAttribute('data-order-id');
         // eslint-disable-next-line no-invalid-this
@@ -374,7 +372,7 @@ const getAllUsers = async () => {
       const deleteBtn = document.querySelectorAll('.button');
 
       deleteBtn.forEach((button) => {
-        button.addEventListener('click', async function () {
+        button.addEventListener('click', async function() {
           // eslint-disable-next-line no-invalid-this
           const id = this.getAttribute('id');
           // eslint-disable-next-line no-invalid-this
@@ -496,7 +494,6 @@ const getAllProducts = async () => {
   try {
     const response = await fetch(url + '/products');
     const rows = await response.json();
-    console.log(rows);
     const tableHeaders = `<thead>
         <tr>
           <th>ID</th>
@@ -529,7 +526,7 @@ const getAllProducts = async () => {
         const productId = row.getAttribute('product-id');
         const product = await getProductById(productId);
         const picName = product.img;
-        const picture = await fetch(`http://localhost:3000/uploads/${picName}`);
+        const picture = await fetch(`http://10.120.32.97/app/uploads/${picName}`);
         const kuva = await picture.blob();
         const kuvaObj = URL.createObjectURL(kuva);
         createProductCard(product, kuvaObj);
@@ -546,7 +543,7 @@ const deliverOrder = async (id) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
     },
   };
 
@@ -658,9 +655,6 @@ const createProductCard = (product, image) => {
   const ExitButton = document.createElement('button');
   ExitButton.textContent = 'Exit';
   ExitButton.classList.add('button');
-  const IngredientsBtn = document.createElement('button');
-  IngredientsBtn.textContent = 'Ingredients';
-  IngredientsBtn.classList.add('button');
   const deleteProdBtn = document.createElement('button');
   deleteProdBtn.textContent = 'Delete product';
   deleteProdBtn.classList.add('button');
@@ -671,19 +665,18 @@ const createProductCard = (product, image) => {
   buttonsDiv.style.justifyContent = 'space-around';
   buttonsDiv.style.padding = '20px';
   buttonsDiv.style.width = '100%';
-  buttonsDiv.appendChild(IngredientsBtn);
   buttonsDiv.appendChild(deleteProdBtn);
   buttonsDiv.appendChild(ExitButton);
   rightSide.appendChild(buttonsDiv);
   dialogContainer.appendChild(rightSide);
   document.body.appendChild(dialogContainer);
 
-  ExitButton.addEventListener('click', function () {
+  ExitButton.addEventListener('click', function() {
     document.body.removeChild(dialogContainer);
     document.querySelector('.wrapper').classList.remove('blur');
   });
 
-  deleteProdBtn.addEventListener('click', function () {
+  deleteProdBtn.addEventListener('click', function() {
     const idValue = product['id'];
     deleteProduct(idValue);
     document.body.removeChild(dialogContainer);
@@ -706,11 +699,6 @@ const createProductCard = (product, image) => {
     document.body.removeChild(dialogContainer);
     document.querySelector('.wrapper').classList.remove('blur');
   });
-
-  IngredientsBtn.addEventListener('click', function () {
-    form.style.display = 'none';
-    buttonsDiv.style.display = 'none';
-  });
 };
 
 const updateProduct = async (product, id) => {
@@ -718,13 +706,12 @@ const updateProduct = async (product, id) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
     },
     body: product,
   };
   try {
     const response = await fetch(url + `/products/${id}`, options);
-    console.log(response);
     if (!response.ok) {
       alert('Error updating product!');
     } else {
@@ -740,7 +727,7 @@ const deleteProduct = async (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
     },
   };
   try {
@@ -884,7 +871,7 @@ const createAddIngForm = async () => {
   const container = document.querySelector('.container');
   container.appendChild(form);
 
-  form.addEventListener('submit', async function (event) {
+  form.addEventListener('submit', async function(event) {
     event.preventDefault();
     const ingredientName = nameInput.value;
     const ingredientPrice = priceInput.value;
@@ -893,7 +880,6 @@ const createAddIngForm = async () => {
       name: ingredientName,
       price: ingredientPrice,
     };
-    console.log(ingredientData);
     await sendIngredient(ingredientData);
     form.reset();
   });
@@ -904,7 +890,7 @@ const sendIngredient = async (item) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(item),
   };
@@ -992,11 +978,10 @@ const createNewCode = async () => {
 };
 
 const addCode = async (data) => {
-  console.log(data);
   const options = {
     method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
@@ -1019,7 +1004,7 @@ const deleteCode = async (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
     },
   };
   try {
@@ -1039,7 +1024,7 @@ const deleteUser = async (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token,
     },
   };
   try {

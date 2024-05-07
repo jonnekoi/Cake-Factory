@@ -1,7 +1,7 @@
 'use strict';
 
-const URL = 'http://localhost:3000/v1/orders/';
-const URL2 = 'http://localhost:3000/v1/discounts/';
+const URL = 'http://10.120.32.97/app/v1/orders/';
+const URL2 = 'http://10.120.32.97/app/v1/discounts/';
 const cartTable = document.createElement('table');
 const cartContainer = document.querySelector('.shopping-cart');
 const grandTotalSum = document.createElement('th');

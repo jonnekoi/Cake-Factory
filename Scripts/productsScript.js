@@ -1,8 +1,8 @@
 'use strict';
 import {updateCartCount} from './functions.js';
 
-const url = 'http://localhost:3000/v1';
-const uploadUrl = 'http://localhost:3000/uploads/';
+const url = 'http://10.120.32.97/app/v1';
+const uploadUrl = 'http://10.120.32.97/app/uploads/';
 let rows;
 
 document.addEventListener('DOMContentLoaded', async (event) => {

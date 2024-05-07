@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch( 'http://127.0.0.1:3000/v1/auth/login', fetchOptions);
+    const response = await fetch( 'http://10.120.32.97/app/v1/auth/login', fetchOptions);
     const json = await response.json();
     console.log(json);
     console.log(json.user);
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch('http://127.0.0.1:3000/v1/users', fetchOptions);
+    const response = await fetch('http://10.120.32.97/app/v1/users', fetchOptions);
     const json = await response.json();
     if (json.result) {
       sessionStorage.setItem('token', json.token);
