@@ -1,7 +1,7 @@
 'use strict';
 import {updateCartCount} from './functions.js';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   updateCartCount();
   const carousel = document.getElementById('carousel');
   const photos = [
@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function loadNextImage() {
     const img = new Image();
-    img.src = photos[current];
     img.alt = 'Cake';
     carousel.innerHTML = '';
     carousel.appendChild(img);
+    img.src = photos[current];
     current = (current + 1) % photos.length;
   }
 

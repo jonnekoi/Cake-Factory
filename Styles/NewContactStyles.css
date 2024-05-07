@@ -53,11 +53,40 @@
     align-items: center;
     width: 100%;
     padding-bottom: 10%;
+
+  }
+
+  .contact-section {
+    min-height: 20vh;
+    margin: 2rem;
+  }
+
+  .contact-container {
+    display: flex;
+    flex-direction: column;
   }
 
   .container {
+    display: flex;
+    overflow-x: hidden;
     overflow-y: auto;
     align-items: center;
     justify-content: center;
+    min-height: 150vh;
+    margin: 0 0 2rem 0;
+
+  }
+
+  .map-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #map {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
   }
 }

@@ -42,24 +42,34 @@
 }
 
 @media (max-width: 768px) {
+
+  html body {
+    height: auto;
+  }
   .middle-container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 20vw;
-    margin: 7vw;
+    margin: 25rem 0 5rem 0;
   }
 
   .side-section {
     width: 80vw;
+    margin: 0rem 0 1rem 0;
   }
 
   .container {
+    overflow-x: hidden;
     overflow-y: auto;
     align-items: center;
     justify-content: center;
   }
-  .carouselCon {
-    margin-top: 65%;
+  #carousel img {
+    background: url('https://placehold.co/1024x1024');
+    background-size: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
   }
 }
