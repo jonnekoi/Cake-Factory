@@ -9,13 +9,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cart</title>
-  <link rel="stylesheet" href="../Styles/indexStyles.css">
-  <link rel="stylesheet" href="../Styles/stylesShoppingCart.css">
   <script  type="module" src="../Scripts/auth.js" defer></script>
   <script src="../Scripts/cart.js" defer></script>
   <link rel="stylesheet" href="../Styles/dialog.css">
-  <link rel="stylesheet" href="../Styles/siteStyles.css">
   <link rel="stylesheet" href="../Styles/buttonStyles.css">
+  <link rel="stylesheet" href="../Styles/StylesForEveryPage.css">
+  <link rel="stylesheet" href="../Styles/NewCartStyles.css">
 </head>
 <body>
 <div id="dialogContainer" class="dialog-container">
@@ -110,37 +109,36 @@
     </div>
   </div>
 </header>
-<div class="middle-container">
-  <section class="side-section">
-    <div class="shopping-cart">
-      <h1>Shopping cart</h1>
+<div class="container">
+  <div class="middle-container">
+    <div class="side-section">
+      <div class="shopping-cart">
+        <h1>Shopping cart</h1>
+      </div>
     </div>
-  </section>
-  <section class="side-section">
-    <div class="orderFormWrapper">
-      <form id="orderForm" class="form">
-        <h2>Your Information</h2>
-        <input type="text" id="orderName" name="orderName" required
-               placeholder="Enter your name"/>
-        <input type="text" id="orderAddress" name="orderAddress" required
-               placeholder="Enter Address"/>
-        <input type="text" id="orderAddressNum" name="orderAddressNum" required
-               placeholder="Enter address number"/>
-        <input type="text" id="orderZipCode" name="orderZipCode" required
-               placeholder="Enter postal code"/>
-        <input type="text" id="orderCity" name="orderCoty" required
-               placeholder="Enter your city"/>
-       <!-- <label for="pickUp">Pick up</label>
-        <input id="pickUp" type="radio" name="deliveryOption" value="pickUp"
-               required="">
-        <label for="delivery">Delivery</label>
-        <input id="delivery" type="radio" name="deliveryOption" value="delivery"
-               required=""> -->
-        <input class="button" type="submit" value="Register"/>
-      </form>
+    <div class="side-section">
+        <form id="orderForm" class="form">
+          <h2>Your Information</h2>
+          <input type="text" id="orderName" name="orderName" required
+                 placeholder="Enter your name"/>
+          <input type="text" id="orderAddress" name="orderAddress" required
+                 placeholder="Enter Address"/>
+          <input type="text" id="orderAddressNum" name="orderAddressNum" required
+                 placeholder="Enter address number"/>
+          <input type="text" id="orderZipCode" name="orderZipCode" required
+                 placeholder="Enter postal code"/>
+          <input type="text" id="orderCity" name="orderCoty" required
+                 placeholder="Enter your city"/>
+         <!-- <label for="pickUp">Pick up</label>
+          <input id="pickUp" type="radio" name="deliveryOption" value="pickUp"
+                 required="">
+          <label for="delivery">Delivery</label>
+          <input id="delivery" type="radio" name="deliveryOption" value="delivery"
+                 required=""> -->
+          <input class="button" type="submit" value="Register"/>
+        </form>
     </div>
-
-  </section>
+  </div>
 </div>
 <footer class="footer">2024 &copy;</footer>
 </body>

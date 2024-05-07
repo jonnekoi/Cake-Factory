@@ -8,14 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="../Styles/indexStyles.css">
   <script type="module" src="../Scripts/functions.js"></script>
   <script type="module" src="../Scripts/contactScript.js"></script>
   <script type="module" src="../Scripts/auth.js"></script>
   <link rel="stylesheet" href="../Styles/dialog.css">
-  <link rel="stylesheet" href="../Styles/siteStyles.css">
   <link rel="stylesheet" href="../Styles/buttonStyles.css">
-  <link rel="stylesheet" href="../Styles/contactStyles.css">
+  <link rel="stylesheet" href="../Styles/NewContactStyles.css">
+  <link rel="stylesheet" href="../Styles/StylesForEveryPage.css">
 </head>
 <body>
 <div id="dialogContainer" class="dialog-container">
@@ -101,46 +100,44 @@
     </div>
   </div>
 </header>
+<div class="container">
+  <div class="middle-container">
+    <div class="contact-container">
 
-<div class="middle-container">
-  <div class="contact-container">
-    <h1 style="color: white">Get in touch with our friendly support team</h1>
-    <p style="color: white">Our business hours are 9AM-6PM ET Monday-Friday and 9AM-5PM ET on
-      weekends.</p>
+        <div class="contact-section">
+          <h2>Call us</h2>
+          <p>Our support team is just a click away.</p>
+          <a href="javascript:void(0);"
+             onclick="toggleVisibilityAndContact('phone-number', 'tel:040124241')"
+             class="contact-link"><i class="fas fa-phone"></i> Call now</a>
+          <div id="phone-number" class="hidden">040124241</div>
+        </div>
 
-    <div class="contact-section">
-      <h2>Call us</h2>
-      <p>Our support team is just a click away.</p>
-      <a href="javascript:void(0);"
-         onclick="toggleVisibilityAndContact('phone-number', 'tel:040124241')"
-         class="contact-link"><i class="fas fa-phone"></i> Call now</a>
-      <div id="phone-number" class="hidden">040124241</div>
-    </div>
+        <div class="contact-section">
+          <h2>Email us</h2>
+          <p>Prefer to email? <br>Send us an email and we'll get back to you as soon
+            as possible.</p>
+          <a href="javascript:void(0);"
+             onclick="toggleVisibilityAndContact('email-address', 'mailto:support@cakefactory.com')"
+             class="contact-link"><i class="fas fa-envelope"></i> Send email</a>
+          <div id="email-address" class="hidden">support@cakefactory.com</div>
+        </div>
 
-    <div class="contact-section">
-      <h2>Email us</h2>
-      <p>Prefer to email? <br>Send us an email and we'll get back to you as soon
-        as possible.</p>
-      <a href="javascript:void(0);"
-         onclick="toggleVisibilityAndContact('email-address', 'mailto:support@cakefactory.com')"
-         class="contact-link"><i class="fas fa-envelope"></i> Send email</a>
-      <div id="email-address" class="hidden">support@cakefactory.com</div>
-    </div>
-
-    <div class="contact-section">
-      <h2>Visit in person</h2>
-      <p>Find us at the address below </p>
-      <div class="map-wrapper">
-        <p>
-          Cake Factory<br>
-          123 Baking Street<br>
-          Flavor Town, FT 12345
-        </p>
-        <iframe id="map"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d255.3514629739512!2d24.956126868044805!3d60.169863802579606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfi!2sfi!4v1713546455616!5m2!1sfi!2sfi"
-                width="400" height="250" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <div class="contact-section">
+          <h2>Visit in person</h2>
+          <p>Find us at the address below </p>
+          <div class="map-wrapper">
+            <p>
+              Cake Factory<br>
+              123 Baking Street<br>
+              Flavor Town, FT 12345
+            </p>
+            <iframe id="map"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d255.3514629739512!2d24.956126868044805!3d60.169863802579606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfi!2sfi!4v1713546455616!5m2!1sfi!2sfi"
+                    width="400" height="250" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
       </div>
     </div>
   </div>

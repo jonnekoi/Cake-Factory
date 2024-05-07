@@ -10,104 +10,107 @@
     <script type="module" src="../Scripts/aboutScript.js"></script>
     <script type="module" src="../Scripts/aboutScript.js"></script>
     <script type="module" src="../Scripts/auth.js" defer></script>
-    <link rel="stylesheet" href="../Styles/indexStyles.css">
-    <link rel="stylesheet" href="../Styles/siteStyles.css">
-    <link rel="stylesheet" href="../Styles/buttonStyles.css">
-    <link rel="stylesheet" href="../Styles/aboutStyles.css">
+    <link rel="stylesheet" href="../Styles/StylesForEveryPage.css">
+    <link rel="stylesheet" href="../Styles/NewAboutStyles.css">
     <link rel="stylesheet" href="../Styles/dialog.css">
+    <link rel="stylesheet" href="../Styles/buttonStyles.css">
 </head>
 <body>
 <div id="dialogContainer" class="dialog-container">
-  <div id="dialog" class="dialog">
+<div id="dialog" class="dialog">
 
-    <div id="firstDialog">
-      <button class="exitDialog">X</button>
-      <button id="firstLogin" class="button">Login</button>
-      <button id="firstRegister" class="button">Register</button>
+  <div id="firstDialog">
+    <button class="exitDialog">X</button>
+    <button id="firstLogin" class="button">Login</button>
+    <button id="firstRegister" class="button">Register</button>
+  </div>
+
+  <div id="loginDialog">
+    <div class="form-wrapper">
+      <form id="loginForm" class="form">
+        <h2>Login</h2>
+        <button class="exitDialog">X</button>
+        <label for="loginUsername">Username</label><input type="text" id="loginUsername" name="username" required placeholder="Username"/>
+        <label for="loginPassword">Password</label><input type="password" id="loginPassword" name="password" required placeholder="Password"/>
+        <input class="button" id="loginDialogButton" type="submit" value="Login"/>
+      </form>
     </div>
+  </div>
 
-    <div id="loginDialog">
-      <div class="form-wrapper">
-        <form id="loginForm" class="form">
-          <h2>Login</h2>
-          <button class="exitDialog">X</button>
-          <label for="loginUsername">Username</label><input type="text" id="loginUsername" name="username" required placeholder="Username"/>
-          <label for="loginPassword">Password</label><input type="password" id="loginPassword" name="password" required placeholder="Password"/>
-          <input class="button" id="loginDialogButton" type="submit" value="Login"/>
-        </form>
-      </div>
-    </div>
-
-    <div id="registerDialog">
-      <div class="form-wrapper">
-        <form id="registerForm" class="form">
-          <h2>Register</h2>
-          <button class="exitDialog">X</button>
-          <label for="registerName">Name</label><input type="text" id="registerName" name="name" required placeholder="Name"/>
-          <label for="registerUsername">Username</label><input type="text" id="registerUsername" name="username" required placeholder="Username"/>
-          <label for="registerEmail">Email</label><input type="email" id="registerEmail" name="email" required placeholder="Email"/>
-          <label for="registerPassword">Password</label><input type="password" id="registerPassword" name="password" required placeholder="Password"/>
-          <label for="registerStreetName">Address</label><input type="text" id="registerStreetName" name="street_name" required placeholder="Address"/>
-          <label for="registerStreetNum">Address Number</label><input type="text" id="registerStreetNum" name="street_num" required placeholder="Address Number"/>
-          <label for="registerZipCode">Postal code</label><input type="text" id="registerZipCode" name="zip_code" required placeholder="Postal Code"/>
-          <label for="registerCity">City</label><input type="text" id="registerCity" name="city" required placeholder="City"/>
-          <input class="button" id="registerDialogButton" type="submit" value="Register"/>
-        </form>
-      </div>
+  <div id="registerDialog">
+    <div class="form-wrapper">
+      <form id="registerForm" class="form">
+        <h2>Register</h2>
+        <button class="exitDialog">X</button>
+        <label for="registerName">Name</label><input type="text" id="registerName" name="name" required placeholder="Name"/>
+        <label for="registerUsername">Username</label><input type="text" id="registerUsername" name="username" required placeholder="Username"/>
+        <label for="registerEmail">Email</label><input type="email" id="registerEmail" name="email" required placeholder="Email"/>
+        <label for="registerPassword">Password</label><input type="password" id="registerPassword" name="password" required placeholder="Password"/>
+        <label for="registerStreetName">Address</label><input type="text" id="registerStreetName" name="street_name" required placeholder="Address"/>
+        <label for="registerStreetNum">Address Number</label><input type="text" id="registerStreetNum" name="street_num" required placeholder="Address Number"/>
+        <label for="registerZipCode">Postal code</label><input type="text" id="registerZipCode" name="zip_code" required placeholder="Postal Code"/>
+        <label for="registerCity">City</label><input type="text" id="registerCity" name="city" required placeholder="City"/>
+        <input class="button" id="registerDialogButton" type="submit" value="Register"/>
+      </form>
     </div>
   </div>
 </div>
+</div>
 <header>
-  <div class="nav-wrapper">
-    <div class="logo">
-      <a href="index.html">
-        <img id="logo" src="../Styles/images/CA-KE-logo.png" height="80" width="auto"/>
+<div class="nav-wrapper">
+  <div class="logo">
+    <a href="index.html">
+      <img id="logo" src="../Styles/images/CA-KE-logo.png" height="80" width="auto"/>
+    </a>
+  </div>
+  <div class="links">
+    <ul class="nav-links">
+      <li class="navLink">
+        <a href="index.html"><span>Products</span></a>
+      </li>
+      <li class="navLink">
+        <a href="about.html"><span>About</span></a>
+      </li>
+      <li class="navLink">
+        <a href="contact.html"><span>Contact</span></a>
+      </li>
+      <a href="cart.html" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="auto" height="38px">
+          <circle cx="176" cy="416" r="16" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+          <circle cx="400" cy="416" r="16" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+          <path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 80h64l48 272h256"/>
+          <path d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+        </svg><span class="cartItemCount"></span>
       </a>
+      <a class="button" id="loginButton">
+        <img src="../Styles/images/log-in-outline.svg" alt="Login">
+      </a>
+    </ul>
+    <div class="hamburger" id="hamburger">
+          <span class="material-symbols-outlined">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+              <path fill="white" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+          </span>
     </div>
-    <div class="links">
-      <ul class="nav-links">
-        <li class="navLink">
-          <a href="index.html"><span>Products</span></a>
-        </li>
-        <li class="navLink">
-          <a href="about.html"><span>About</span></a>
-        </li>
-        <li class="navLink">
-          <a href="contact.html"><span>Contact</span></a>
-        </li>
-        <a href="cart.html" class="button">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="auto" height="38px">
-            <circle cx="176" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            <circle cx="400" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 80h64l48 272h256"/>
-            <path d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-          </svg><span class="cartItemCount"></span>
-        </a>
-        <a class="button" id="loginButton">
-          <img src="../Styles/images/log-in-outline.svg" alt="Login">
-        </a>
-      </ul>
-      <div class="hamburger" id="hamburger">
-            <span class="material-symbols-outlined">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
-                <path fill="white" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-              </svg>
-            </span>
+  </div>
+</div>
+</header>
+<div class="container">
+  <div class="middle-container">
+    <div class="side-section">
+      <div class="carouselCon">
+        <div id="carousel" class="carousel"></div>
       </div>
     </div>
-  </div>
-</header>
-<div class="middle-container">
-  <div class="side-section">
-    <div id="carousel" class="carousel"></div>
-  </div>
 
-  <div class="side-section">
-    <div class="text">
-      <h1>About  Cake Factory</h1>
-      <p>At Cake Factory, our journey began with a simple love for cakes—a passion that has grown into our life's goal. From the bustling streets of Helsinki, our dream of owning a bakery that celebrates life's sweetest moments has flourished.</p>
-      <p>With each cake we create, we pour our hearts into crafting exquisite flavors and designs that not only tantalize the taste buds but also capture the essence of joy and celebration. From birthdays to weddings, and every special moment in between, Cake Factory is dedicated to making your occasions truly unforgettable.</p>
-      <p>Join us in our sweet adventure as we continue to pursue our passion and share the magic of cakes with the world. At Cake Factory, every slice tells a story, and we can't wait to be a part of yours.</p>
+    <div class="side-section">
+      <div class="text">
+        <h1>About  Cake Factory</h1>
+        <p>At Cake Factory, our journey began with a simple love for cakes—a passion that has grown into our life's goal. From the bustling streets of Helsinki, our dream of owning a bakery that celebrates life's sweetest moments has flourished.</p>
+        <p>With each cake we create, we pour our hearts into crafting exquisite flavors and designs that not only tantalize the taste buds but also capture the essence of joy and celebration. From birthdays to weddings, and every special moment in between, Cake Factory is dedicated to making your occasions truly unforgettable.</p>
+        <p>Join us in our sweet adventure as we continue to pursue our passion and share the magic of cakes with the world. At Cake Factory, every slice tells a story, and we can't wait to be a part of yours.</p>
+      </div>
     </div>
   </div>
 </div>

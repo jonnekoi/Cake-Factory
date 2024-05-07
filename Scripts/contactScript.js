@@ -12,7 +12,7 @@ function toggleVisibilityAndContact(elementId, link) {
   if (element) {
     element.classList.toggle('hidden');
   }
-  setTimeout(function () {
+  setTimeout(function() {
     window.location.href = link;
   }, 500);
 }

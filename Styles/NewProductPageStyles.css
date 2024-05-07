@@ -1,0 +1,34 @@
+.middle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 120px;
+  margin-bottom: 63px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.info {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 848px) {
+  .middle-container {
+    overflow-y: auto;
+    flex-direction: column;
+  }
+  .card {
+    width: 80vw;
+  }
+}
