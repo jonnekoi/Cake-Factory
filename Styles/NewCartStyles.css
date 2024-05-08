@@ -43,19 +43,15 @@ td {
   text-align: center;
 }
 
-
-tr:nth-child {
-  background-color: #f2f2f2;
-}
-
 tr.total-row td {
   font-weight: bold;
 }
 
 .form input[type="text"],
-.form input[type="tel"] {
+.form input[type="tel"],
+.form input[type="password"]{
   padding: 12px;
-  width: 100%;
+  width: 90%;
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: border-color 0.3s ease;
