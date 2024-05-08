@@ -80,8 +80,8 @@ tr.total-row td {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  min-height: 120vh;
   overflow-y: auto;
+  margin-top: 5rem;
 }
 
 .middle-container {
