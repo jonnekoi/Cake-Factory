@@ -3,6 +3,11 @@
   border: none;
 }
 
+.container {
+  min-height: 120vh;
+  overflow-y: auto;
+}
+
 .contact-container {
   margin-top: 20vh;
   text-align: center;

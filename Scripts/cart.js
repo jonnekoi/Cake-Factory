@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     productTh.innerText = 'Product';
     priceTh.innerText = 'Price';
     quantityTh.innerText = 'Quantity';
+    deleteTh.innerText = 'delete';
     totalTh.innerText = 'Total';
     cartTable.append(productTh, priceTh, quantityTh, deleteTh, totalTh);
     cartContainer.appendChild(cartTable);
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       deleteProduct.addEventListener('click', () => {
         productsOnCart = productsOnCart.filter(
-            (p) => p.product_id !== product.product_id,
+          (p) => p.product_id !== product.product_id
         );
         localStorage.setItem('cart', JSON.stringify(productsOnCart));
         tr.remove();

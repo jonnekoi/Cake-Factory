@@ -24,6 +24,7 @@ table {
 }
 
 th, td {
+  text-align: center;
   padding: 15px;
 }
 
@@ -31,7 +32,7 @@ th {
   background-color: #89b4db;
   color: white;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
 }
 
 tr {
@@ -70,7 +71,7 @@ tr.total-row td {
 #orderForm {
   background-color: #89b4db;
   width: 100%;
-  padding: 30px;
+  padding: 1rem 4rem 1rem 4rem;
   border-radius: 10px;
 }
 
@@ -79,6 +80,8 @@ tr.total-row td {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  min-height: 120vh;
+  overflow-y: auto;
 }
 
 .middle-container {
@@ -95,27 +98,103 @@ tr.total-row td {
 }
 
 @media (max-width: 768px) {
+  .shopping-cart .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .shopping-cart .row div {
+    flex: 1;
+  }
+
   .middle-container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    margin: 7vw;
-    padding-bottom: 5%;
+    min-height: 130vh;
+    margin: 0;
+    padding: 0;
   }
 
   .side-section {
-    margin: 2%;
+    margin: 1%;
     padding: 0;
+    width: auto;
+
   }
 
   .container {
     overflow-y: auto;
+    overflow-x: hidden;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
-  .shopping-cart{
-    margin-top: 35%;
+ /* .shopping-cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    flex-wrap: wrap;
+    transform: scale(1);
+  }*/
+
+  .shopping-cart {
+    margin: 2%;
+    font-family: 'Sacramento', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .shopping-cart table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+
+  .shopping-cart td {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .shopping-cart th {
+    flex: 1 0 10%;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .shopping-cart th input {
+    width: 100%;
+  }
+
+  .shopping-cart table tr {
+    display: flex;
+    font-size: medium;
+  }
+
+
+  .shopping-cart th button {
+    padding: 5%;
+    font-size: small;
+  }
+
+  #orderForm {
+    background-color: #89b4db;
+    width: 100%;
+    padding: 12vw;
+    border-radius: 10px;
   }
 }
