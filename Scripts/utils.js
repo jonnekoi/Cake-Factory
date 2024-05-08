@@ -2,7 +2,8 @@ function populateProfile() {
   const user = JSON.parse(sessionStorage.getItem('user'));
   console.log(user);
   const form = document.createElement('form');
-  form.style.cssText = 'width: 100%; display: flex; flex-direction: column; justify-content: space-around;';
+  form.style.cssText =
+    'width: 100%; display: flex; flex-direction: column; justify-content: space-around;';
 
   const h2 = document.createElement('h2');
   h2.style.cssText = 'width: 100%; text-align:center;';
@@ -53,7 +54,6 @@ function populateProfile() {
     // Call the updateUserData function with the collected data
     const result = await updateUserData(updatedData);
 
-
     if (result.message === 'User updated successfully') {
       sessionStorage.setItem('user', JSON.stringify(user));
     }
@@ -95,16 +95,16 @@ function populateProfile() {
   document.querySelector('#firstDialog').appendChild(form);
 }
 
-
 async function updateUserData(updatedData) {
-  const url = 'http://127.0.0.1:3000/v1/users/' + sessionStorage.getItem('user').id; // Replace with your API endpoint
+  const url =
+    'http://127.0.0.1:3000/v1/users/' + sessionStorage.getItem('user').id; // Replace with your API endpoint
   const token = sessionStorage.getItem('token'); // Get the token from session storage
 
   const fetchOptions = {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, // Add the token to the request header
+      Authorization: `Bearer ${token}`, // Add the token to the request header
     },
     body: JSON.stringify(updatedData), // Convert the updatedData object to a JSON string
   };
