@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       fetchOptions
     );
     const json = await response.json();
-    console.log(json);
-    console.log(json.user);
     if (json.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.user));
@@ -105,7 +103,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (json.result) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.result));
-      // console.log('register success');
       window.location.href = '/Cake-Factory/HTMLs/index.html';
     } else {
       // alert('register error', json.error.message);
