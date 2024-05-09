@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         fetchOptions,
     );
     const json = await response.json();
-    console.log(json);
-    console.log(json.user);
     if (json.user) {
       sessionStorage.setItem('token', json.token);
       sessionStorage.setItem('user', JSON.stringify(json.user));
