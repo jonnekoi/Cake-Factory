@@ -95,15 +95,14 @@ function populateProfile() {
 }
 
 async function updateUserData(updatedData) {
-  const url =
-    'http://127.0.0.1:3000/v1/users/' + sessionStorage.getItem('user').id; // Replace with your API endpoint
+  const url = 'http://127.0.0.1:/v1/users/' + sessionStorage.getItem('user').id; // Replace with your API endpoint
   const token = sessionStorage.getItem('token'); // Get the token from session storage
 
   const fetchOptions = {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, // Add the token to the request header
+      Authorization: `Bearer ${token}`, // Add the token to the request header
     },
     body: JSON.stringify(updatedData), // Convert the updatedData object to a JSON string
   };
