@@ -193,8 +193,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
   submitForm.addEventListener('click', async (event) => {
     event.preventDefault();
-    console.log('click');
-
     const name = document.querySelector('#orderName').value;
     const streetName = document.querySelector('#orderAddress').value;
     const streetNum = document.querySelector('#orderAddressNum').value;
@@ -211,7 +209,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       return;
     }
 
-    let products = [];
+    const products = [];
     productsOnCart.forEach((p) => {
       if (p.quantity > 1) {
         for (let i = 0; i < p.quantity; i++) {
@@ -231,7 +229,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const data = {
       price: price,
       date: `${year}-${month}-${day}`,
-      products: products,
+      products: JSON.stringify(products),
     };
     const token = sessionStorage.getItem('token');
     const options = {
@@ -250,7 +248,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     data.zip_code = zipCode;
     data.city = city;
     options.body = JSON.stringify(data);
+    console.log(options);
     const result = await fetch(URL, options);
+
     if (result.ok) {
       localStorage.removeItem('cart');
       document.querySelector('#orderName').value = '';
