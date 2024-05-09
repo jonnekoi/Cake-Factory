@@ -173,12 +173,11 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       const res = await fetch(URL2, options);
       const data = await res.json();
+      console.log(data.result);
       if (!res.ok) {
         grandTotalSum.textContent = grandTotal + '€';
-        console.log('Invalid code');
       } else {
-        const newSum =
-          grandTotal - (grandTotal * data.response.result.amount) / 100;
+        const newSum = grandTotal - (grandTotal * data.result.amount) / 100;
         grandTotalSum.textContent = `${newSum}€`;
       }
     });
@@ -194,6 +193,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
   submitForm.addEventListener('click', async (event) => {
     event.preventDefault();
+    console.log('click');
 
     const name = document.querySelector('#orderName').value;
     const streetName = document.querySelector('#orderAddress').value;
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       return;
     }
 
-    const products = [];
+    let products = [];
     productsOnCart.forEach((p) => {
       if (p.quantity > 1) {
         for (let i = 0; i < p.quantity; i++) {
@@ -233,7 +233,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       date: `${year}-${month}-${day}`,
       products: products,
     };
-
     const token = sessionStorage.getItem('token');
     const options = {
       method: 'POST',
