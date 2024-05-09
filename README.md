@@ -45,6 +45,7 @@ ostoskorissa. Kokeile rekisteröitymistä myös ja omien tietojen muokkaamista k
 7. Avaa backend puolen terminaali ja aja komento "npm run dev" palvelin käynnistyy
 8. Luodaan admin käyttäjä, rekisteröi käyttäjä sivustolla jonka jälkeen syötä seuraava scripti tietokantaan ```UPDATE users SET access = 'admin' WHERE username = 'luomasi käyttäjänimi';```
 9. Tämän jälkeen luomasi käyttäjätunnekset antavat pääsyn hallintasivustolle.
+10. Voit aloittaa sivuston käytön. (luo tuotteita hallinta sivustolta)
 
 [ApiDoc](http://10.120.32.97/)
 
