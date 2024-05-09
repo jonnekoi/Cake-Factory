@@ -139,13 +139,14 @@ document.querySelector('.hamburger').addEventListener('click', function() {
   const loginButton = document.querySelector('#loginButton');
   hamburger.setAttribute('disabled', '');
 
-  loginButton.addEventListener('click', async function() {
+  /*loginButton.addEventListener('click', () =>{
     console.log('click');
     dialogContainer.style.display = 'block';
     firstDialog.style.display = 'block';
     loginDialog.style.display = 'none';
     registerDialog.style.display = 'none';
   });
+   */
 
   navLinks.classList.toggle('show');
 
@@ -157,10 +158,26 @@ document.querySelector('.hamburger').addEventListener('click', function() {
     basketItem.innerHTML = '<a href="cart.html">Basket</a>';
     navLinks.appendChild(basketItem);
 
-    loginItem = document.createElement('li');
-    loginItem.className = 'navLink';
-    loginItem.innerHTML = '<a id="loginButton">Login</a>';
-    navLinks.appendChild(loginItem);
+
+    const user = sessionStorage.getItem('user');
+    const userObj = JSON.parse(user);
+
+    if (!user) {
+      loginItem = document.createElement('li');
+      loginItem.className = 'navLink';
+      loginItem.innerHTML = '<a id="loginButton">Login</a>';
+      loginItem.addEventListener('click', () =>{
+        dialogContainer.style.display = 'block';
+        firstDialog.style.display = 'block';
+        loginDialog.style.display = 'none';
+        registerDialog.style.display = 'none';
+      });
+      navLinks.appendChild(loginItem);
+    }else {
+      navLinks.appendChild(loginButton);
+      loginButton.style.display = '';
+    }
+
   } else {
     cartButton.style.display = '';
     loginButton.style.display = '';
