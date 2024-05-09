@@ -150,3 +150,11 @@ body, html {
 .navLink a span:hover{
   text-shadow: 0 0 15px #ffffff;
 }
+
+/* Chrome & Safari specific cart item count */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .navLink a {
+    display: flex;
+  }
+}
