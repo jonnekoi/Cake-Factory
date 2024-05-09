@@ -1,6 +1,5 @@
 function populateProfile() {
   const user = JSON.parse(sessionStorage.getItem('user'));
-  console.log(user);
   const form = document.createElement('form');
   form.style.cssText =
     'width: 100%; display: flex; flex-direction: column; justify-content: space-around;';
