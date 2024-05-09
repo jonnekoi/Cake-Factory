@@ -34,6 +34,18 @@ ja tilauksia, sekä käyttäjiä hallita.
 Sovellusta voit testata lisäämällä tuotteita ostoskoriin ja tilaamalla. Koodilla AVAJAISET24 saat 10% alennuksen tuotteista
 ostoskorissa. Kokeile rekisteröitymistä myös ja omien tietojen muokkaamista klikkaamalla omaa käyttäjänimeä yläreunasta.
 
+### Asennusohjeet
+
+1. [Asenna Node](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)
+2. Aloita kloonaamalla seuraavat repositoriot: [Frontend](https://github.com/jonnekoi/Cake-Factory) & [Backend](https://github.com/hinmiro/CakeFactoryBackend)
+3. Aja molemmissa komento ```npm i```
+4. Luodaan tietokanta sovellukselle, kopio [SQL Scripti](https://github.com/jonnekoi/Cake-Factory/blob/main/scripti.sql)
+5. Kun olet luonut tietokannan, tee Backend sovelluksen juureen uusi tiedosto .env ja kopio [.ENV](https://github.com/jonnekoi/Cake-Factory/blob/main/envtiedosto.md)
+6. Muokkaa env tiedostossa "" olevat kohdat
+7. Avaa backend puolen terminaali ja aja komento "npm run dev" palvelin käynnistyy
+8. Luodaan admin käyttäjä, rekisteröi käyttäjä sivustolla jonka jälkeen syötä seuraava scripti tietokantaan ```UPDATE users SET access = 'admin' WHERE username = 'luomasi käyttäjänimi';```
+9. Tämän jälkeen luomasi käyttäjätunnekset antavat pääsyn hallintasivustolle.
+
 [ApiDoc](http://10.120.32.97/)
 
 [Validoinnit](https://users.metropolia.fi/~mirohi/WebOhjelmointi/cakefactory/validation/Validations.html)

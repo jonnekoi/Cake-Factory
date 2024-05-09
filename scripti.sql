@@ -269,9 +269,6 @@ CREATE TABLE `users` (
   `access` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
-INSERT INTO `users` (`id`, `name`, `street_name`, `street_num`, `zip_code`, `city`, `username`, `password`, `access`) VALUES
-(1, 'administrator', '**', 6, 0, 'admin town', 'admin', '$2b$12$fBHwYXA1R/IArHGLYAM9iuvj0BeqkonS3.m6LMIEVl6G7sVJGMHVu', 'admin');
-
 ALTER TABLE `allergens`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_allergens_name` (`name`(3072));
