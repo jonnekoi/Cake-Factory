@@ -138,17 +138,17 @@ document.querySelector('.hamburger').addEventListener('click', function() {
   const cartButton = document.querySelector('a[href="cart.html"]');
   const loginButton = document.querySelector('#loginButton');
   hamburger.setAttribute('disabled', '');
-
-  /*loginButton.addEventListener('click', () =>{
-    console.log('click');
-    dialogContainer.style.display = 'block';
-    firstDialog.style.display = 'block';
-    loginDialog.style.display = 'none';
-    registerDialog.style.display = 'none';
-  });
-   */
-
   navLinks.classList.toggle('show');
+
+
+  const dialogContainer = document.querySelector('#dialogContainer');
+  const exitDialogButtons = document.querySelectorAll('.exitDialog');
+  exitDialogButtons.forEach((button) => {
+    button.addEventListener('click', function() {
+      dialogContainer.style.display = 'none';
+    });
+  });
+
 
   if (cartButton.style.display !== 'none') {
     cartButton.style.display = 'none';
@@ -166,6 +166,7 @@ document.querySelector('.hamburger').addEventListener('click', function() {
       loginItem = document.createElement('li');
       loginItem.className = 'navLink';
       loginItem.innerHTML = '<a id="loginButton">Login</a>';
+      loginItem.style.cursor = 'pointer';
       loginItem.addEventListener('click', () =>{
         dialogContainer.style.display = 'block';
         firstDialog.style.display = 'block';
@@ -173,11 +174,10 @@ document.querySelector('.hamburger').addEventListener('click', function() {
         registerDialog.style.display = 'none';
       });
       navLinks.appendChild(loginItem);
-    }else {
+    } else {
       navLinks.appendChild(loginButton);
       loginButton.style.display = '';
     }
-
   } else {
     cartButton.style.display = '';
     loginButton.style.display = '';
