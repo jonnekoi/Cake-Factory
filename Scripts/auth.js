@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const firstLogin = document.querySelector('#firstLogin');
   const firstRegister = document.querySelector('#firstRegister');
 
-  loginButton.addEventListener('click', async function () {
+  loginButton.addEventListener('click', async function() {
     dialogContainer.style.display = 'block';
     firstDialog.style.display = 'block';
     loginDialog.style.display = 'none';
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const exitDialogButtons = document.querySelectorAll('.exitDialog');
     exitDialogButtons.forEach((button) => {
-      button.addEventListener('click', function () {
+      button.addEventListener('click', function() {
         dialogContainer.style.display = 'none';
       });
     });
@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
   });
 
-  firstLogin.addEventListener('click', function () {
+  firstLogin.addEventListener('click', function() {
     firstDialog.style.display = 'none';
     loginDialog.style.display = 'block';
   });
 
-  firstRegister.addEventListener('click', function () {
+  firstRegister.addEventListener('click', function() {
     firstDialog.style.display = 'none';
     registerDialog.style.display = 'block';
   });
@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       body: JSON.stringify(data),
     };
     const response = await fetch(
-      'http://10.120.32.97/app/v1/auth/login',
-      fetchOptions
+        'http://10.120.32.97/app/v1/auth/login',
+        fetchOptions,
     );
     const json = await response.json();
     console.log(json);
@@ -98,13 +98,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
       body: JSON.stringify(data),
     };
     const response = await fetch(
-      'http://10.120.32.97/app/v1/users',
-      fetchOptions
+        'http://10.120.32.97/app/v1/users',
+        fetchOptions,
     );
     const json = await response.json();
     if (json.result) {
       sessionStorage.setItem('token', json.token);
-      sessionStorage.setItem('user', JSON.stringify(json.result));
+      sessionStorage.setItem('user', JSON.stringify(json.result).replace(/^\[/, '').replace(/\]$/, ''));
       // console.log('register success');
       window.location.href = '/Cake-Factory/HTMLs/index.html';
     } else {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 let basketItem;
 let loginItem;
 
-window.addEventListener('resize', function () {
+window.addEventListener('resize', function() {
   const navLinks = document.querySelector('.nav-links');
   const cartButton = document.querySelector('a[href="cart.html"]');
   const loginButton = document.querySelector('#loginButton');
@@ -134,14 +134,14 @@ window.addEventListener('resize', function () {
   }
 });
 
-document.querySelector('.hamburger').addEventListener('click', function () {
+document.querySelector('.hamburger').addEventListener('click', function() {
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
   const cartButton = document.querySelector('a[href="cart.html"]');
   const loginButton = document.querySelector('#loginButton');
   hamburger.setAttribute('disabled', '');
 
-  loginButton.addEventListener('click', async function () {
+  loginButton.addEventListener('click', async function() {
     console.log('click');
     dialogContainer.style.display = 'block';
     firstDialog.style.display = 'block';
