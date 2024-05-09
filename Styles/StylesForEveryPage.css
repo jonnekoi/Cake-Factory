@@ -49,11 +49,10 @@ body, html {
   height: 10rem;
   padding-bottom: 20px;
 }
-
+/*
 #logo {
   height: 10rem;
-}
-
+*/
 .logo {
   align-self: center;
   justify-content: flex-start;
@@ -147,6 +146,9 @@ body, html {
   height: 40px;
 }
 
+#logoutButton {
+  color: #ee3f57;
+}
 
 .navLink a span:hover{
   text-shadow: 0 0 15px #ffffff;
