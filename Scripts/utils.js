@@ -104,7 +104,7 @@ async function updateUserData(updatedData) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Add the token to the request header
+      'Authorization': `Bearer ${token}`, // Add the token to the request header
     },
     body: JSON.stringify(updatedData), // Convert the updatedData object to a JSON string
   };
