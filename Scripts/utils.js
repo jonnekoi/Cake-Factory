@@ -40,11 +40,9 @@ function populateProfile() {
     fields.forEach((field) => {
       const inputId = field.toLowerCase().replace(/ /g, '_');
       if (field !== 'Street Number') {
-        console.log(field);
         updatedData[inputId] = document.getElementById(inputId).value;
         user[inputId] = document.getElementById(inputId).value;
       } else {
-        console.log('street_num');
         updatedData['street_num'] = document.getElementById('street_num').value;
         user['street_num'] = document.getElementById('street_num').value;
       }
@@ -85,17 +83,14 @@ function populateProfile() {
     }, 1500);
 
     // Handle the result (e.g., show a success message, handle errors, etc.)
-    console.log('Dialog box height:', dialogWindow.offsetHeight);
-    console.log('Dialog box width:', dialogWindow.offsetWidth);
-    console.log(result);
-    console.log(result.statusCode);
   });
   form.appendChild(button);
   document.querySelector('#firstDialog').appendChild(form);
 }
 
 async function updateUserData(updatedData) {
-  const url = 'http://127.0.0.1:/v1/users/' + sessionStorage.getItem('user').id; // Replace with your API endpoint
+  const url =
+    'http://10.120.32.97/app/v1/users/' + sessionStorage.getItem('user').id; // Replace with your API endpoint
   const token = sessionStorage.getItem('token'); // Get the token from session storage
 
   const fetchOptions = {

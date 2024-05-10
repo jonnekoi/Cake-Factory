@@ -9,8 +9,9 @@ const cartH1 = document.querySelector('h1');
 let grandTotal = 0;
 const orderForm = document.querySelector('#orderForm');
 let productsOnCart = null;
-let price = 0;
+let price = 1;
 let user = null;
+let discountValue = 1;
 cartH1.style.textShadow = '2px 2px 4px #000000';
 
 const emptyCart = () => {
@@ -173,12 +174,18 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       const res = await fetch(URL2, options);
       const data = await res.json();
-      console.log(data.result);
       if (!res.ok) {
         grandTotalSum.textContent = grandTotal + '€';
+        const modal = document.querySelector('#invalidCodeModal');
+        modal.style.display = 'flex';
+
+        document.querySelector('.close').onclick = function () {
+          modal.style.display = 'none';
+        };
+        console.log('Invalid code');
       } else {
-        const newSum = grandTotal - (grandTotal * data.result.amount) / 100;
-        grandTotalSum.textContent = `${newSum}€`;
+        grandTotal = grandTotal - (grandTotal * data.result.amount) / 100;
+        grandTotalSum.textContent = `${grandTotal}€`;
       }
     });
 
@@ -189,6 +196,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     });
   } catch (err) {
     emptyCart();
+    discountValue = 1;
   }
 
   submitForm.addEventListener('click', async (event) => {
@@ -227,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const day = date.getDate();
 
     const data = {
-      price: price,
+      price: price - (price * discountValue) / 100,
       date: `${year}-${month}-${day}`,
       products: JSON.stringify(products),
     };
@@ -248,7 +256,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     data.zip_code = zipCode;
     data.city = city;
     options.body = JSON.stringify(data);
-    console.log(options);
     const result = await fetch(URL, options);
 
     if (result.ok) {
@@ -258,7 +265,12 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       document.querySelector('#orderAddressNum').value = '';
       document.querySelector('#orderZipCode').value = '';
       document.querySelector('#orderCity').value = '';
-      location.reload();
+      const modal = document.querySelector('#orderSentModal');
+      modal.style.display = 'flex';
+      document.querySelector('.close').onclick = function () {
+        modal.style.display = 'none';
+        location.reload();
+      };
     }
   });
 });
