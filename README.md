@@ -53,6 +53,12 @@ ostoskorissa. Kokeile rekisteröitymistä myös ja omien tietojen muokkaamista k
 
 [Cake Factory appi](http://10.120.32.83/Cake-Factory/HTMLs/index.html)
 
+### Admin käyttäjätunnukset:
+admin
+kakkutehdas
+(Ethän poista tuotteita)
+
+
 <br/>
 
 &copy; 2024 Cake Factory
