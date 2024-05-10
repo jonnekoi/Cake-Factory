@@ -55,7 +55,9 @@ ostoskorissa. Kokeile rekisteröitymistä myös ja omien tietojen muokkaamista k
 
 ### Admin käyttäjätunnukset:
 admin
+
 kakkutehdas
+
 (Ethän poista tuotteita)
 
 
