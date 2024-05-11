@@ -23,7 +23,7 @@ const getProducts = async () => {
       return `
         <div class="card">
             <div class="front">
-              <img src="${kuvaObj}" alt="${row.product_name}" style="width:50%">
+              <img src="${kuvaObj}" alt="${row.product_name}" style="width:70%">
               <h1>${row.product_name}</h1>
               <p class="price">${row.product_price + '€'}</p>
               <p>${row.product_description}</p>
@@ -33,18 +33,18 @@ const getProducts = async () => {
               <h2>Ingrediets</h2>
               <p>
   ${row.ingredients
-    .map((ingredient) => {
-      return `${ingredient.ingredient_name}`;
-    })
-    .join(', ')}
+      .map((ingredient) => {
+        return `${ingredient.ingredient_name}`;
+      })
+      .join(', ')}
   </p>
               <h2>Allergens</h2>
    <p>
   ${row.allergens
-    .map((allergen) => {
-      return `${allergen.allergen_name}`;
-    })
-    .join(', ')}
+      .map((allergen) => {
+        return `${allergen.allergen_name}`;
+      })
+      .join(', ')}
   </p>
             </div>
         </div>
@@ -59,10 +59,12 @@ const getProducts = async () => {
       button.addEventListener('click', async (event) => {
         event.stopPropagation();
         event.preventDefault();
+        updateCartCount();
         const productId = parseInt(event.currentTarget.dataset.productId);
         const product = rows.find((row) => row.product_id === productId);
         if (product) {
           addToCart(product);
+          updateCartCount();
         } else {
           console.error(`Product with that id ${productId} not found`);
         }
@@ -73,7 +75,7 @@ const getProducts = async () => {
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
       const productIndex = cart.findIndex(
-        (cartProduct) => cartProduct.product_id === product.product_id
+          (cartProduct) => cartProduct.product_id === product.product_id,
       );
       if (productIndex !== -1) {
         cart[productIndex].quantity = (cart[productIndex].quantity || 1) + 1;

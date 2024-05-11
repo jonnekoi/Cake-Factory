@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
       deleteProduct.addEventListener('click', () => {
         productsOnCart = productsOnCart.filter(
-          (p) => p.product_id !== product.product_id
+            (p) => p.product_id !== product.product_id,
         );
         localStorage.setItem('cart', JSON.stringify(productsOnCart));
         tr.remove();
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         const modal = document.querySelector('#invalidCodeModal');
         modal.style.display = 'flex';
 
-        document.querySelector('.close').onclick = function () {
+        document.querySelector('.close').onclick = function() {
           modal.style.display = 'none';
         };
         console.log('Invalid code');
@@ -220,7 +220,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const products = [];
     productsOnCart.forEach((p) => {
       if (p.quantity > 1) {
-        for (let i = 0; i < p.quantity; i++) {
+        for (let i =
+          0; i < p.quantity; i++) {
           products.push(p.product_id);
         }
         price += p.product_price * p.quantity;
@@ -267,7 +268,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       document.querySelector('#orderCity').value = '';
       const modal = document.querySelector('#orderSentModal');
       modal.style.display = 'flex';
-      document.querySelector('.close').onclick = function () {
+      document.querySelector('.close').onclick = function() {
         modal.style.display = 'none';
         location.reload();
       };
