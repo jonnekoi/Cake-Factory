@@ -53,6 +53,8 @@ ostoskorissa. Kokeile rekisteröitymistä myös ja omien tietojen muokkaamista k
 
 [Cake Factory appi](http://10.120.32.83/Cake-Factory/HTMLs/index.html)
 
+[sertifikaatin hyväksyminen](http://10.120.32.97/app/)
+
 ### Admin käyttäjätunnukset:
 admin
 
