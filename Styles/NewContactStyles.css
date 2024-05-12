@@ -4,12 +4,11 @@
 }
 
 .container {
-  min-height: 120vh;
   overflow-y: auto;
+  margin-top: 19dvh;
 }
 
 .contact-container {
-  margin-top: 20vh;
   text-align: center;
 }
 

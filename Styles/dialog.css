@@ -32,7 +32,7 @@ h2{
   left: 50%;
   transform: translate(-50%, -50%);
   background-image: radial-gradient(circle at center center, rgba(33,33,33,0),rgb(33,33,33)),repeating-linear-gradient(135deg, rgb(33,33,33) 0px, rgb(33,33,33) 1px,transparent 1px, transparent 4px),repeating-linear-gradient(45deg, rgb(56,56,56) 0px, rgb(56,56,56) 5px,transparent 5px, transparent 6px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
-  padding: 60px;
+  padding: 10px 55px 10px 55px;
   border: 3px solid #0f66b5;
   border-radius: 5px;
   overflow: auto;
@@ -96,4 +96,8 @@ h2{
 
 form label {
   color: white;
+}
+
+#dialog {
+  padding: 40px;
 }
